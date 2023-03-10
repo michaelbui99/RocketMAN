@@ -18,6 +18,7 @@ public class MovementController : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector3 _horizontalMovementVector;
     private bool _isGrounded = false;
+    private EventHandler _onGrounded;
 
     // Start is called before the first frame update
     private void Awake()
@@ -27,6 +28,7 @@ public class MovementController : MonoBehaviour
 
     void Start()
     {
+        _onGrounded += (_, _) => _isGrounded = true;
     }
 
     public void OnJump(InputAction.CallbackContext value)
@@ -48,9 +50,25 @@ public class MovementController : MonoBehaviour
         _rigidbody.AddRelativeForce(_horizontalMovementVector);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        // NOTE: (mibui 2023-03-10) Might not be totally safe to do the detection this way, since there might be
+        //                          very rare cases where the users vertical velocity is 0 while mid air when using
+        //                          the OEM. Added a way to detect using events to ease migration if needed.
         _isGrounded = _rigidbody.velocity.y == 0;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            OnGrounded(EventArgs.Empty);
+        }
+    }
+
+    private void OnGrounded(EventArgs args)
+    {
+        _onGrounded?.Invoke(this, args);
+    }
+
 }
