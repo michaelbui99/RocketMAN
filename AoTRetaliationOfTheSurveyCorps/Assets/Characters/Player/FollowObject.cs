@@ -17,7 +17,7 @@ public class FollowObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
         transform.position = target.transform.position - _offset;
     }
