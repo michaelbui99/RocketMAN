@@ -6,7 +6,10 @@ public class FollowObject : MonoBehaviour
 {
     [SerializeField]
     private GameObject target;
+    
+    // Current offset for player is Position(0, -1.5, 3). Rotation on camera is (-1.5, 0, 0)
     private Vector3 _offset;
+    
     // Start is called before the first frame update
     void Start()
     {
