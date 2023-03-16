@@ -1,0 +1,34 @@
+{
+    "name": "OdmActions",
+    "maps": [
+        {
+            "name": "InGame",
+            "id": "9ac4c564-7296-4ff5-bcbf-109954b016eb",
+            "actions": [
+                {
+                    "name": "ODM Gas",
+                    "type": "Button",
+                    "id": "ea07c86d-9344-4b17-bc44-28b1e305142d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4e0d9026-8d83-4c42-bea1-4275359cae36",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ODM Gas",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
