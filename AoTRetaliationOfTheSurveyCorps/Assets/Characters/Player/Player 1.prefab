@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 8129834095837078771}
   - component: {fileID: 7781572090135753495}
   - component: {fileID: 5379304816156815861}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player 1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,7 +206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5379304815837190120}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FollowTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
