@@ -12,16 +12,19 @@ public class AttachToPlayer : MonoBehaviour
     [Header("Position Settings")]
     [SerializeField]
     private AttachSide side;
-
-    private const float HorizontalOffset = 0.10f;
-    private const float VerticalOffset = 0.5f;
+    
+    [SerializeField]
+    private float horizontalOffset = 0.10f;
+    
+    [SerializeField]
+    private float verticalOffset = 0.5f;
 
     private void LateUpdate()
     {
-        transform.position = GetTargetPosition(side);
+        transform.position = GetAttachPosition(side);
     }
 
-    private Vector3 GetTargetPosition(AttachSide attachSide)
+    private Vector3 GetAttachPosition(AttachSide attachSide)
     {
         return attachSide switch
         {
@@ -35,7 +38,13 @@ public class AttachToPlayer : MonoBehaviour
     {
         var currentPlayerPosition = player.transform.position;
         var playerWidth = player.transform.localScale.x;
-        return new Vector3(currentPlayerPosition.x + playerWidth/2  + HorizontalOffset, currentPlayerPosition.y - VerticalOffset, currentPlayerPosition.z);
+        return new Vector3(currentPlayerPosition.x + playerWidth/2  + horizontalOffset, currentPlayerPosition.y - verticalOffset, currentPlayerPosition.z);
+    }
+    private Vector3 GetLeftAttachPosition()
+    {
+        var currentPlayerPosition = player.transform.position;
+        var playerWidth = player.transform.localScale.x;
+        return new Vector3(currentPlayerPosition.x - playerWidth/2  - horizontalOffset, currentPlayerPosition.y - verticalOffset, currentPlayerPosition.z);
     }
 
     public enum AttachSide

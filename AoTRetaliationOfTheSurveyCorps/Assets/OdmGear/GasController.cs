@@ -11,7 +11,7 @@ public class GasController : MonoBehaviour
     private GameObject player;
 
     [SerializeField]
-    private GameObject particles;
+    private ParticleSystem particles;
 
     [Header("Settings")]
     [SerializeField]
@@ -27,7 +27,7 @@ public class GasController : MonoBehaviour
     void Start()
     {
         _rigidbody = player.GetComponent<Rigidbody>();
-        particles.SetActive(_isActive);
+        particles.Stop();
     }
 
     private void FixedUpdate()
@@ -40,7 +40,6 @@ public class GasController : MonoBehaviour
 
     void Update()
     {
-        particles.SetActive(_isActive);
     }
 
     public void OnGas(InputAction.CallbackContext context)
@@ -48,11 +47,13 @@ public class GasController : MonoBehaviour
         if (context.started)
         {
             _isActive = true;
+            particles.Play();
         }
 
         if (context.canceled)
         {
             _isActive = false;
+            particles.Stop();
         }
     }
 }
