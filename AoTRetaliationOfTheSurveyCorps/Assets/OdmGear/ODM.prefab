@@ -4862,6 +4862,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   side: 1
+  horizontalOffset: 0.1
+  verticalOffset: 0.5
 --- !u!114 &8522037715604350882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4875,7 +4877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  particles: {fileID: 477915826019972206}
+  particles: {fileID: 8649067612394365953}
   force: 1000
   maxGasCapacity: 100
 --- !u!114 &5969307162596080430
