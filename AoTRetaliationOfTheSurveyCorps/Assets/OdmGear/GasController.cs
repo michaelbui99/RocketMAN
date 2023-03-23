@@ -34,7 +34,7 @@ public class GasController : MonoBehaviour
     {
         if (_isActive)
         {
-            _rigidbody.AddForce(Vector3.forward * force);
+            _rigidbody.AddForce(player.transform.forward * force);
         }
     }
 
