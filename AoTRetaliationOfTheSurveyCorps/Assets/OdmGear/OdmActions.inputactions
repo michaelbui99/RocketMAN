@@ -22,7 +22,7 @@
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "ODM Gas",
                     "isComposite": false,
                     "isPartOfComposite": false
