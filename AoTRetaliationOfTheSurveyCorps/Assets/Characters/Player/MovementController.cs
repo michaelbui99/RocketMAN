@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
+using UnityEngine.VFX;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -13,28 +11,34 @@ public class MovementController : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private PlayerInput playerInput;
+
     [SerializeField]
-    private GameObject cinemachine;
+    private GameObject followTarget;
 
     [Header("Speed")]
     [SerializeField]
     private float verticalSpeed = 20f;
+
     [SerializeField]
     private float horizontalSpeed = 500f;
+
     [SerializeField]
-    private float rotationSpeed = 1f;
+    private float verticalRotationSpeed = 1f;
+
+    [SerializeField]
+    private float horizontalRotationSpeed = 1f;
 
     private Rigidbody _rigidbody;
-    private CinemachineBrain _cinemachineBrain;
     private Vector3 _horizontalMovementVector;
     private EventHandler _onGrounded;
     private bool _isGrounded = false;
+    private float _yRotation;
+    private float _xRotation;
 
     // Start is called before the first frame update
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _cinemachineBrain = cinemachine.GetComponent<CinemachineBrain>();
     }
 
     void Start()
@@ -53,21 +57,23 @@ public class MovementController : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext value)
     {
         Vector2 inputMovement = value.ReadValue<Vector2>();
-        gameObject.transform.forward = GetCameraForwardDirection();
         _horizontalMovementVector = new Vector3(inputMovement.x, 0, inputMovement.y) * horizontalSpeed;
     }
+
+    public void OnLook(InputAction.CallbackContext value)
+    {
+        var lookDelta = value.ReadValue<Vector2>();
+        _yRotation += lookDelta.x * horizontalRotationSpeed * 0.1f;
+        _xRotation -= lookDelta.y * verticalRotationSpeed * 0.1f;
+        _xRotation = Math.Clamp(_xRotation, -90f, 90);
+    }
+
 
     private void FixedUpdate()
     {
         _rigidbody.AddRelativeForce(_horizontalMovementVector);
-    }
-
-    private void Update()
-    {
-        // NOTE: (mibui 2023-03-10) Might not be totally safe to do the detection this way, since there might be
-        //                          very rare cases where the users vertical velocity is 0 while mid air when using
-        //                          the OEM. Added a way to detect using events to ease migration if needed.
-        _isGrounded = _rigidbody.velocity.y == 0;
+        _rigidbody.MoveRotation(Quaternion.Euler(0f, _yRotation, 0));
+        followTarget.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -81,16 +87,5 @@ public class MovementController : MonoBehaviour
     private void OnGrounded(EventArgs args)
     {
         _onGrounded?.Invoke(this, args);
-    }
-
-    private Vector3 GetCameraForwardDirection()
-    {
-        if (Camera.main is null)
-        {
-            throw new NotSupportedException("No camera");
-        }
-        
-        Vector3 cameraDirection = Camera.main.transform.forward;
-        return Vector3.ProjectOnPlane(cameraDirection, Vector3.up);
     }
 }
