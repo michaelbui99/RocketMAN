@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class GasController : MonoBehaviour
 {
@@ -15,18 +16,23 @@ public class GasController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField]
-    private float force= 1f;
+    private float force = 1f;
 
     [SerializeField]
     private float maxGasCapacity = 100f;
 
+    [SerializeField]
+    private float depletionRate = 1f;
+
     private Rigidbody _rigidbody;
 
     private bool _isActive = false;
+    private float _currentGasLevel;
 
     void Start()
     {
         _rigidbody = player.GetComponent<Rigidbody>();
+        _currentGasLevel = maxGasCapacity;
         particles.Stop();
     }
 
@@ -40,11 +46,15 @@ public class GasController : MonoBehaviour
 
     void Update()
     {
+        if (_isActive && _currentGasLevel >= 0)
+        {
+            _currentGasLevel -= depletionRate * Time.deltaTime;
+        }
     }
 
     public void OnGas(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && _currentGasLevel >= 0)
         {
             _isActive = true;
             particles.Play();
