@@ -211,8 +211,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   particles: {fileID: 1226544656715248277}
-  force: 1000
+  force: 3000
   maxGasCapacity: 100
+  depletionRate: 1
 --- !u!114 &5134338703892812606
 MonoBehaviour:
   m_ObjectHideFlags: 0

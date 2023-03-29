@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2969328358878839942}
   - component: {fileID: 8129834095837078771}
   - component: {fileID: 7781572090135753495}
+  - component: {fileID: 1637120605882795809}
   - component: {fileID: 5379304816156815861}
   m_Layer: 3
   m_Name: Player 1
@@ -98,7 +99,7 @@ Rigidbody:
   m_GameObject: {fileID: 2969328358878839943}
   serializedVersion: 2
   m_Mass: 70
-  m_Drag: 0
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -118,11 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 7781572090135753495}
-  followTarget: {fileID: 5379304815837190123}
-  verticalSpeed: 10000
-  horizontalSpeed: 2000
-  verticalRotationSpeed: 0.8
-  horizontalRotationSpeed: 0.8
+  verticalSpeed: 30000
+  horizontalSpeed: 4000
 --- !u!114 &7781572090135753495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,8 +180,8 @@ MonoBehaviour:
     m_ActionName: PlayerControls/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8129834095837078771}
-        m_TargetAssemblyTypeName: MovementController, Assembly-CSharp
+      - m_Target: {fileID: 1637120605882795809}
+        m_TargetAssemblyTypeName: Characters.Player.LookController, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -201,6 +199,22 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1637120605882795809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969328358878839943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0629edfb044fe5b4c6100ea35c73d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2969328358878839943}
+  followTarget: {fileID: 5379304815837190123}
+  verticalRotationSpeed: 0.8
+  horizontalRotationSpeed: 0.8
 --- !u!136 &5379304816156815861
 CapsuleCollider:
   m_ObjectHideFlags: 0

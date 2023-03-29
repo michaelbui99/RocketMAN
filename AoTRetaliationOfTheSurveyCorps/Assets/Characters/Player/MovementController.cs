@@ -12,9 +12,6 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private PlayerInput playerInput;
 
-    [SerializeField]
-    private GameObject followTarget;
-
     [Header("Speed")]
     [SerializeField]
     private float verticalSpeed = 20f;
@@ -22,18 +19,10 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private float horizontalSpeed = 500f;
 
-    [SerializeField]
-    private float verticalRotationSpeed = 1f;
-
-    [SerializeField]
-    private float horizontalRotationSpeed = 1f;
-
     private Rigidbody _rigidbody;
     private Vector3 _horizontalMovementVector;
-    private EventHandler _onGrounded;
+    private EventHandler<bool> _onGroundedChange;
     private bool _isGrounded = false;
-    private float _yRotation;
-    private float _xRotation;
 
     // Start is called before the first frame update
     private void Awake()
@@ -43,7 +32,7 @@ public class MovementController : MonoBehaviour
 
     void Start()
     {
-        _onGrounded += (_, _) => _isGrounded = true;
+        _onGroundedChange += (_, isGrounded) => _isGrounded = isGrounded;
     }
 
     public void OnJump(InputAction.CallbackContext value)
@@ -60,32 +49,32 @@ public class MovementController : MonoBehaviour
         _horizontalMovementVector = new Vector3(inputMovement.x, 0, inputMovement.y) * horizontalSpeed;
     }
 
-    public void OnLook(InputAction.CallbackContext value)
-    {
-        var lookDelta = value.ReadValue<Vector2>();
-        _yRotation += lookDelta.x * horizontalRotationSpeed * 0.1f;
-        _xRotation -= lookDelta.y * verticalRotationSpeed * 0.1f;
-        _xRotation = Math.Clamp(_xRotation, -90f, 90);
-    }
-
-
     private void FixedUpdate()
     {
-        _rigidbody.AddRelativeForce(_horizontalMovementVector);
-        _rigidbody.MoveRotation(Quaternion.Euler(0f, _yRotation, 0));
-        followTarget.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+        if (_isGrounded)
+        {
+            _rigidbody.AddRelativeForce(_horizontalMovementVector);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            OnGrounded(EventArgs.Empty);
+            OnGroundedChange(true);
         }
     }
 
-    private void OnGrounded(EventArgs args)
+    private void OnCollisionExit(Collision other)
     {
-        _onGrounded?.Invoke(this, args);
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            OnGroundedChange(false);
+        }
+    }
+
+    private void OnGroundedChange(bool isGrounded)
+    {
+        _onGroundedChange?.Invoke(this, isGrounded);
     }
 }
