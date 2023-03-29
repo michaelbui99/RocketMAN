@@ -29,6 +29,9 @@ public class GasController : MonoBehaviour
     private bool _isActive = false;
     private float _currentGasLevel;
 
+    public float GetCurrentGasLevel() => _currentGasLevel;
+    public float GetMaxGasCapacity() => maxGasCapacity;
+
     void Start()
     {
         _rigidbody = player.GetComponent<Rigidbody>();
