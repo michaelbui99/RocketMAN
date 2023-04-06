@@ -37,10 +37,12 @@ public class MovementController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        if (_isGrounded)
+        if (!_isGrounded)
         {
-            _rigidbody.AddForce(Vector3.up * verticalSpeed);
+            return;
         }
+        
+        _rigidbody.AddForce(Vector3.up * verticalSpeed);
     }
 
     public void OnMovement(InputAction.CallbackContext value)
@@ -57,6 +59,7 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    // TODO: Refactor ground detection to separate script
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))

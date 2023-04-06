@@ -11,6 +11,7 @@ namespace OdmGear.GrappleHooks
         private GrappleHookSettings globalSettings;
 
         public event IHitDetection.OnHit OnHitEvent;
+        public event IHitDetection.OnMiss OnMissEvent;
         private IGrappleHookLauncher _launcher;
         private Camera _mainCamera;
 
@@ -51,6 +52,7 @@ namespace OdmGear.GrappleHooks
             Ray ray = new Ray(_mainCamera.ScreenPointToRay(Input.mousePosition).origin, direction.normalized);
             if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits))
             {
+                OnMissEvent?.Invoke();
                 yield break;
             }
             
