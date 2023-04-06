@@ -7,5 +7,8 @@ namespace OdmGear.GrappleHooks
     {
         public delegate void OnHit(RaycastHit hit);
         public event OnHit OnHitEvent;
+        
+        public delegate void OnMiss();
+        public event OnMiss OnMissEvent;
     }
 }

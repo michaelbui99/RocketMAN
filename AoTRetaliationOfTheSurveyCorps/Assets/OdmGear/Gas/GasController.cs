@@ -41,10 +41,12 @@ public class GasController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isActive)
+        if (!_isActive)
         {
-            _rigidbody.AddForce(player.transform.forward * force);
+            return;
         }
+
+        _rigidbody.AddForce(player.transform.forward * force);
     }
 
     void Update()
@@ -63,10 +65,12 @@ public class GasController : MonoBehaviour
             particles.Play();
         }
 
-        if (context.canceled)
+        if (!context.canceled)
         {
-            _isActive = false;
-            particles.Stop();
+            return;
         }
+        
+        _isActive = false;
+        particles.Stop();
     }
 }
