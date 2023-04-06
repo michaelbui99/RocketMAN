@@ -1,76 +1,75 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-public class GasController : MonoBehaviour
+namespace OdmGear.Gas
 {
-    [Header("References")]
-    [SerializeField]
-    private GameObject player;
-
-    [SerializeField]
-    private ParticleSystem particles;
-
-    [Header("Settings")]
-    [SerializeField]
-    private float force = 1f;
-
-    [SerializeField]
-    private float maxGasCapacity = 100f;
-
-    [SerializeField]
-    private float depletionRate = 1f;
-
-    private Rigidbody _rigidbody;
-
-    private bool _isActive = false;
-    private float _currentGasLevel;
-
-    public float GetCurrentGasLevel() => _currentGasLevel;
-    public float GetMaxGasCapacity() => maxGasCapacity;
-
-    void Start()
+    public class GasController : MonoBehaviour
     {
-        _rigidbody = player.GetComponent<Rigidbody>();
-        _currentGasLevel = maxGasCapacity;
-        particles.Stop();
-    }
+        [Header("References")]
+        [SerializeField]
+        private GameObject player;
 
-    private void FixedUpdate()
-    {
-        if (!_isActive)
+        [SerializeField]
+        private ParticleSystem particles;
+
+        [Header("Settings")]
+        [SerializeField]
+        private float force = 1f;
+
+        [SerializeField]
+        private float maxGasCapacity = 100f;
+
+        [SerializeField]
+        private float depletionRate = 1f;
+
+        private Rigidbody _rigidbody;
+
+        private bool _isActive = false;
+        private float _currentGasLevel;
+
+        public float GetCurrentGasLevel() => _currentGasLevel;
+        public float GetMaxGasCapacity() => maxGasCapacity;
+
+        void Start()
         {
-            return;
+            _rigidbody = player.GetComponent<Rigidbody>();
+            _currentGasLevel = maxGasCapacity;
+            particles.Stop();
         }
 
-        _rigidbody.AddForce(player.transform.forward * force);
-    }
-
-    void Update()
-    {
-        if (_isActive && _currentGasLevel >= 0)
+        private void FixedUpdate()
         {
-            _currentGasLevel -= depletionRate * Time.deltaTime;
-        }
-    }
+            if (!_isActive)
+            {
+                return;
+            }
 
-    public void OnGas(InputAction.CallbackContext context)
-    {
-        if (context.started && _currentGasLevel >= 0)
-        {
-            _isActive = true;
-            particles.Play();
+            _rigidbody.AddForce(player.transform.forward * force);
         }
 
-        if (!context.canceled)
+        void Update()
         {
-            return;
+            if (_isActive && _currentGasLevel >= 0)
+            {
+                _currentGasLevel -= depletionRate * Time.deltaTime;
+            }
         }
+
+        public void OnGas(InputAction.CallbackContext context)
+        {
+            if (context.started && _currentGasLevel >= 0)
+            {
+                _isActive = true;
+                particles.Play();
+            }
+
+            if (!context.canceled)
+            {
+                return;
+            }
         
-        _isActive = false;
-        particles.Stop();
+            _isActive = false;
+            particles.Stop();
+        }
     }
 }
