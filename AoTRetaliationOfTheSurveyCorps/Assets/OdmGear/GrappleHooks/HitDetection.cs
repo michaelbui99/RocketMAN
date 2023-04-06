@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Utility;
 
 namespace OdmGear.GrappleHooks
 {
@@ -12,51 +13,74 @@ namespace OdmGear.GrappleHooks
 
         public event IHitDetection.OnHit OnHitEvent;
         public event IHitDetection.OnMiss OnMissEvent;
-        private IGrappleHookLauncher _launcher;
-        private Camera _mainCamera;
+        public event IHitDetection.OnHookLaunched OnHookLaunchedEvent;
 
+        private IGrappleHookInput _hookInput;
+        private Camera _mainCamera;
+        private bool _hasActiveCalculation = false;
+        private HookCooldownHandler _cooldownHandler;
+        private DateTime _hookLaunchedTime;
+
+        private void Awake()
+        {
+            _hookInput = gameObject.GetComponent<IGrappleHookInput>();
+            _mainCamera = Camera.main;
+            _cooldownHandler = gameObject.GetComponent<HookCooldownHandler>();
+        }
 
         // Start is called before the first frame update
         private void Start()
         {
-            _launcher = gameObject.GetComponent<IGrappleHookLauncher>();
-            _launcher.OnLaunchHookEvent += OnLaunchHook;
-            _mainCamera = Camera.main;
+            _hookInput.OnLaunchHookEventInput += OnLaunchHook;
         }
 
         private void OnDestroy()
         {
-            _launcher.OnLaunchHookEvent -= OnLaunchHook;
+            _hookInput.OnLaunchHookEventInput -= OnLaunchHook;
         }
 
-        private void OnLaunchHook(Vector3 direction)
+        private void OnLaunchHook()
         {
+            if (_hasActiveCalculation || _cooldownHandler.CooldownActive())
+            {
+                return;
+            }
+
             if (Camera.main is null)
             {
                 throw new ApplicationException("No camera to use for ray");
             }
 
-            Ray ray = new Ray(_mainCamera.ScreenPointToRay(Input.mousePosition).origin, direction.normalized);
+            _hasActiveCalculation = true;
+            _cooldownHandler.StartCoolDown();
+            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            var direction = ray.direction.normalized;
+            OnHookLaunchedEvent?.Invoke(direction);
+
             if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits))
             {
+                OnMissEvent?.Invoke();
+                _hasActiveCalculation = false;
                 return;
             }
 
-            StartCoroutine(PerformHookHitSimulation(hit.distance, direction.normalized));
+            StartCoroutine(PerformHookHitSimulation(hit.distance, direction));
         }
 
         private IEnumerator PerformHookHitSimulation(float distance, Vector3 direction)
         {
             yield return new WaitForSeconds(distance / globalSettings.HookTravelSpeedInUnitsPerSeconds);
-            
+
             Ray ray = new Ray(_mainCamera.ScreenPointToRay(Input.mousePosition).origin, direction.normalized);
             if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits))
             {
                 OnMissEvent?.Invoke();
+                _hasActiveCalculation = false;
                 yield break;
             }
-            
+
             OnHitEvent?.Invoke(hit);
+            _hasActiveCalculation = false;
         }
     }
 }
