@@ -20,6 +20,6 @@ public class GasLevelReader : MonoBehaviour
 
     private string FormatGasLevel(float current, float maxCapacity)
     {
-        return $"Gas: {current}/{maxCapacity}";
+        return $"Gas: {current:0.00}/{maxCapacity}";
     }
 }
