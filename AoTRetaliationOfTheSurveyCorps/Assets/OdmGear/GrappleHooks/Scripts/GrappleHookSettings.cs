@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace OdmGear.GrappleHooks
+namespace OdmGear.GrappleHooks.Scripts
 {
     [CreateAssetMenu(fileName = "GrappleHookSettings", menuName = "Grapple Hook Settings")]
     public class GrappleHookSettings : ScriptableObject

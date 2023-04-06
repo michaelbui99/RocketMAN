@@ -1,4 +1,5 @@
 using System;
+using OdmGear.GrappleHooks.Scripts;
 using UnityEngine;
 
 namespace OdmGear.GrappleHooks
@@ -62,19 +63,16 @@ namespace OdmGear.GrappleHooks
 
         private void AttachHook(RaycastHit hit)
         {
-            Debug.Log("HOOK ATTACHED");
             _lineRenderer.SetPosition(1, hit.transform.position);
         }
 
         private void ResetHook()
         {
-            Debug.Log("HOOK RESET");
             _lineRenderer.enabled = false;
         }
 
         private void ReleaseHook()
         {
-            Debug.Log("RELEASE HOOK");
             _shouldReleaseHook = true;
         }
     }

@@ -1,4 +1,4 @@
-namespace OdmGear.GrappleHooks
+namespace OdmGear.GrappleHooks.Scripts
 {
     public interface IGrappleHookInput
     {

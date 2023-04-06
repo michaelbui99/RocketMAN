@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace OdmGear.GrappleHooks
+namespace OdmGear.GrappleHooks.Scripts
 {
     public interface IHitDetection
     {
