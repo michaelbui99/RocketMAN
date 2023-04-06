@@ -10,5 +10,8 @@ namespace OdmGear.GrappleHooks
         
         public delegate void OnMiss();
         public event OnMiss OnMissEvent;
+
+        public delegate void OnHookLaunched(Vector3 direction);
+        public event OnHookLaunched OnHookLaunchedEvent;
     }
 }
