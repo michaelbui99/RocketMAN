@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Characters.Player
+namespace Characters.Player.Scripts
 {
     public class LookController : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Utility;
 
-namespace OdmGear.GrappleHooks
+namespace OdmGear.GrappleHooks.Scripts
 {
     public class HookCooldownHandler : MonoBehaviour
     {

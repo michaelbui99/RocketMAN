@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace OdmGear.GrappleHooks
+namespace OdmGear.GrappleHooks.Scripts
 {
     public class GrappleHookInput : MonoBehaviour, IGrappleHookInput
     {

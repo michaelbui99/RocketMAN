@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Utility;
 
-namespace OdmGear.GrappleHooks
+namespace OdmGear.GrappleHooks.Scripts
 {
     public class HitDetection : MonoBehaviour, IHitDetection
     {
