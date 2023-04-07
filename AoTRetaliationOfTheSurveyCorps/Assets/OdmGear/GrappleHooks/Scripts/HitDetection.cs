@@ -67,7 +67,6 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private IEnumerator PerformHookHitSimulation(float distance, Vector3 direction)
         {
-            Debug.Log("Simulate travel distance");
             yield return new WaitForSeconds(distance / globalSettings.HookTravelSpeedInUnitsPerSeconds);
 
             Ray ray = new Ray(_mainCamera.ScreenPointToRay(Input.mousePosition).origin, direction.normalized);
