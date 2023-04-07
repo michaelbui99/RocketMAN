@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: GlobalGrappleHookSettings
   m_EditorClassIdentifier: 
   MaxDistanceInUnits: 50
-  HookTravelSpeedInUnitsPerSeconds: 25
+  HookTravelSpeedInUnitsPerSeconds: 100
   LaunchHookGasCost: 1
-  OnHookPropulsionCost: 10
+  OnHookPropulsionCost: 1
   HookableLayers:
     serializedVersion: 2
     m_Bits: 128

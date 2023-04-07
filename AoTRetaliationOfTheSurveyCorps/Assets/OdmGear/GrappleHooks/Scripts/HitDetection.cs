@@ -50,35 +50,35 @@ namespace OdmGear.GrappleHooks.Scripts
                 throw new ApplicationException("No camera to use for ray");
             }
 
-            _hasActiveCalculation = true;
-            _cooldownHandler.StartCoolDown();
             Ray ray = _mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            var direction = ray.direction.normalized;
-            OnHookLaunchedEvent?.Invoke(direction);
 
             if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits))
             {
-                StartCoroutine(PerformHookHitSimulation(globalSettings.MaxDistanceInUnits, direction));
+                OnHookLaunchedEvent?.Invoke(ray.direction, globalSettings.MaxDistanceInUnits);
+                StartCoroutine(PerformHookTravelSimulation(globalSettings.MaxDistanceInUnits, null));
                 return;
             }
 
-            StartCoroutine(PerformHookHitSimulation(hit.distance, direction));
+            OnHookLaunchedEvent?.Invoke(hit.point, hit.distance);
+            StartCoroutine(PerformHookTravelSimulation(hit.distance, hit));
         }
 
-        private IEnumerator PerformHookHitSimulation(float distance, Vector3 direction)
+        private IEnumerator PerformHookTravelSimulation(float distance, RaycastHit? hit)
         {
-            Debug.Log(distance);
-            yield return new WaitForSeconds(distance / globalSettings.HookTravelSpeedInUnitsPerSeconds);
+            float travelTime = distance / globalSettings.HookTravelSpeedInUnitsPerSeconds;
+            _hasActiveCalculation = true;
+            _cooldownHandler.StartCoolDown(travelTime);
+            yield return new WaitForSeconds(travelTime);
 
-            Ray ray = new Ray(_mainCamera.ScreenPointToRay(Input.mousePosition).origin, direction.normalized);
-            if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits))
+            if (!hit.HasValue)
             {
                 OnMissEvent?.Invoke();
                 _hasActiveCalculation = false;
                 yield break;
             }
 
-            OnHitEvent?.Invoke(hit);
+
+            OnHitEvent?.Invoke(hit.Value);
             _hasActiveCalculation = false;
         }
     }

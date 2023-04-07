@@ -10,6 +10,7 @@ namespace OdmGear.GrappleHooks.Scripts
         [SerializeField]
         private GrappleHookSettings globalSettings;
 
+        private float _cooldown = 0f;
         private bool _cooldownActive = false;
         private DateTime? _hookLaunchedTime;
 
@@ -23,14 +24,23 @@ namespace OdmGear.GrappleHooks.Scripts
             }
 
             if (TimeUtil.GetTimeDifferenceInSeconds(_hookLaunchedTime.Value, DateTime.UtcNow) >=
-                globalSettings.HookCooldownInSeconds)
+                _cooldown)
             {
                 _cooldownActive = false;
             }
         }
 
-        public void StartCoolDown()
+        public void StartCoolDown(float? cooldown)
         {
+            if (cooldown.HasValue)
+            {
+                _cooldown = cooldown.Value;
+            }
+            else
+            {
+                _cooldown = globalSettings.MaxHookCooldownInSeconds;
+            }
+
             _cooldownActive = true;
             _hookLaunchedTime = DateTime.UtcNow;
         }
