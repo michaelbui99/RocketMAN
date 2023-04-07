@@ -14,6 +14,7 @@ namespace OdmGear.GrappleHooks
         private IHitDetection _hitDetection;
         private IGrappleHookInput _hookInput;
         private HookCooldownHandler _cooldownHandler;
+        private GasExpenditureController _gasExpenditureController;
         private LineRenderer _lineRenderer;
         private bool _shouldReleaseHook;
 
