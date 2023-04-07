@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 6152407956943772887}
   - component: {fileID: 1799901013334757063}
   - component: {fileID: 1904548220828516502}
+  - component: {fileID: 5947033102376088955}
   m_Layer: 0
   m_Name: ODM_Left
   m_TagString: Untagged
@@ -534,6 +535,20 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &5947033102376088955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801639853357968374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3071a7ac3aed4ebb9fedc37c14d59c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gasController: {fileID: 4117650030858584830}
+  globalHookSettings: {fileID: 11400000, guid: cf0a9d71ee8e64c43aecf1e48cf89b23, type: 2}
 --- !u!1 &6839335785015632214
 GameObject:
   m_ObjectHideFlags: 0

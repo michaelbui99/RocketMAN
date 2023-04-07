@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxDistanceInUnits: 50
   HookTravelSpeedInUnitsPerSeconds: 25
+  LaunchHookGasCost: 1
+  OnHookPropulsionCost: 10
   HookableLayers:
     serializedVersion: 2
     m_Bits: 128
