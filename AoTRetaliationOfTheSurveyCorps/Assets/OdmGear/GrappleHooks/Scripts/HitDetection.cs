@@ -52,14 +52,13 @@ namespace OdmGear.GrappleHooks.Scripts
 
             _hasActiveCalculation = true;
             _cooldownHandler.StartCoolDown();
-            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             var direction = ray.direction.normalized;
             OnHookLaunchedEvent?.Invoke(direction);
 
             if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits))
             {
-                OnMissEvent?.Invoke();
-                _hasActiveCalculation = false;
+                StartCoroutine(PerformHookHitSimulation(globalSettings.MaxDistanceInUnits, direction));
                 return;
             }
 
@@ -68,6 +67,7 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private IEnumerator PerformHookHitSimulation(float distance, Vector3 direction)
         {
+            Debug.Log("Simulate travel distance");
             yield return new WaitForSeconds(distance / globalSettings.HookTravelSpeedInUnitsPerSeconds);
 
             Ray ray = new Ray(_mainCamera.ScreenPointToRay(Input.mousePosition).origin, direction.normalized);
