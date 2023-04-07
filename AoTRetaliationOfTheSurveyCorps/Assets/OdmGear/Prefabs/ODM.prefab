@@ -242,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   particles: {fileID: 1226544656715248277}
-  force: 3000
+  force: 3500
   maxGasCapacity: 100
   depletionRate: 1
 --- !u!114 &5134338703892812606
@@ -286,6 +286,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ea07c86d-9344-4b17-bc44-28b1e305142d
     m_ActionName: InGame/ODM Gas[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b30928d6-212a-463b-90e2-17c442bfe644
+    m_ActionName: InGame/ODM Fire Left Hook[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7d9866ef-5127-4255-a27e-e145539f3790
+    m_ActionName: InGame/ODM Fire Right Hook[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: InGame
@@ -307,6 +315,7 @@ GameObject:
   - component: {fileID: 1799901013334757063}
   - component: {fileID: 1904548220828516502}
   - component: {fileID: 5947033102376088955}
+  - component: {fileID: 2064185023706865143}
   m_Layer: 0
   m_Name: ODM_Left
   m_TagString: Untagged
@@ -550,6 +559,102 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gasController: {fileID: 4117650030858584830}
   globalHookSettings: {fileID: 11400000, guid: cf0a9d71ee8e64c43aecf1e48cf89b23, type: 2}
+--- !u!82 &2064185023706865143
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801639853357968374}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2dc63163281da9f4abd68d4a5b7a70fd, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.591
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6839335785015632214
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,15 +20,17 @@ namespace OdmGear.GrappleHooks
         private GasExpenditureController _gasExpenditureController;
         private LineRenderer _lineRenderer;
         private RopeAnimation _ropeAnimation;
+        private AudioSource _ropeSound;
         private Camera _mainCamera;
         private bool _shouldReleaseHook;
         private bool _launching;
 
         private void Awake()
         {
-            _hitDetection = gameObject.GetComponent<IHitDetection>();
-            _hookInput = gameObject.GetComponent<IGrappleHookInput>();
-            _lineRenderer = gameObject.GetComponent<LineRenderer>();
+            _hitDetection = GetComponent<IHitDetection>();
+            _hookInput = GetComponent<IGrappleHookInput>();
+            _lineRenderer = GetComponent<LineRenderer>();
+            _ropeSound = GetComponent<AudioSource>();
             _ropeAnimation = new RopeAnimation();
             _mainCamera = Camera.main;
         }
@@ -70,6 +72,7 @@ namespace OdmGear.GrappleHooks
             _shouldReleaseHook = false;
             _lineRenderer.SetPosition(1, direction);
             float duration = distance / globalHookSettings.HookTravelSpeedInUnitsPerSeconds;
+            _ropeSound.Play();
             StartCoroutine(_ropeAnimation.AnimateRope(_lineRenderer, duration));
         }
 
