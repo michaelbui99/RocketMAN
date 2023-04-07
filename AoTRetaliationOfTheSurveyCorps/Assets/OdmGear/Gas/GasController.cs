@@ -39,7 +39,7 @@ namespace OdmGear.Gas
 
         private void FixedUpdate()
         {
-            if (!_isActive)
+            if (!_isActive || GasTankEmpty())
             {
                 return;
             }
@@ -49,9 +49,9 @@ namespace OdmGear.Gas
 
         void Update()
         {
-            if (_isActive && _currentGasLevel >= 0)
+            if (_isActive)
             {
-                _currentGasLevel -= depletionRate * Time.deltaTime;
+                SpendGas(depletionRate * Time.deltaTime);
             }
         }
 
@@ -67,9 +67,31 @@ namespace OdmGear.Gas
             {
                 return;
             }
-        
+
             _isActive = false;
             particles.Stop();
+        }
+
+        public void SpendGas(float amount)
+        {
+            if (_currentGasLevel <= 0)
+            {
+                return;
+            }
+
+            bool amountExceedsCurrentGasLevel = (_currentGasLevel - amount) < 0;
+            if (amountExceedsCurrentGasLevel)
+            {
+                _currentGasLevel = 0;
+                return;
+            }
+
+            _currentGasLevel -= amount;
+        }
+
+        public bool GasTankEmpty()
+        {
+            return _currentGasLevel <= 0;
         }
     }
 }
