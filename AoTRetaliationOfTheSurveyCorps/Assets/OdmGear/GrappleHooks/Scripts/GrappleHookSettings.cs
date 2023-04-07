@@ -8,7 +8,7 @@ namespace OdmGear.GrappleHooks.Scripts
     {
         public float MaxDistanceInUnits = 1f;
         public float HookTravelSpeedInUnitsPerSeconds = 1f;
-        public float HookCooldownInSeconds => MaxDistanceInUnits / HookTravelSpeedInUnitsPerSeconds;
+        public float MaxHookCooldownInSeconds => MaxDistanceInUnits / HookTravelSpeedInUnitsPerSeconds;
         public float LaunchHookGasCost = 1f;
         public float OnHookPropulsionCost = 1f;
         public LayerMask HookableLayers;

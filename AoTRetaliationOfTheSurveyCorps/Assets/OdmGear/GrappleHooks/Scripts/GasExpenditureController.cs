@@ -32,7 +32,7 @@ namespace OdmGear.GrappleHooks.Scripts
             _hitDetection.OnHitEvent -= SpendOnHookPropulsionCost;
         }
 
-        public void SpendHookLaunchCost(Vector3 direction)
+        public void SpendHookLaunchCost(Vector3 direction, float distance)
         {
             if (HasGasForHookLaunch())
             {
