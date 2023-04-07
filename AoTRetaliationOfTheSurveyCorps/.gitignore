@@ -147,3 +147,4 @@ crashlytics-build.properties
 */.idea/tasks.xml
 */.idea/**/*.iws
 
+.idea/.idea.AoTRetaliationOfTheSurveyCorps/.idea/sonarlint/*
