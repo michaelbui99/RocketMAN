@@ -7,8 +7,10 @@ namespace OdmGear.GrappleHooks.Scripts
     {
         public event IGrappleHookInput.OnLaunchHookInput OnLaunchHookEventInput;
         public event IGrappleHookInput.OnReleaseHookInput OnReleaseHookEventInput;
+        public event IGrappleHookInput.OnWheelInInput OnWheelInEvent;
+        public event IGrappleHookInput.OnWheelOutInput OnWheelOutEvent;
 
-        public void OnHookInput(InputAction.CallbackContext value)
+        public void OnLaunchHookInput(InputAction.CallbackContext value)
         {
             if (value.started)
             {
@@ -19,6 +21,16 @@ namespace OdmGear.GrappleHooks.Scripts
             {
                 OnReleaseHookEventInput?.Invoke();
             }
+        }
+
+        public void OnWheelInInput(InputAction.CallbackContext value)
+        {
+            OnWheelInEvent?.Invoke();
+        }
+
+        public void OnWheelOutInput(InputAction.CallbackContext value)
+        {
+            OnWheelOutEvent?.Invoke();
         }
     }
 }

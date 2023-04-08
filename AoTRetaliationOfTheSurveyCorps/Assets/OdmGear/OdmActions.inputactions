@@ -31,6 +31,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ODM Wheel In",
+                    "type": "Value",
+                    "id": "22e91baf-150c-4570-b327-0bf1ca74321e",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ODM Wheel Out",
+                    "type": "Value",
+                    "id": "0a08947b-5e27-4d58-88b6-b386f2fc4825",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -64,6 +82,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "ODM Fire Right Hook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92ac4377-cf9e-4334-98a0-99178d6d1b85",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ODM Wheel In",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec6aafcb-7a93-4896-b1af-f23ee289fe47",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ODM Wheel Out",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -62,7 +62,10 @@ namespace OdmGear.GrappleHooks
         private void LateUpdate()
         {
             launchPoint.transform.forward = _mainCamera.transform.forward;
-            _lineRenderer.SetPosition(0, launchPoint.transform.position);
+            if (_lineRenderer.enabled)
+            {
+                _lineRenderer.SetPosition(0, launchPoint.transform.position);
+            }
         }
 
         private void LaunchHook(Vector3 direction, float distance)
@@ -70,11 +73,11 @@ namespace OdmGear.GrappleHooks
             _lineRenderer.enabled = true;
             _shouldReleaseHook = false;
             _lineRenderer.SetPosition(1, direction);
-            
+
             _ropeSound.Play();
-            
+
             float hookTravelTime = distance / globalHookSettings.HookTravelSpeedInUnitsPerSeconds;
-            
+
             StartCoroutine(_ropeAnimation.AnimateRope(_lineRenderer, hookTravelTime));
         }
 

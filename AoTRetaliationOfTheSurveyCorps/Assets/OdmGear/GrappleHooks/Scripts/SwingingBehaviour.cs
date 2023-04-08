@@ -1,33 +1,123 @@
 using System;
+using JetBrains.Annotations;
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace OdmGear.GrappleHooks.Scripts
 {
-    public class SwingingBehaviour: MonoBehaviour
+    public class SwingingBehaviour : MonoBehaviour
     {
         [Header("References")]
         [SerializeField]
-        private Rigidbody bodyToPull;
+        private Rigidbody rigidbodyToActOn;
 
-        [Header("Settings")]
         [SerializeField]
-        private float pullSpeed = 1f;
+        private GrappleHookSettings globalHookSettings;
 
-        private Vector3 _targetPoint;
+
         private IHitDetection _hitDetection;
-        private bool _active = false;
+        private IGrappleHookInput _grappleHookInput;
+        private LineRenderer _lineRenderer;
+        private Vector3? _anchorPoint;
+
+        [CanBeNull]
+        private SpringJoint _joint;
+
 
         private void Awake()
         {
             _hitDetection = GetComponent<IHitDetection>();
+            _grappleHookInput = GetComponent<IGrappleHookInput>();
+            _lineRenderer = GetComponent<LineRenderer>();
         }
 
-        private void LateUpdate()
+        private void Start()
         {
-            if (!_active)
+            _hitDetection.OnHitEvent += AttachToAnchorPoint;
+            _grappleHookInput.OnReleaseHookEventInput += DetachFromAnchorPoint;
+            _grappleHookInput.OnWheelInEvent += WheelIn;
+            _grappleHookInput.OnWheelOutEvent += WheelOut;
+        }
+
+        private void OnDestroy()
+        {
+            _hitDetection.OnHitEvent -= AttachToAnchorPoint;
+            _grappleHookInput.OnReleaseHookEventInput -= DetachFromAnchorPoint;
+            _grappleHookInput.OnWheelInEvent -= WheelIn;
+            _grappleHookInput.OnWheelOutEvent -= WheelOut;
+        }
+
+        private void FixedUpdate()
+        {
+            if (_joint is null || !_anchorPoint.HasValue)
             {
                 return;
             }
+
+            PullRigidbodyTowardsAnchor(rigidbodyToActOn, _anchorPoint.Value, _joint, globalHookSettings.HookPullForce);
+        }
+
+        private void AttachToAnchorPoint(RaycastHit hit)
+        {
+            _anchorPoint = hit.point;
+
+            _joint = rigidbodyToActOn.AddComponent<SpringJoint>();
+            _joint!.autoConfigureConnectedAnchor = false;
+            _joint!.anchor = _anchorPoint.Value;
+
+            AdjustJointDistances(_joint, _anchorPoint.Value);
+
+            _joint.spring = globalHookSettings.JointSpring;
+            _joint.massScale = globalHookSettings.JointMassScale;
+            _joint.damper = globalHookSettings.JointDamper;
+        }
+
+        private void DetachFromAnchorPoint()
+        {
+            if (_anchorPoint.HasValue)
+            {
+                _anchorPoint = null;
+            }
+
+            Destroy(_joint);
+            _joint = null;
+        }
+
+        private void WheelIn()
+        {
+            if (_joint is null || !_anchorPoint.HasValue)
+            {
+                return;
+            }
+
+            PullRigidbodyTowardsAnchor(rigidbodyToActOn, _anchorPoint.Value, _joint,
+                globalHookSettings.HookPullForce * globalHookSettings.WheelInOutFactor);
+        }
+
+        private void WheelOut()
+        {
+        }
+
+        private void AdjustJointDistances(SpringJoint joint, Vector3 anchorPoint)
+        {
+            var distanceToAnchorPoint = Vector3.Distance(rigidbodyToActOn.transform.position, anchorPoint);
+            joint.maxDistance = distanceToAnchorPoint * 0.8f;
+            joint.minDistance = distanceToAnchorPoint * globalHookSettings.RopeSlackFactor;
+        }
+
+        private void PullRigidbodyTowardsAnchor(Rigidbody rb, Vector3 anchorPoint, SpringJoint joint,
+            float pullForce)
+        {
+            if (rb is null || joint is null)
+            {
+                return;
+            }
+
+            var pullDirection = (anchorPoint - rigidbodyToActOn.transform.position).normalized;
+            rb.AddForce(pullDirection * pullForce);
+            AdjustJointDistances(joint, anchorPoint);
         }
     }
 }
