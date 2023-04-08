@@ -10,6 +10,11 @@ namespace OdmGear.GrappleHooks.Scripts
     {
         public IEnumerator AnimateRope(LineRenderer lineRenderer, float animationDuration)
         {
+            if (lineRenderer is null)
+            {
+                yield break;
+            }
+            
             float startTime = Time.time;
 
             Vector3 startPosition = lineRenderer.GetPosition(0);

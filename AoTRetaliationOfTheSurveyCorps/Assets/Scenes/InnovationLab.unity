@@ -213,7 +213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154351680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.82, y: 12.4, z: 10.66}
+  m_LocalPosition: {x: -7.82, y: 22.9, z: 10.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -732,6 +732,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2041205459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2969328358878839943, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+  m_PrefabInstance: {fileID: 5379304816377405538}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &2041205464 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2969328358878839942, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+  m_PrefabInstance: {fileID: 5379304816377405538}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &2049186254 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1455506774393775621, guid: 759296b33ee1b2b4f85d3b3ea1599dfa, type: 3}
@@ -832,7 +842,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1455506774145322247, guid: 759296b33ee1b2b4f85d3b3ea1599dfa, type: 3}
   m_PrefabInstance: {fileID: 1455506774504459126}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1455506774504459128
+--- !u!114 &1455506774504459131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -853,6 +863,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 727479988322176181, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2041205459}
+    - target: {fileID: 727479988322176181, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: pullSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 727479988322176181, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: ropeSlack
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 727479988322176181, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: bodyToPull
+      value: 
+      objectReference: {fileID: 2041205459}
+    - target: {fileID: 727479988322176181, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: ropeSlackFactor
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 727479988322176181, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: rigidbodyToActOn
+      value: 
+      objectReference: {fileID: 2041205464}
     - target: {fileID: 2969328358878839943, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -953,6 +987,18 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7346711976623921093, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2041205459}
+    - target: {fileID: 7346711976623921093, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: pullSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346711976623921093, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
+      propertyPath: rigidbodyToActOn
+      value: 
+      objectReference: {fileID: 2041205464}
     - target: {fileID: 7781572090135753495, guid: fc2165c4be7023c40b371841a493d31b, type: 3}
       propertyPath: m_DefaultActionMap
       value: PlayerControls
