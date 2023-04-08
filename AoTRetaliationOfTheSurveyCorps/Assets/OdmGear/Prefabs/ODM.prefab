@@ -841,6 +841,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4322189717282760175}
+  - component: {fileID: 1033104651227368826}
   m_Layer: 0
   m_Name: ODM
   m_TagString: Player
@@ -866,6 +867,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1033104651227368826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8609493849255457128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a258efac04d4684bfedfda1a24537be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorPrefab: {fileID: 3784740078260330958, guid: ef5754f1888b931489a1986f0ff3aea4, type: 3}
+  globalHookSettings: {fileID: 11400000, guid: cf0a9d71ee8e64c43aecf1e48cf89b23, type: 2}
+  indicatorSearchRadius: 3
 --- !u!1 &9158127985941797382
 GameObject:
   m_ObjectHideFlags: 0

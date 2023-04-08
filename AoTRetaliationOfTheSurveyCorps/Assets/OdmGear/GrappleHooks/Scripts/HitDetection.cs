@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Utility;
 
 namespace OdmGear.GrappleHooks.Scripts
 {
@@ -18,6 +19,7 @@ namespace OdmGear.GrappleHooks.Scripts
         private Camera _mainCamera;
         private bool _hasActiveCalculation = false;
         private HookCooldownHandler _cooldownHandler;
+
         private DateTime _hookLaunchedTime;
 
         private void Awake()
@@ -50,13 +52,20 @@ namespace OdmGear.GrappleHooks.Scripts
                 throw new ApplicationException("No camera to use for ray");
             }
 
-            Ray ray = _mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            Ray ray = RayCastUtil.GetRayToCenterOfScreen(_mainCamera);
 
-            if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits, globalSettings.HookableLayers))
+            if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits,
+                    globalSettings.HookableLayers))
             {
-                OnHookLaunchedEvent?.Invoke(ray.direction, globalSettings.MaxDistanceInUnits);
-                StartCoroutine(PerformHookTravelSimulation(globalSettings.MaxDistanceInUnits, null));
-                return;
+                if (!SmartAim.Scripts.SmartAim.SmartAimHit(ray, out hit, globalSettings))
+                {
+                    OnHookLaunchedEvent?.Invoke(ray.direction, globalSettings.MaxDistanceInUnits);
+                    StartCoroutine(PerformHookTravelSimulation(globalSettings.MaxDistanceInUnits, null));
+                    return;
+                }
+
+                OnHookLaunchedEvent?.Invoke(hit.point, hit.distance);
+                StartCoroutine(PerformHookTravelSimulation(hit.distance, hit));
             }
 
             OnHookLaunchedEvent?.Invoke(hit.point, hit.distance);
