@@ -52,7 +52,7 @@ namespace OdmGear.GrappleHooks.Scripts
 
             Ray ray = _mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-            if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits))
+            if (!Physics.Raycast(ray, out RaycastHit hit, globalSettings.MaxDistanceInUnits, globalSettings.HookableLayers))
             {
                 OnHookLaunchedEvent?.Invoke(ray.direction, globalSettings.MaxDistanceInUnits);
                 StartCoroutine(PerformHookTravelSimulation(globalSettings.MaxDistanceInUnits, null));
@@ -67,7 +67,7 @@ namespace OdmGear.GrappleHooks.Scripts
         {
             float travelTime = distance / globalSettings.HookTravelSpeedInUnitsPerSeconds;
             _hasActiveCalculation = true;
-            _cooldownHandler.StartCoolDown(travelTime);
+            _cooldownHandler.StartCooldown(travelTime);
             yield return new WaitForSeconds(travelTime);
 
             if (!hit.HasValue)
