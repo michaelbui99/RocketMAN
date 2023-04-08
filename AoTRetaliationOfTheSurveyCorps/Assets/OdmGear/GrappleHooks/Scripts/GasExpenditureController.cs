@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OdmGear.GrappleHooks.Scripts
 {
-    public class GasExpenditureController : MonoBehaviour, IGasExpenditureController
+    public class GasExpenditureController : MonoBehaviour
     {
         [Header("References")]
         [SerializeField]
@@ -34,23 +34,22 @@ namespace OdmGear.GrappleHooks.Scripts
 
         public void SpendHookLaunchCost(Vector3 direction, float distance)
         {
-            if (HasGasForHookLaunch())
+            if (!gasController.HasEnoughGas(globalHookSettings.LaunchHookGasCost))
             {
-                gasController.SpendGas(globalHookSettings.LaunchHookGasCost);
+                return;
             }
+
+            gasController.SpendGas(globalHookSettings.LaunchHookGasCost);
         }
 
         public void SpendOnHookPropulsionCost(RaycastHit hit)
         {
-            if (HasGasForHookLaunch())
+            if (!gasController.HasEnoughGas(globalHookSettings.OnHookPropulsionCost))
             {
-                gasController.SpendGas(globalHookSettings.OnHookPropulsionCost);
+                return;
             }
-        }
 
-        public bool HasGasForHookLaunch()
-        {
-            return !gasController.GasTankEmpty();
+            gasController.SpendGas(globalHookSettings.OnHookPropulsionCost);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private void Update()
         {
-            if (_hookLaunchedTime is null)
+            if (!_hookLaunchedTime.HasValue)
             {
                 return;
             }
@@ -30,7 +30,7 @@ namespace OdmGear.GrappleHooks.Scripts
             }
         }
 
-        public void StartCoolDown(float? cooldown)
+        public void StartCooldown(float? cooldown)
         {
             if (cooldown.HasValue)
             {

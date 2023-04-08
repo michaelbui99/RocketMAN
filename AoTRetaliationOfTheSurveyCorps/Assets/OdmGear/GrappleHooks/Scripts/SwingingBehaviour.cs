@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace OdmGear.GrappleHooks.Scripts
 {
-    public class HookedBehaviour: MonoBehaviour
+    public class SwingingBehaviour: MonoBehaviour
     {
         [Header("References")]
         [SerializeField]

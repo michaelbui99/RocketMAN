@@ -72,26 +72,30 @@ namespace OdmGear.Gas
             particles.Stop();
         }
 
-        public void SpendGas(float amount)
+        public bool SpendGas(float amount)
         {
             if (_currentGasLevel <= 0)
             {
-                return;
+                return false;
             }
 
-            bool amountExceedsCurrentGasLevel = (_currentGasLevel - amount) < 0;
-            if (amountExceedsCurrentGasLevel)
+            if (amount > _currentGasLevel)
             {
                 _currentGasLevel = 0;
-                return;
             }
 
             _currentGasLevel -= amount;
+            return true;
         }
 
         public bool GasTankEmpty()
         {
             return _currentGasLevel <= 0;
+        }
+
+        public bool HasEnoughGas(float amount)
+        {
+            return _currentGasLevel >= amount;
         }
     }
 }

@@ -23,7 +23,6 @@ namespace OdmGear.GrappleHooks
         private AudioSource _ropeSound;
         private Camera _mainCamera;
         private bool _shouldReleaseHook;
-        private bool _launching;
 
         private void Awake()
         {
@@ -71,9 +70,12 @@ namespace OdmGear.GrappleHooks
             _lineRenderer.enabled = true;
             _shouldReleaseHook = false;
             _lineRenderer.SetPosition(1, direction);
-            float duration = distance / globalHookSettings.HookTravelSpeedInUnitsPerSeconds;
+            
             _ropeSound.Play();
-            StartCoroutine(_ropeAnimation.AnimateRope(_lineRenderer, duration));
+            
+            float hookTravelTime = distance / globalHookSettings.HookTravelSpeedInUnitsPerSeconds;
+            
+            StartCoroutine(_ropeAnimation.AnimateRope(_lineRenderer, hookTravelTime));
         }
 
         private void AttachHook(RaycastHit hit)

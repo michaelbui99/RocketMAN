@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class GasLevelReader : MonoBehaviour
+    public class GasLevelUi : MonoBehaviour
     {
         // Start is called before the first frame update
         [Header("References")]
