@@ -17,7 +17,7 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private void Awake()
         {
-            _hitDetection = gameObject.GetComponent<IHitDetection>();
+            _hitDetection = GetComponent<IHitDetection>();
         }
 
         private void Start()
@@ -32,7 +32,7 @@ namespace OdmGear.GrappleHooks.Scripts
             _hitDetection.OnHitEvent -= SpendOnHookPropulsionCost;
         }
 
-        public void SpendHookLaunchCost(Vector3 direction, float distance)
+        private void SpendHookLaunchCost(Vector3 direction, float distance)
         {
             if (!gasController.HasEnoughGas(globalHookSettings.LaunchHookGasCost))
             {
@@ -42,14 +42,14 @@ namespace OdmGear.GrappleHooks.Scripts
             gasController.SpendGas(globalHookSettings.LaunchHookGasCost);
         }
 
-        public void SpendOnHookPropulsionCost(RaycastHit hit)
+        private void SpendOnHookPropulsionCost(RaycastHit hit)
         {
-            if (!gasController.HasEnoughGas(globalHookSettings.OnHookPropulsionCost))
+            if (!gasController.HasEnoughGas(globalHookSettings.OnHookPropulsionGasCost))
             {
                 return;
             }
 
-            gasController.SpendGas(globalHookSettings.OnHookPropulsionCost);
+            gasController.SpendGas(globalHookSettings.OnHookPropulsionGasCost);
         }
     }
 }
