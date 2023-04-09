@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Utility;
 
 namespace OdmGear.GrappleHooks.Scripts
 {
@@ -21,10 +23,12 @@ namespace OdmGear.GrappleHooks.Scripts
         private IHitDetection _hitDetection;
         private IGrappleHookInput _grappleHookInput;
         private Vector3? _anchorPoint;
+        private float? _initialAttachDistance;
 
         [CanBeNull]
         private SpringJoint _joint;
 
+        private readonly List<SpringJoint> _jointInstances = new();
 
         private void Awake()
         {
@@ -56,13 +60,16 @@ namespace OdmGear.GrappleHooks.Scripts
             }
 
             PullRigidbodyTowardsAnchor(rigidbodyToActOn, _anchorPoint.Value, _joint, globalHookSettings.HookPullForce);
+            AdjustJointDistances(_joint, _anchorPoint.Value);
         }
 
         private void AttachToAnchorPoint(RaycastHit hit)
         {
             _anchorPoint = hit.point;
+            _initialAttachDistance = GetDistanceFromRigidbodyToAnchorPoint(rigidbodyToActOn, _anchorPoint.Value);
 
             _joint = rigidbodyToActOn.AddComponent<SpringJoint>();
+            _jointInstances.Add(_joint);
             _joint!.autoConfigureConnectedAnchor = false;
             _joint!.anchor = _anchorPoint.Value;
 
@@ -75,13 +82,17 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private void DetachFromAnchorPoint()
         {
+            if (_joint is not null)
+            {
+                _jointInstances.ForEach(Destroy);
+            }
+
             if (_anchorPoint.HasValue)
             {
                 _anchorPoint = null;
             }
 
-            Destroy(_joint);
-            _joint = null;
+            _initialAttachDistance = null;
         }
 
         private void WheelIn()
@@ -108,9 +119,17 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private void AdjustJointDistances(SpringJoint joint, Vector3 anchorPoint)
         {
-            var distanceToAnchorPoint = Vector3.Distance(rigidbodyToActOn.transform.position, anchorPoint);
-            joint.maxDistance = distanceToAnchorPoint * 0.8f;
-            joint.minDistance = distanceToAnchorPoint * globalHookSettings.RopeSlackFactor;
+            var distanceToAnchorPoint = GetDistanceFromRigidbodyToAnchorPoint(rigidbodyToActOn, anchorPoint);
+            joint.maxDistance = distanceToAnchorPoint * globalHookSettings.RopeSlackFactor;
+            if (_initialAttachDistance.HasValue)
+            {
+                joint.minDistance = -_initialAttachDistance.Value;
+            }
+        }
+
+        private float GetDistanceFromRigidbodyToAnchorPoint(Rigidbody rb, Vector3 anchorPoint)
+        {
+            return Vector3.Distance(rb.transform.position, anchorPoint);
         }
 
         private void PullRigidbodyTowardsAnchor(Rigidbody rb, Vector3 anchorPoint, SpringJoint joint,
