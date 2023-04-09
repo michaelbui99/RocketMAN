@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
@@ -19,7 +20,6 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private IHitDetection _hitDetection;
         private IGrappleHookInput _grappleHookInput;
-        private LineRenderer _lineRenderer;
         private Vector3? _anchorPoint;
 
         [CanBeNull]
@@ -30,7 +30,6 @@ namespace OdmGear.GrappleHooks.Scripts
         {
             _hitDetection = GetComponent<IHitDetection>();
             _grappleHookInput = GetComponent<IGrappleHookInput>();
-            _lineRenderer = GetComponent<LineRenderer>();
         }
 
         private void Start()
@@ -98,6 +97,13 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private void WheelOut()
         {
+            if (_joint is null || !_anchorPoint.HasValue)
+            {
+                return;
+            }
+
+            PushRigidbodyAwayFromAnchor(rigidbodyToActOn, _anchorPoint.Value, _joint,
+                globalHookSettings.HookPullForce * globalHookSettings.WheelInOutFactor);
         }
 
         private void AdjustJointDistances(SpringJoint joint, Vector3 anchorPoint)
@@ -117,6 +123,18 @@ namespace OdmGear.GrappleHooks.Scripts
 
             var pullDirection = (anchorPoint - rigidbodyToActOn.transform.position).normalized;
             rb.AddForce(pullDirection * pullForce);
+            AdjustJointDistances(joint, anchorPoint);
+        }
+
+        private void PushRigidbodyAwayFromAnchor(Rigidbody rb, Vector3 anchorPoint, SpringJoint joint, float pushForce)
+        {
+            if (rb is null || joint is null)
+            {
+                return;
+            }
+
+            var pullDirection = -(anchorPoint - rigidbodyToActOn.transform.position).normalized;
+            rb.AddForce(pullDirection * pushForce);
             AdjustJointDistances(joint, anchorPoint);
         }
     }
