@@ -72,6 +72,7 @@ namespace OdmGear.GrappleHooks
         {
             _lineRenderer.enabled = true;
             _shouldReleaseHook = false;
+            _lineRenderer.SetPosition(0, launchPoint.transform.position);
             _lineRenderer.SetPosition(1, direction);
 
             _ropeSound.Play();
