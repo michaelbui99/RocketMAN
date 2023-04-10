@@ -23,6 +23,6 @@ MonoBehaviour:
   JointDamper: 4
   JointMassScale: 7
   RopeSlackFactor: 0
-  HookPullForce: 3500
+  HookPullForce: 4000
   WheelInOutFactor: 2
   SmartAimRadius: 3

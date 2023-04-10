@@ -27,3 +27,7 @@ j
 :Assets/OdmGear/GrappleHooks/Scripts/GrappleHookSettings.cs,4\a\4a32f4153dbb037ad87aeac6d2ea58116098002e
 [
 +Assets/OdmGear/SmartAim/Scripts/SmartAim.cs,7\e\7e96da1a6a553093f8c5b4b639de966f001c952d
+d
+4Assets/OdmGear/GrappleHooks/Scripts/IHitDetection.cs,e\4\e465f7560848e084f9da7eaf57304ffb8536d4ae
+Q
+!Assets/Utility/Monads/Optional.cs,b\3\b3431f779d45ad1da9f10ab3069b4a998461662d

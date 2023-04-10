@@ -65,6 +65,7 @@ namespace OdmGear.GrappleHooks.Scripts
 
         private void AttachToAnchorPoint(RaycastHit hit)
         {
+            ClearJointInstances();
             _anchorPoint = hit.point;
             _initialAttachDistance = GetDistanceFromRigidbodyToAnchorPoint(rigidbodyToActOn, _anchorPoint.Value);
 
@@ -84,7 +85,7 @@ namespace OdmGear.GrappleHooks.Scripts
         {
             if (_joint is not null)
             {
-                _jointInstances.ForEach(Destroy);
+                ClearJointInstances();
             }
 
             if (_anchorPoint.HasValue)
@@ -104,6 +105,7 @@ namespace OdmGear.GrappleHooks.Scripts
 
             PullRigidbodyTowardsAnchor(rigidbodyToActOn, _anchorPoint.Value, _joint,
                 globalHookSettings.HookPullForce * globalHookSettings.WheelInOutFactor);
+            AdjustJointDistances(_joint, _anchorPoint.Value);
         }
 
         private void WheelOut()
@@ -115,6 +117,7 @@ namespace OdmGear.GrappleHooks.Scripts
 
             PushRigidbodyAwayFromAnchor(rigidbodyToActOn, _anchorPoint.Value, _joint,
                 globalHookSettings.HookPullForce * globalHookSettings.WheelInOutFactor);
+            AdjustJointDistances(_joint, _anchorPoint.Value);
         }
 
         private void AdjustJointDistances(SpringJoint joint, Vector3 anchorPoint)
@@ -142,7 +145,6 @@ namespace OdmGear.GrappleHooks.Scripts
 
             var pullDirection = (anchorPoint - rigidbodyToActOn.transform.position).normalized;
             rb.AddForce(pullDirection * pullForce);
-            AdjustJointDistances(joint, anchorPoint);
         }
 
         private void PushRigidbodyAwayFromAnchor(Rigidbody rb, Vector3 anchorPoint, SpringJoint joint, float pushForce)
@@ -154,7 +156,12 @@ namespace OdmGear.GrappleHooks.Scripts
 
             var pullDirection = -(anchorPoint - rigidbodyToActOn.transform.position).normalized;
             rb.AddForce(pullDirection * pushForce);
-            AdjustJointDistances(joint, anchorPoint);
+        }
+
+        private void ClearJointInstances()
+        {
+            _jointInstances.ForEach(Destroy);
+            _jointInstances.Clear();
         }
     }
 }
