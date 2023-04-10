@@ -25,6 +25,7 @@ namespace OdmGear.GrappleHooks.Scripts
         public float RopeSlackFactor = 0.25f;
         public float HookPullForce = 3500f;
         public float WheelInOutFactor = 2f;
+        public float InitialHookAttachmentPropulsionForceFactor = 5f;
 
         // SmartAim
         public float SmartAimRadius = 3f;

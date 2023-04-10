@@ -25,4 +25,5 @@ MonoBehaviour:
   RopeSlackFactor: 0
   HookPullForce: 4000
   WheelInOutFactor: 2
+  InitialHookAttachmentPropulsionForceFactor: 30
   SmartAimRadius: 3
