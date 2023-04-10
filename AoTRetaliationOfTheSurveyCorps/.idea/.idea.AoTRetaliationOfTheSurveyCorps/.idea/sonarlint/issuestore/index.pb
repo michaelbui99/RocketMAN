@@ -23,8 +23,6 @@ M
 Assets/Utility/RayCastUtil.cs,8\4\84ab3130eab8e633db70697060b73f4775c154d2
 o
 ?Assets/OdmGear/GrappleHooks/Scripts/GasExpenditureController.cs,a\2\a29e38419e06177767ffcaa7550e5374dfd5507b
-j
-:Assets/OdmGear/GrappleHooks/Scripts/GrappleHookSettings.cs,4\a\4a32f4153dbb037ad87aeac6d2ea58116098002e
 [
 +Assets/OdmGear/SmartAim/Scripts/SmartAim.cs,7\e\7e96da1a6a553093f8c5b4b639de966f001c952d
 d

@@ -79,6 +79,8 @@ namespace OdmGear.GrappleHooks.Scripts
             _joint.spring = globalHookSettings.JointSpring;
             _joint.massScale = globalHookSettings.JointMassScale;
             _joint.damper = globalHookSettings.JointDamper;
+
+            PerformInitialPropulsionIfGrounded();
         }
 
         private void DetachFromAnchorPoint()
@@ -162,6 +164,17 @@ namespace OdmGear.GrappleHooks.Scripts
         {
             _jointInstances.ForEach(Destroy);
             _jointInstances.Clear();
+        }
+
+        private void PerformInitialPropulsionIfGrounded()
+        {
+            if (rigidbodyToActOn.velocity.y > 2f || !_anchorPoint.HasValue)
+            {
+                return;
+            }
+            
+            PullRigidbodyTowardsAnchor(rigidbodyToActOn, _anchorPoint.Value, _joint,
+                globalHookSettings.HookPullForce * globalHookSettings.InitialHookAttachmentPropulsionForceFactor);
         }
     }
 }
