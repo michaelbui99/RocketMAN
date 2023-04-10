@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,17 +23,24 @@ namespace OdmGear.Gas
         [SerializeField]
         private float depletionRate = 1f;
 
+
         private Rigidbody _rigidbody;
 
         private bool _isActive = false;
         private float _currentGasLevel;
+        private AudioSource _gasAudio;
 
         public float GetCurrentGasLevel() => _currentGasLevel;
         public float GetMaxGasCapacity() => maxGasCapacity;
 
-        void Start()
+        private void Awake()
         {
             _rigidbody = player.GetComponent<Rigidbody>();
+            _gasAudio = GetComponent<AudioSource>();
+        }
+
+        void Start()
+        {
             _currentGasLevel = maxGasCapacity;
             particles.Stop();
         }
@@ -61,6 +69,8 @@ namespace OdmGear.Gas
             {
                 _isActive = true;
                 particles.Play();
+                Debug.Log("Playing audio");
+                _gasAudio.Play();
             }
 
             if (!context.canceled)
@@ -69,6 +79,7 @@ namespace OdmGear.Gas
             }
 
             _isActive = false;
+            _gasAudio.Stop();
             particles.Stop();
         }
 
