@@ -242,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   particles: {fileID: 1226544656715248277}
-  force: 3500
+  force: 4000
   maxGasCapacity: 100
   depletionRate: 1
 --- !u!114 &5134338703892812606
@@ -881,7 +881,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicatorPrefab: {fileID: 3784740078260330958, guid: ef5754f1888b931489a1986f0ff3aea4, type: 3}
   globalHookSettings: {fileID: 11400000, guid: cf0a9d71ee8e64c43aecf1e48cf89b23, type: 2}
-  indicatorSearchRadius: 3
 --- !u!1 &9158127985941797382
 GameObject:
   m_ObjectHideFlags: 0
