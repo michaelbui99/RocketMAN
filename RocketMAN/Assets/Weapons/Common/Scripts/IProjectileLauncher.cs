@@ -1,4 +1,4 @@
-namespace Weapons.Common
+namespace Weapons.Common.Scripts
 {
     public interface IProjectileLauncher
     {

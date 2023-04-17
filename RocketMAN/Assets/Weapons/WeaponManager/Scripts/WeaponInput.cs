@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapons.Common;
+using Weapons.Common.Scripts;
 
 namespace Weapons.WeaponManager.Scripts
 {

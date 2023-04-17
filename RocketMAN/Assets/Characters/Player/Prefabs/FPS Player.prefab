@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 9073381478103221464}
   verticalSpeed: 7
-  horizontalSpeed: 40
+  horizontalSpeed: 50
 --- !u!114 &9073381478103221464
 MonoBehaviour:
   m_ObjectHideFlags: 0

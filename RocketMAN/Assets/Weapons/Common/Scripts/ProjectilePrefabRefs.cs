@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Weapons.Common
+namespace Weapons.Common.Scripts
 {
     [CreateAssetMenu(fileName = "ProjectilePrefabRefs", menuName = "Projectile Prefab References")]
     public class ProjectilePrefabRefs: ScriptableObject

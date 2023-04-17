@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5352611026407826691}
   - component: {fileID: 7121067213278685866}
+  - component: {fileID: 2443475604420956522}
+  - component: {fileID: 422143588950530548}
   m_Layer: 0
   m_Name: RocketLauncher
   m_TagString: Untagged
@@ -130,6 +132,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2443475604420956522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173262608882765305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0481096f99f4694b7302741057f3783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchPoint: {fileID: 3688350433830178163}
+  projectilePrefab: {fileID: 6434844239371545546, guid: dfe726f6b0f00d541950d8376c1e135c, type: 3}
+--- !u!114 &422143588950530548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173262608882765305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe01ac0a1f241789aa1b9d4650b98e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3688350433830178163
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +182,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3688350433830178163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.06}
+  m_LocalPosition: {x: 0, y: 0, z: 5.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
