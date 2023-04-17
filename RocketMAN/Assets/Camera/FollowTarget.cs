@@ -9,6 +9,11 @@ public class FollowTarget: MonoBehaviour
     [SerializeField]
     private GameObject followTarget;
 
+    private void Awake()
+    {
+        transform.position = followTarget.transform.position;
+    }
+
     private void LateUpdate()
     {
         var cameraTransform = transform;

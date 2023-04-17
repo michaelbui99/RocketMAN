@@ -42,7 +42,7 @@ namespace Characters.Player.Scripts
                 return;
             }
         
-            _rigidbody.AddForce(Vector3.up * verticalSpeed);
+            _rigidbody.AddForce(Vector3.up * verticalSpeed, ForceMode.VelocityChange);
         }
 
         public void OnMovement(InputAction.CallbackContext value)
@@ -55,7 +55,18 @@ namespace Characters.Player.Scripts
         {
             if (_isGrounded)
             {
-                _rigidbody.AddRelativeForce(_horizontalMovementVector);
+                _rigidbody.AddRelativeForce(_horizontalMovementVector, ForceMode.Acceleration);
+            }
+            else
+            {
+                // NOTE: (mibui 2023-04-17) Allow for some movement for strafing
+                _rigidbody.AddRelativeForce(_horizontalMovementVector * 0.5f, ForceMode.Acceleration);
+            }
+
+            if (RigidbodyIsFalling(_rigidbody))
+            {
+                // NOTE: (mibui 2023-04-17) Invert scalar since Physics.gravity.y is relative to Vector3.up
+                IncreaseRigidbodyFallVelocity(_rigidbody, -(1.7f*Physics.gravity.y * Time.fixedDeltaTime));
             }
         }
 
@@ -79,6 +90,16 @@ namespace Characters.Player.Scripts
         private void OnGroundedChange(bool isGrounded)
         {
             _onGroundedChange?.Invoke(this, isGrounded);
+        }
+
+        private bool RigidbodyIsFalling(Rigidbody rb)
+        {
+            return rb.velocity.y < -0.2f;
+        }
+
+        private void IncreaseRigidbodyFallVelocity(Rigidbody rb, float scalar)
+        {
+            rb.velocity += Vector3.down * scalar;
         }
     }
 }
