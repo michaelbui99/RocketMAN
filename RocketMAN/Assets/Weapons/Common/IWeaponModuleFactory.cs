@@ -1,7 +1,8 @@
 using System;
 using Weapons.RocketLauncher.Scripts;
+using Weapons.WeaponManager.Scripts;
 
-namespace Weapons.WeaponManager.Scripts
+namespace Weapons.Common
 {
     public interface IWeaponModuleFactory
     {

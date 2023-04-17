@@ -1,4 +1,4 @@
-namespace Weapons.WeaponManager.Scripts
+namespace Weapons.Common
 {
     public static class SupportedWeaponModules
     {
