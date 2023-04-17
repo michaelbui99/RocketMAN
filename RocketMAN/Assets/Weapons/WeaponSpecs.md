@@ -3,7 +3,7 @@ All weapons should follow this spec for consistency
 
 ## Assumptions
 - Each weapon has a prefab
-- The weapon prefab should contain an AudioSource in it's object root that is to be played when firing the weapon
+- The weapon prefab <strong>must</strong> contains a MonoBehaviour that implements IWeapon at its root
 
 ## Adding new weapons
 - Create a folder with the weapons name with the following structure:

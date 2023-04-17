@@ -66,7 +66,7 @@ namespace Characters.Player.Scripts
             if (RigidbodyIsFalling(_rigidbody))
             {
                 // NOTE: (mibui 2023-04-17) Invert scalar since Physics.gravity.y is relative to Vector3.up
-                IncreaseRigidbodyFallVelocity(_rigidbody, -(1.7f*Physics.gravity.y * Time.fixedDeltaTime));
+                IncreaseRigidbodyFallVelocity(_rigidbody, -(3f*Physics.gravity.y * Time.fixedDeltaTime));
             }
         }
 

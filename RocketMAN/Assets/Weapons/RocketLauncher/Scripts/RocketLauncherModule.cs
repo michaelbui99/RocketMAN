@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Weapons.Common;
+using Weapons.Common.Scripts;
 using Weapons.WeaponManager;
 using Weapons.WeaponManager.Scripts;
 
@@ -19,16 +20,6 @@ namespace Weapons.RocketLauncher.Scripts
         {
             return SupportedWeaponModules.RocketLauncher;
         }
-
-        public void FireWeapon()
-        {
-        }
-
-        public void ReloadWeapon()
-        {
-            throw new System.NotImplementedException();
-        }
-
 
         public Vector3? GetPositionOffSetVector()
         {
