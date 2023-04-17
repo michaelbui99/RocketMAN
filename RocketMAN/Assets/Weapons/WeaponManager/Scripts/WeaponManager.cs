@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Utility;
+using Weapons.Common;
 
 namespace Weapons.WeaponManager.Scripts
 {
@@ -14,7 +15,7 @@ namespace Weapons.WeaponManager.Scripts
         private Optional<IWeaponModule> _currentWeaponModule = Optional<IWeaponModule>.Empty();
         private IWeaponInput _weaponInput;
 
-        private GameObject _currentWeaponInstance;
+        private CurrentWeapon _currentWeaponInstance = new();
 
         private void Awake()
         {
@@ -41,12 +42,12 @@ namespace Weapons.WeaponManager.Scripts
 
         private void LateUpdate()
         {
-            if (_currentWeaponInstance is null)
+            if (_currentWeaponInstance.instance is null)
             {
                 return;
             }
 
-            var weaponTransform = _currentWeaponInstance.transform;
+            var weaponTransform = _currentWeaponInstance.instance.transform;
             var weaponHolderTransform = weaponHolder.transform;
             weaponTransform.position = weaponHolderTransform.position;
             weaponTransform.forward = weaponHolderTransform.forward;
@@ -54,20 +55,27 @@ namespace Weapons.WeaponManager.Scripts
 
         private void SwitchWeapon(string weapon)
         {
-            Destroy(_currentWeaponInstance);
+            Destroy(_currentWeaponInstance.instance);
             var module = _moduleFactory.Create(weapon);
             _currentWeaponModule = Optional<IWeaponModule>.From(module);
 
-            _currentWeaponInstance =
+            var weaponInstance =
                 Instantiate(_currentWeaponModule
                     .GetOrThrow(() => new ArgumentException("No weapon module"))
                     .WeaponPrefab, weaponHolder.transform, false);
+            
+            var fireWeaponAudio = weaponInstance.GetComponent<AudioSource>();
+
+            _currentWeaponInstance.instance = weaponInstance;
+            _currentWeaponInstance.fireWeaponAudio = fireWeaponAudio;
+            _currentWeaponInstance.fireWeaponAudio.enabled = true;
         }
 
         private void FireCurrentWeapon()
         {
             _currentWeaponModule.Bind(weapon =>
             {
+                _currentWeaponInstance.fireWeaponAudio.Play();
                 weapon.FireWeapon();
                 return weapon;
             });

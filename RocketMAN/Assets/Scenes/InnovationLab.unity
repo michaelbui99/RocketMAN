@@ -220,11 +220,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &575937675 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4930268426396343821, guid: eced91e07eff1ce47848f50b5758b502, type: 3}
-  m_PrefabInstance: {fileID: 6679317415515920301}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +535,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326201182}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7bbddb5140daac247baa3f73a63a4b49, type: 3}
@@ -741,37 +736,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1724586756
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1724586757}
-  m_Layer: 3
-  m_Name: WeaponHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1724586757
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724586756}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.754, y: 0.24799997, z: 0.18999994}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 575937675}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6525447770086405484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -882,7 +846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1578050037125132918, guid: eced91e07eff1ce47848f50b5758b502, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3257065060360198282, guid: eced91e07eff1ce47848f50b5758b502, type: 3}
       propertyPath: m_RootOrder
@@ -935,6 +899,16 @@ PrefabInstance:
     - target: {fileID: 4549689637863863157, guid: eced91e07eff1ce47848f50b5758b502, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679317416263029212, guid: eced91e07eff1ce47848f50b5758b502, type: 3}
+      propertyPath: m_Name
+      value: Ammo UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679317416263029214, guid: eced91e07eff1ce47848f50b5758b502, type: 3}
+      propertyPath: m_text
+      value: '10/100
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eced91e07eff1ce47848f50b5758b502, type: 3}
