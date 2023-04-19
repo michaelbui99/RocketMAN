@@ -145,7 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 3500
   <ExplosionForce>k__BackingField: 30
-  <ExplosionRadius>k__BackingField: 15
+  <ExplosionRadius>k__BackingField: 10
+  <ExplosionParticles>k__BackingField: {fileID: 4913473131296212002, guid: 0dafcb60f40846f41be73cbb5542cf5e, type: 3}
 --- !u!54 &6913725412597011581
 Rigidbody:
   m_ObjectHideFlags: 0
