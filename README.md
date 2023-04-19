@@ -11,3 +11,7 @@ This repository contains the course project for the Game Development course at V
 
 ## Line Renderer Animation
 - https://www.youtube.com/watch?v=RMM3BAick4I (Animate LineRenderer in Unity)
+
+## Shaders
+- https://www.youtube.com/watch?v=wvK6MNlmCCE (Unity Shader Graph - Stylized Trails Tutorial)
+

@@ -11,6 +11,10 @@ namespace Modules.Weapons.Common.Scripts
 
         [SerializeField]
         private GameObject projectilePrefab;
+        
+        [Header("Settings")]
+        [SerializeField]
+        private LayerMask validDestinationTargetLayers;
 
         private UnityEngine.Camera _mainCamera;
 
@@ -22,7 +26,7 @@ namespace Modules.Weapons.Common.Scripts
         public void Launch()
         {
             Ray ray = RayCastUtil.GetRayToCenterOfScreen(_mainCamera);
-            var target = Physics.Raycast(ray, out RaycastHit hit) ? hit.point : ray.GetPoint(1000);
+            var target = Physics.Raycast(ray, out RaycastHit hit, validDestinationTargetLayers) ? hit.point : ray.GetPoint(1000);
 
             var projectileObject = Instantiate(projectilePrefab);
             projectileObject.transform.position = launchPoint.transform.position;

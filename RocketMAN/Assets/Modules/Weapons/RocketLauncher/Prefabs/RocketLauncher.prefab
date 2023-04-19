@@ -146,6 +146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchPoint: {fileID: 3688350433830178163}
   projectilePrefab: {fileID: 6434844239371545546, guid: dfe726f6b0f00d541950d8376c1e135c, type: 3}
+  validDestinationTargetLayers:
+    serializedVersion: 2
+    m_Bits: 241
 --- !u!114 &422143588950530548
 MonoBehaviour:
   m_ObjectHideFlags: 0
