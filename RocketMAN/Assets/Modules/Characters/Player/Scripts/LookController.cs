@@ -35,10 +35,6 @@ namespace Characters.Player.Scripts
             _rigidbody = gameObject.GetComponent<Rigidbody>();
         }
 
-        private void Start()
-        {
-        }
-
         public void OnLook(InputAction.CallbackContext value)
         {
             var lookDelta = value.ReadValue<Vector2>();

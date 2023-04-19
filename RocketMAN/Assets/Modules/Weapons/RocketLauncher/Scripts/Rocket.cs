@@ -36,12 +36,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
                 return;
             }
 
-            if (GetDistanceTraveled() == GetDistanceToTravel())
-            {
-                Explode();
-                Destroy(gameObject);
-            }
-
             _lr.SetPosition(0, transform.position);
             _lr.SetPosition(1, _destination);
             MoveRocketTowardsDestination();
@@ -118,6 +112,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _destination = destination;
             _active = true;
             InitialRocketPropulsion();
+            Destroy(this, 30);
         }
     }
 }

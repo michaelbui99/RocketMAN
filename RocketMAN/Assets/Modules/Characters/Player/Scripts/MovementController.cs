@@ -74,7 +74,7 @@ namespace Characters.Player.Scripts
             else
             {
                 // NOTE: (mibui 2023-04-17) Allow for some movement for strafing
-                _rigidbody.AddRelativeForce(_horizontalMovementVector * 0.5f, ForceMode.Acceleration);
+                _rigidbody.AddRelativeForce(_horizontalMovementVector * 0.7f, ForceMode.Acceleration);
                 // NOTE: (mibui 2023-04-17) Invert scalar since Physics.gravity.y is relative to Vector3.up
                 IncreaseRigidbodyFallVelocity(_rigidbody, -(3f * Physics.gravity.y * Time.fixedDeltaTime));
             }
