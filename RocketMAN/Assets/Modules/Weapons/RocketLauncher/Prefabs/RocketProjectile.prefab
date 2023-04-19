@@ -143,8 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2d55dcf07845c49b42a02ebc74521f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 3000
-  <ExplosionForce>k__BackingField: 40
+  <Speed>k__BackingField: 3500
+  <ExplosionForce>k__BackingField: 30
   <ExplosionRadius>k__BackingField: 15
 --- !u!54 &6913725412597011581
 Rigidbody:
