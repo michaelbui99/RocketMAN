@@ -15,3 +15,5 @@ This repository contains the course project for the Game Development course at V
 ## Shaders
 - https://www.youtube.com/watch?v=wvK6MNlmCCE (Unity Shader Graph - Stylized Trails Tutorial)
 
+## Particle Effects
+- https://www.youtube.com/watch?v=dOnQY0t3TBM (EZ EXPLOSIONS | UNITY TUTORIAL)
