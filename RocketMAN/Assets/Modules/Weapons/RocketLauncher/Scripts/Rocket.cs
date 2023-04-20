@@ -1,5 +1,6 @@
 using System.Linq;
 using Modules.Weapons.Common.Scripts;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Modules.Weapons.RocketLauncher.Scripts
@@ -12,6 +13,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
 
         [field: SerializeField] public float ExplosionForce { get; set; } = 2000f;
         [field: SerializeField] public float ExplosionRadius { get; set; } = 10f;
+        [field: SerializeField] public GameObject ExplosionParticles { get; set; }
 
 
         private Rigidbody _rigidbody;
@@ -38,7 +40,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
 
             _lr.SetPosition(0, transform.position);
             _lr.SetPosition(1, _destination);
-            MoveRocketTowardsDestination();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -53,8 +54,11 @@ namespace Modules.Weapons.RocketLauncher.Scripts
                 // NOTE: (mibui 2023-04-18) The player shouldn't be able to rocket jump off it's own body
                 return;
             }
+
             Explode();
+            var particles = Instantiate(ExplosionParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
+            Destroy(particles, 1);
         }
 
         private void Explode()
@@ -68,42 +72,12 @@ namespace Modules.Weapons.RocketLauncher.Scripts
                 var rb = hit.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    rb.AddExplosionForce(ExplosionForce, explosionPosition, ExplosionRadius, 3.0f,
+                    rb.AddExplosionForce(ExplosionForce, explosionPosition, ExplosionRadius, 5.0f,
                         ForceMode.VelocityChange);
                 }
             });
         }
 
-        private float GetDistanceToTravel()
-        {
-            return Vector3.Distance(_destination, _initialPosition);
-        }
-
-        private float GetDistanceTraveled()
-        {
-            return Vector3.Distance(transform.position, _initialPosition);
-        }
-
-        private void MoveRocketTowardsDestination()
-        {
-            var direction = (_destination - transform.position).normalized;
-            gameObject.transform.forward = direction;
-
-            _rigidbody.AddForce(direction * (Speed * Time.fixedDeltaTime), ForceMode.Acceleration);
-        }
-
-        private void MoveRocketTowardsDestination(float forceScalar)
-        {
-            var direction = (_destination - transform.position).normalized;
-            gameObject.transform.forward = direction;
-
-            _rigidbody.AddForce(direction * (Speed * forceScalar * Time.fixedDeltaTime), ForceMode.Acceleration);
-        }
-
-        private void InitialRocketPropulsion()
-        {
-            MoveRocketTowardsDestination(20);
-        }
 
         public void Activate(Vector3 destination)
         {
@@ -111,7 +85,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _initialPosition = pos;
             _destination = destination;
             _active = true;
-            InitialRocketPropulsion();
             Destroy(this, 30);
         }
     }
