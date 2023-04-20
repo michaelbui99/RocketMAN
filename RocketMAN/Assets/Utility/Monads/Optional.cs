@@ -40,6 +40,11 @@ namespace Utility
             return _hasValue ? _wrapped! : returnFactory();
         }
 
+        public T UnsafeGet()
+        {
+            return _hasValue ? _wrapped! : null;
+        }
+
         public Optional<T> Bind(Func<T, T> bind)
         {
             if (!_hasValue)

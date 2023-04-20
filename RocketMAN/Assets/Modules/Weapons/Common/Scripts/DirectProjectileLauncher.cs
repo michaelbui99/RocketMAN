@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utility;
 
@@ -62,7 +63,7 @@ namespace Modules.Weapons.Common.Scripts
 
         private void ClearDestroyedInstances()
         {
-            _projectileInstances.ForEach(i =>
+            _projectileInstances.ToList().ForEach(i =>
             {
                 if (i.Instance != null)
                 {

@@ -15,13 +15,17 @@ namespace Modules.Weapons.WeaponManager.Scripts
         private Optional<IWeaponModule> _currentWeaponModule = Optional<IWeaponModule>.Empty();
         private IWeaponInput _weaponInput;
 
-        private CurrentWeapon _currentWeapon = new();
+        private readonly CurrentWeapon _currentWeapon = new();
+
+        public delegate void OnWeaponStateChange(WeaponStateEvent state);
+
+        public OnWeaponStateChange WeaponStateChangeEvent;
 
         private void Awake()
         {
             _weaponInput = GetComponent<IWeaponInput>();
             _currentWeaponModule = Optional<IWeaponModule>.From(_moduleFactory.GetDefault());
-            
+
             SwitchWeapon(_currentWeaponModule
                 .GetOrElseGet(() => _moduleFactory.GetDefault())
                 .GetWeaponName()
@@ -32,12 +36,14 @@ namespace Modules.Weapons.WeaponManager.Scripts
         {
             _weaponInput.OnFireWeapon += FireCurrentWeapon;
             _weaponInput.OnSwitchWeapon += SwitchWeapon;
+            _weaponInput.OnReloadWeapon += ReloadCurrentWeapon;
         }
 
         private void OnDestroy()
         {
             _weaponInput.OnFireWeapon -= FireCurrentWeapon;
             _weaponInput.OnSwitchWeapon -= SwitchWeapon;
+            _weaponInput.OnReloadWeapon -= ReloadCurrentWeapon;
         }
 
         private void LateUpdate()
@@ -49,22 +55,50 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
             var weaponTransform = _currentWeapon.instance.transform;
             var weaponHolderTransform = weaponHolder.transform;
-            weaponTransform.position = weaponHolderTransform.position;
+
+            weaponTransform.position = weaponHolderTransform.position + _currentWeaponModule
+                .GetOrThrow(() => new ArgumentException("No Module"))
+                .GetPositionOffSetVector()
+                .GetValueOrDefault(Vector3.zero);
+
             weaponTransform.forward = weaponHolderTransform.forward;
         }
 
         private void SwitchWeapon(string weapon)
         {
-            Destroy(_currentWeapon.instance);
+            if (_currentWeapon.instance != null && _currentWeapon.WeaponComponent != null)
+            {
+                _currentWeapon.WeaponComponent.ReloadFinishedEvent -= EmitStateChange;
+                Destroy(_currentWeapon.instance);
+            }
+
             _currentWeaponModule = null;
-            
+
             var module = _moduleFactory.Create(weapon);
+            InstantiateModule(module);
+            _currentWeapon.WeaponComponent!.ReloadFinishedEvent += EmitStateChange;
+        }
+
+        private void FireCurrentWeapon()
+        {
+            _currentWeapon.WeaponComponent.FireWeapon();
+        }
+
+        private void ReloadCurrentWeapon()
+        {
+            _currentWeapon.WeaponComponent.ReloadWeapon();
+        }
+
+        private void InstantiateModule(IWeaponModule module)
+        {
             _currentWeaponModule = Optional<IWeaponModule>.From(module);
 
             var weaponInstance =
-                Instantiate(_currentWeaponModule
-                    .GetOrThrow(() => new ArgumentException("No weapon module"))
-                    .WeaponPrefab, weaponHolder.transform, false);
+                Instantiate(
+                    _currentWeaponModule
+                        .GetOrThrow(() => new ArgumentException("No weapon module")).WeaponPrefab,
+                    weaponHolder.transform, false
+                );
 
             var weaponComponent = weaponInstance.GetComponent<IWeapon>();
 
@@ -72,9 +106,16 @@ namespace Modules.Weapons.WeaponManager.Scripts
             _currentWeapon.WeaponComponent = weaponComponent;
         }
 
-        private void FireCurrentWeapon()
+        private void EmitStateChange()
         {
-            _currentWeapon.WeaponComponent.FireWeapon();
+            WeaponStateChangeEvent?.Invoke(new WeaponStateEvent()
+            {
+                WeaponName = _currentWeaponModule
+                    .GetOrThrow(() => new ArgumentException("No module"))
+                    .GetWeaponName(),
+                CurrentAmmo = _currentWeapon.WeaponComponent.GetCurrentAmmoCount(),
+                RemainingAmmo = _currentWeapon.WeaponComponent.GetRemainingAmmoCount()
+            });
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
 
         public Vector3? GetPositionOffSetVector()
         {
-            throw new System.NotImplementedException();
+            return Vector3.zero;
         }
     }
 }
