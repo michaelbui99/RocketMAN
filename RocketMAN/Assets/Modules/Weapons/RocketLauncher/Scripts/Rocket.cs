@@ -40,7 +40,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
 
             _lr.SetPosition(0, transform.position);
             _lr.SetPosition(1, _destination);
-            MoveRocketTowardsDestination();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -79,36 +78,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             });
         }
 
-        private float GetDistanceToTravel()
-        {
-            return Vector3.Distance(_destination, _initialPosition);
-        }
-
-        private float GetDistanceTraveled()
-        {
-            return Vector3.Distance(transform.position, _initialPosition);
-        }
-
-        private void MoveRocketTowardsDestination()
-        {
-            var direction = (_destination - transform.position).normalized;
-            gameObject.transform.forward = direction;
-
-            _rigidbody.AddForce(direction * (Speed * Time.fixedDeltaTime), ForceMode.Acceleration);
-        }
-
-        private void MoveRocketTowardsDestination(float forceScalar)
-        {
-            var direction = (_destination - transform.position).normalized;
-            gameObject.transform.forward = direction;
-
-            _rigidbody.AddForce(direction * (Speed * forceScalar * Time.fixedDeltaTime), ForceMode.Acceleration);
-        }
-
-        private void InitialRocketPropulsion()
-        {
-            MoveRocketTowardsDestination(20);
-        }
 
         public void Activate(Vector3 destination)
         {
@@ -116,7 +85,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _initialPosition = pos;
             _destination = destination;
             _active = true;
-            InitialRocketPropulsion();
             Destroy(this, 30);
         }
     }
