@@ -13,7 +13,6 @@ namespace UI
         [SerializeField]
         private WeaponManager weaponManager;
 
-        [FormerlySerializedAs("text")]
         [SerializeField]
         private TMP_Text ammoText;
 
