@@ -61,6 +61,13 @@ namespace Modules.Weapons.Common.Scripts
             });
         }
 
+        public List<IProjectile> GetActiveProjectiles()
+        {
+            return _projectileInstances
+                .Select(instance => instance.Projectile)
+                .ToList();
+        }
+
         private void ClearDestroyedInstances()
         {
             _projectileInstances.ToList().ForEach(i =>

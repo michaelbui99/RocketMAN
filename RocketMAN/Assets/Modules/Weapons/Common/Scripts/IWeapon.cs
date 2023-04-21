@@ -7,6 +7,7 @@ namespace Modules.Weapons.Common.Scripts
         public event WeaponEventTrigger ReloadStartedEvent;
         public event WeaponEventTrigger ReloadFinishedEvent;
         public void FireWeapon();
+        public void AlternateFire();
         public void ReloadWeapon();
 
         /// <summary>

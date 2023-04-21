@@ -38,6 +38,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
             _weaponInput.OnFireWeapon += FireCurrentWeapon;
             _weaponInput.OnSwitchWeapon += SwitchWeapon;
             _weaponInput.OnReloadWeapon += ReloadCurrentWeapon;
+            EmitStateChange();
         }
 
         private void OnDestroy()

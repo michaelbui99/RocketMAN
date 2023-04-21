@@ -87,5 +87,10 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _active = true;
             Destroy(this, 30);
         }
+
+        public void TriggerAlternateAction()
+        {
+            // No alternate action
+        }
     }
 }

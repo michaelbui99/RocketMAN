@@ -5,12 +5,8 @@ W
 'Assets/Modules/LevelLogic/Teleporter.cs,8\5\85fcf9a8fbf908ec5217789a8ee3829ade5456a1
 j
 :Assets/Modules/Characters/Player/Scripts/LookController.cs,2\c\2c5d794ee379ebcecc54582854e61e239d30fd17
-d
-4Assets/Modules/Weapons/Common/Scripts/IProjectile.cs,d\6\d696972101060e0f3851a67a4754fa73d5e534df
 c
 3Assets/Modules/Weapons/Common/ProjectileInstance.cs,3\b\3b5feb329dbaf836396379e3b6eb377b7e4a0e97
-g
-7Assets/Modules/Weapons/RocketLauncher/Scripts/Rocket.cs,e\b\ebb1dc5ffd44eb5da35a759983faea3127b56eaa
 U
 %Assets/Utility/Event/IEventEmitter.cs,7\a\7a6040810014c49e6b1162583c1953bb9a2e2ac6
 V
@@ -35,5 +31,3 @@ m
 =Assets/Modules/Weapons/WeaponManager/Scripts/IWeaponModule.cs,e\9\e98a9445b7519f5cd61d99d567eb76f496b60c1b
 h
 8Assets/Modules/Weapons/Common/Scripts/CooldownHandler.cs,8\f\8fb6460f6b665ada7554b245a3c9ce87ce79251e
-q
-AAssets/Modules/Weapons/Common/Scripts/DirectProjectileLauncher.cs,1\a\1a11f8e39ae885fc94b7851a1bcf83063aec9b9a
