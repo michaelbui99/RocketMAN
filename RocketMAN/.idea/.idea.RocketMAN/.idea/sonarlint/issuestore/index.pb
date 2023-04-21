@@ -3,8 +3,6 @@ n
 >Assets/Modules/Characters/Player/Scripts/MovementController.cs,4\d\4d6acef4cca042e20d87886a20973d275ca60ae3
 W
 'Assets/Modules/LevelLogic/Teleporter.cs,8\5\85fcf9a8fbf908ec5217789a8ee3829ade5456a1
-j
-:Assets/Modules/Characters/Player/Scripts/LookController.cs,2\c\2c5d794ee379ebcecc54582854e61e239d30fd17
 c
 3Assets/Modules/Weapons/Common/ProjectileInstance.cs,3\b\3b5feb329dbaf836396379e3b6eb377b7e4a0e97
 U
