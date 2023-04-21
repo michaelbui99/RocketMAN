@@ -121,6 +121,8 @@ MonoBehaviour:
   playerInput: {fileID: 9073381478103221464}
   verticalSpeed: 7
   horizontalSpeed: 50
+  groundedDrag: 3
+  airborneDrag: 0
 --- !u!114 &9073381478103221464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,6 +295,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 5876624486487728896, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876624486487728896, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876624486487728896, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876624486487728896, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4293059298
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876624486487728898, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+      propertyPath: m_Name
+      value: Ammo UI
+      objectReference: {fileID: 0}
     - target: {fileID: 5876624486656608266, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
       propertyPath: followTarget
       value: 
@@ -343,11 +365,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+--- !u!114 &424871574083463159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 637601753094772009, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+  m_PrefabInstance: {fileID: 953713192641934046}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a8e709adb846df8046c82557c58da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3979353786501707724 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4180963573629748498, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
   m_PrefabInstance: {fileID: 953713192641934046}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6679317416263029212 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5876624486487728898, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+  m_PrefabInstance: {fileID: 953713192641934046}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4953971556037251687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6679317416263029212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921ed6ac2d7c91941bf43bacdba9005a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponManager: {fileID: 424871574083463159}
+  ammoText: {fileID: 6679317416263029214}
+--- !u!114 &6679317416263029214 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5876624486487728896, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
+  m_PrefabInstance: {fileID: 953713192641934046}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6679317416263029212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &6679317416431925982 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 5876624486656608256, guid: 49c37204b2071f14786a49ab6de54ab6, type: 3}
