@@ -35,6 +35,8 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             };
 
             _ammo.ReloadFinishedEvent += () => { ReloadFinishedEvent?.Invoke(); };
+
+            _ammo.AmmoDepletedEvent += ReloadWeapon;
         }
 
         private void Start()
@@ -54,7 +56,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             {
                 return;
             }
-            
+
             if (_ammo.HasActiveReload())
             {
                 _ammo.InterruptReload();
