@@ -12,12 +12,12 @@ namespace Modules.Weapons.RocketLauncher.Scripts
         private WeaponAudioHandler _audio;
         private IProjectileLauncher _projectileLauncher;
 
-        private const float FireCooldown = 0.3f;
-        private CooldownHandler _cooldownHandler;
+        private const float FireCooldown = 0.7f;
+        private CooldownHandler _fireCooldownHandler;
 
         private void Awake()
         {
-            _cooldownHandler = gameObject.AddComponent<CooldownHandler>();
+            _fireCooldownHandler = gameObject.AddComponent<CooldownHandler>();
             _audio = GetComponent<WeaponAudioHandler>();
             _projectileLauncher = GetComponent<IProjectileLauncher>();
             _ammo = gameObject.AddComponent<Ammo>();
@@ -52,7 +52,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
 
         public void FireWeapon()
         {
-            if (_cooldownHandler.CooldownActive())
+            if (_fireCooldownHandler.CooldownActive())
             {
                 return;
             }
@@ -64,7 +64,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
 
             _ammo.ConsumeSingleWithActionOrElse(() =>
             {
-                _cooldownHandler.StartCooldown(FireCooldown);
+                _fireCooldownHandler.StartCooldown(FireCooldown);
                 _projectileLauncher.Launch();
                 _audio.PlayFireWeapon();
             }, ReloadWeapon);

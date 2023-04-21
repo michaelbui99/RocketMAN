@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 2443475604420956522}
   - component: {fileID: 422143588950530548}
   - component: {fileID: 4615558671009891488}
-  m_Layer: 0
+  - component: {fileID: 3056085755328177474}
+  m_Layer: 9
   m_Name: RocketLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,6 +178,20 @@ MonoBehaviour:
   fireWeaponAudio: {fileID: 8300000, guid: 25df9f6b0bac2334789b72742f3f6127, type: 3}
   alternateFireAudio: {fileID: 0}
   reloadWeaponAudio: {fileID: 8300000, guid: 513cc69c7df37684bbf9f6966f32e876, type: 3}
+--- !u!136 &3056085755328177474
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173262608882765305}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 7.19
+  m_Direction: 2
+  m_Center: {x: 0.05, y: 0.13, z: 0.26}
 --- !u!1 &3688350433830178163
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2371352126011735403}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LaunchPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,6 +294,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: model
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d9e224cbcc14ca84fb5a0b89d9f73695, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: d9e224cbcc14ca84fb5a0b89d9f73695, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2762626
@@ -299,6 +318,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -9
       objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: d9e224cbcc14ca84fb5a0b89d9f73695, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9e224cbcc14ca84fb5a0b89d9f73695, type: 3}
 --- !u!4 &8097316834317541987 stripped
@@ -306,22 +329,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d9e224cbcc14ca84fb5a0b89d9f73695, type: 3}
   m_PrefabInstance: {fileID: 8635031882187457928}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8868892163790469337 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d9e224cbcc14ca84fb5a0b89d9f73695, type: 3}
-  m_PrefabInstance: {fileID: 8635031882187457928}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &910714320140984768
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8868892163790469337}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.84
-  m_Height: 63.77
-  m_Direction: 1
-  m_Center: {x: 0, y: 20.2, z: -13.68}

@@ -47,9 +47,9 @@ namespace Characters.Player.Scripts
         {
             _rigidbody.MoveRotation(Quaternion.Euler(0f, _yRotation, 0));
             followTarget.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-            var weaponHolderTransform = weaponHolder.transform;
             var cameraTransform = fpsCamera.transform;
-            weaponHolderTransform.forward = cameraTransform.forward;
+            cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, followTarget.transform.rotation, Time.deltaTime*10);
+            weaponHolder.transform.forward = cameraTransform.forward.normalized;
         }
     }
 }

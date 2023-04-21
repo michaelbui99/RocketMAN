@@ -63,7 +63,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
                 .GetPositionOffSetVector()
                 .GetValueOrDefault(Vector3.zero);
 
-            weaponTransform.forward = weaponHolderTransform.forward;
+            weaponTransform.forward = weaponHolderTransform.forward.normalized;
         }
 
         private void SwitchWeapon(string weapon)
