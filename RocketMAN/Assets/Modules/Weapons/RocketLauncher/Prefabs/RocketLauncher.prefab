@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7121067213278685866}
   - component: {fileID: 2443475604420956522}
   - component: {fileID: 422143588950530548}
+  - component: {fileID: 4615558671009891488}
   m_Layer: 0
   m_Name: RocketLauncher
   m_TagString: Untagged
@@ -46,7 +47,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 12e610fd59611d5478617514a9196488, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 25df9f6b0bac2334789b72742f3f6127, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -161,6 +162,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe01ac0a1f241789aa1b9d4650b98e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4615558671009891488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173262608882765305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6160987e9104e9046b73bb26ae6f12f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireWeaponAudio: {fileID: 8300000, guid: 25df9f6b0bac2334789b72742f3f6127, type: 3}
+  alternateFireAudio: {fileID: 0}
+  reloadWeaponAudio: {fileID: 8300000, guid: 513cc69c7df37684bbf9f6966f32e876, type: 3}
 --- !u!1 &3688350433830178163
 GameObject:
   m_ObjectHideFlags: 0

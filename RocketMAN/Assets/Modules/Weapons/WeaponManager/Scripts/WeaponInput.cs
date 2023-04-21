@@ -6,7 +6,8 @@ namespace Modules.Weapons.WeaponManager.Scripts
 {
     public class WeaponInput: MonoBehaviour, IWeaponInput
     {
-        public event IWeaponInput.FireWeapon OnFireWeapon;
+        public event IWeaponInput.SimpleWeaponEventTrigger OnFireWeapon;
+        public event IWeaponInput.SimpleWeaponEventTrigger OnReloadWeapon;
         public event IWeaponInput.SwitchWeapon OnSwitchWeapon;
 
         private void Awake()
@@ -16,7 +17,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         public void FireWeaponInput(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.started)
             {
                 OnFireWeapon?.Invoke();
             }
@@ -24,9 +25,17 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         public void SwitchToRocketLauncher(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.started)
             {
                 OnSwitchWeapon?.Invoke(SupportedWeaponModules.RocketLauncher);
+            }
+        }
+
+        public void ReloadWeapon(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnReloadWeapon?.Invoke();
             }
         }
     }

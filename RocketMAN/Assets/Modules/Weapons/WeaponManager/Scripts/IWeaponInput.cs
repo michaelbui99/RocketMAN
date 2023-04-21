@@ -2,9 +2,10 @@ namespace Modules.Weapons.WeaponManager.Scripts
 {
     public interface IWeaponInput
     {
-        public delegate void FireWeapon();
+        public delegate void SimpleWeaponEventTrigger();
 
-        public event FireWeapon OnFireWeapon;
+        public event SimpleWeaponEventTrigger OnFireWeapon;
+        public event SimpleWeaponEventTrigger OnReloadWeapon;
 
         public delegate void SwitchWeapon(string weapon);
         public event SwitchWeapon OnSwitchWeapon;
