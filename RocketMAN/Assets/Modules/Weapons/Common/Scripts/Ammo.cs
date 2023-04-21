@@ -12,6 +12,7 @@ namespace Modules.Weapons.Common.Scripts
         public event ReloadEventTrigger ReloadStartedEvent;
         public event ReloadEventTrigger ReloadFinishedEvent;
         public event ReloadEventTrigger ReloadBlockedEvent;
+        public event ReloadEventTrigger AmmoDepletedEvent;
         public int ClipSize { get; set; }
         public int CurrentAmmoCount { get; set; }
         public int RemainingAmmoCount { get; set; }
@@ -37,6 +38,11 @@ namespace Modules.Weapons.Common.Scripts
 
         private void Update()
         {
+            if (CurrentAmmoCount == 0)
+            {
+                AmmoDepletedEvent?.Invoke();
+            }
+            
             if (!_reloading || _cooldownHandler.CooldownActive())
             {
                 return;
@@ -77,7 +83,7 @@ namespace Modules.Weapons.Common.Scripts
                 return false;
             }
 
-            CurrentAmmoCount--;
+            CurrentAmmoCount-=1;
             onConsume.Invoke();
             return true;
         }
@@ -125,7 +131,7 @@ namespace Modules.Weapons.Common.Scripts
 
     public enum ReloadBehaviour
     {
-        // Either reloaded fully or not, e.g. like a AK47
+        // Either reloaded fully or not, e.g. like an AK47
         Discrete,
 
         // Reloads continuously one ammo until fully reloaded, e.g. like Rocket Launcher from TF2

@@ -22,10 +22,15 @@ namespace Modules.Weapons.RocketLauncher.Scripts
         private Vector3 _initialPosition;
         private float _distanceToTravel;
         private LineRenderer _lr;
+        private AudioSource _explosionSound;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _explosionSound = GetComponent<AudioSource>();
+            _explosionSound.enabled = true;
+            _explosionSound.loop = false;
+            _explosionSound.playOnAwake = false;
             _lr = gameObject.AddComponent<LineRenderer>();
             _lr.startWidth = 0.1f;
             _lr.endWidth = 0.1f;
@@ -66,7 +71,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             // NOTE: (mibui 2023-04-17): Reference from Rigidbody.AddExplosionForce API documentation
             Vector3 explosionPosition = transform.position;
             Collider[] colliders = Physics.OverlapSphere(explosionPosition, ExplosionRadius);
-
+            _explosionSound.Play();
             colliders.ToList().ForEach(hit =>
             {
                 var rb = hit.GetComponent<Rigidbody>();
