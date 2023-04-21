@@ -10,6 +10,8 @@ namespace Modules.Weapons.Common.Scripts
         public void AlternateFire();
         public void ReloadWeapon();
 
+        public float GetFireCooldown();
+
         /// <summary>
         /// How much ammo can be expended before reloading
         /// </summary>

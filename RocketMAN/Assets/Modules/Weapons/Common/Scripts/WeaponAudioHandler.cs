@@ -33,20 +33,17 @@ namespace Modules.Weapons.Common.Scripts
 
         public void PlayFireWeapon()
         {
-            _audioSource.clip = fireWeaponAudio;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(fireWeaponAudio);
         }
         
         public void PlayReload()
         {
-            _audioSource.clip = reloadWeaponAudio;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(reloadWeaponAudio);
         }
         
         public void PlayAlternateFire()
         {
-            _audioSource.clip = alternateFireAudio;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(alternateFireAudio);
         }
 
         public void StopPlaying()

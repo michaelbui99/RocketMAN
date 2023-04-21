@@ -5,5 +5,16 @@ namespace Modules.Weapons.WeaponManager.Scripts
         public string WeaponName { get; set; }
         public int CurrentAmmo { get; set; }
         public int RemainingAmmo { get; set; }
+        public float ReloadTime { get; set; }
+        public float FireCooldown { get; set; }
+        public WeaponStateEventType EventType{ get; set; }
+    }
+
+    public enum WeaponStateEventType
+    {
+        ReloadStarted,
+        ReloadFinished,
+        FireWeapon,
+        FireAlternate,
     }
 }
