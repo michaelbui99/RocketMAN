@@ -1,5 +1,6 @@
 using System;
 using Modules.Weapons.Common.Scripts;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using Utility;
 
@@ -76,12 +77,15 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
             var module = _moduleFactory.Create(weapon);
             InstantiateModule(module);
+            // NOTE: (mibui 2023-04-21) Emit when reload finished to ensure that it is updated state that gets emitted
+            //                          as it takes some time to reload.
             _currentWeapon.WeaponComponent!.ReloadFinishedEvent += EmitStateChange;
         }
 
         private void FireCurrentWeapon()
         {
             _currentWeapon.WeaponComponent.FireWeapon();
+            EmitStateChange();
         }
 
         private void ReloadCurrentWeapon()

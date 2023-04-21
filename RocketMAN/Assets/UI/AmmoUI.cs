@@ -29,7 +29,7 @@ namespace UI
 
         private void OnWeaponStateChange(WeaponStateEvent state)
         {
-            ammoText.text = $"{state.CurrentAmmo}/${state.RemainingAmmo}";
+            ammoText.text = $"{state.CurrentAmmo}/{state.RemainingAmmo}";
         }
     }
 }

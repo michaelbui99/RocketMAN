@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 137706234511602912}
   - component: {fileID: 242769482799677188}
   - component: {fileID: 4066138595273714907}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2502511043850481623}
   - component: {fileID: -4706238146314232726}
   - component: {fileID: 6913725412597011581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RocketProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

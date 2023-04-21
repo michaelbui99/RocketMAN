@@ -32,13 +32,21 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _ammo.ClipSize = 5;
             _ammo.CurrentAmmoCount = _ammo.ClipSize;
             _ammo.RemainingAmmoCount = 20;
+            _ammo.ReloadTime = 0.5f;
         }
 
         public void FireWeapon()
         {
-            _fireRocketAudio.Play();
-            _projectileLauncher.Launch();
-            _ammo.ConsumeSingle();
+            if (_ammo.HasActiveReload())
+            {
+                _ammo.InterruptReload();    
+            }
+            
+            _ammo.ConsumeSingleWithActionOrElse(() =>
+            {
+                _fireRocketAudio.Play();
+                _projectileLauncher.Launch();
+            }, ReloadWeapon);
         }
 
         public void ReloadWeapon()
