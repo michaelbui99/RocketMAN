@@ -37,7 +37,7 @@ namespace Modules.Weapons.Common.Scripts
 
         private void Update()
         {
-            if (_reloading)
+            if (!_reloading || _cooldownHandler.CooldownActive())
             {
                 return;
             }
@@ -62,14 +62,35 @@ namespace Modules.Weapons.Common.Scripts
             RemainingAmmoCount -= AmmoPerReloadUnit;
         }
 
-        public void ConsumeSingle()
+        public bool ConsumeSingle()
         {
             if (ShouldReload() || _reloading)
             {
-                return;
+                return false;
             }
 
             CurrentAmmoCount--;
+            return true;
+        }
+
+        public void ConsumeSingleWithActionOrElse(Action onConsume, Action orElse)
+        {
+            if (!ConsumeSingleWithAction(onConsume))
+            {
+                orElse.Invoke();
+            }
+        }
+
+        public bool ConsumeSingleWithAction(Action onConsume)
+        {
+            if (ShouldReload() || _reloading)
+            {
+                return false;
+            }
+
+            CurrentAmmoCount--;
+            onConsume.Invoke();
+            return true;
         }
 
         public void Reload()
@@ -100,14 +121,15 @@ namespace Modules.Weapons.Common.Scripts
                 _reloading = true;
             }
         }
-        
+
         public void InterruptReload()
         {
             _reloading = false;
             _cooldownHandler.ForceResetCooldown();
         }
-        
+
         public bool ShouldReload() => CurrentAmmoCount == 0;
+        public bool HasActiveReload() => _reloading;
 
         private int GetMissingAmmo() => ClipSize - CurrentAmmoCount;
     }
