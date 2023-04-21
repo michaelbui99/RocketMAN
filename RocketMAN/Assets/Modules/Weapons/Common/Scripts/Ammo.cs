@@ -62,17 +62,6 @@ namespace Modules.Weapons.Common.Scripts
             RemainingAmmoCount -= AmmoPerReloadUnit;
         }
 
-        public bool ConsumeSingle()
-        {
-            if (ShouldReload() || _reloading)
-            {
-                return false;
-            }
-
-            CurrentAmmoCount--;
-            return true;
-        }
-
         public void ConsumeSingleWithActionOrElse(Action onConsume, Action orElse)
         {
             if (!ConsumeSingleWithAction(onConsume))
@@ -83,7 +72,7 @@ namespace Modules.Weapons.Common.Scripts
 
         public bool ConsumeSingleWithAction(Action onConsume)
         {
-            if (ShouldReload() || _reloading)
+            if (ShouldReload() || _reloading || _cooldownHandler.CooldownActive())
             {
                 return false;
             }
