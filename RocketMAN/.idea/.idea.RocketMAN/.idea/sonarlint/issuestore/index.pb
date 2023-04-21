@@ -25,8 +25,6 @@ l
 <Assets/Modules/Weapons/WeaponManager/Scripts/IWeaponInput.cs,c\7\c735b26fc984a17187443f80b56a3aefb8fb27f4
 k
 ;Assets/Modules/Weapons/WeaponManager/Scripts/WeaponInput.cs,2\5\25f84ffafc86b6dd05fca2d86d36124f9acd5c4b
-p
-@Assets/Modules/Weapons/WeaponManager/Scripts/WeaponStateEvent.cs,9\c\9cbfb1aa8984c596fcb9835de3992381404a0816
 m
 =Assets/Modules/Weapons/WeaponManager/Scripts/IWeaponModule.cs,e\9\e98a9445b7519f5cd61d99d567eb76f496b60c1b
 h

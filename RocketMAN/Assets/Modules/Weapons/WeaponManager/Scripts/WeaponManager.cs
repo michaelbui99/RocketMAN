@@ -38,7 +38,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
             _weaponInput.OnFireWeapon += FireCurrentWeapon;
             _weaponInput.OnSwitchWeapon += SwitchWeapon;
             _weaponInput.OnReloadWeapon += ReloadCurrentWeapon;
-            EmitStateChange();
+            EmitReloadFinishedStateChange();
         }
 
         private void OnDestroy()
@@ -70,7 +70,8 @@ namespace Modules.Weapons.WeaponManager.Scripts
         {
             if (_currentWeapon.instance != null && _currentWeapon.WeaponComponent != null)
             {
-                _currentWeapon.WeaponComponent.ReloadFinishedEvent -= EmitStateChange;
+                _currentWeapon.WeaponComponent.ReloadFinishedEvent -= EmitReloadFinishedStateChange;
+                _currentWeapon.WeaponComponent.ReloadFinishedEvent -= EmitReloadStartedStateChange;
                 Destroy(_currentWeapon.instance);
             }
 
@@ -80,13 +81,14 @@ namespace Modules.Weapons.WeaponManager.Scripts
             InstantiateModule(module);
             // NOTE: (mibui 2023-04-21) Emit when reload finished to ensure that it is updated state that gets emitted
             //                          as it takes some time to reload.
-            _currentWeapon.WeaponComponent!.ReloadFinishedEvent += EmitStateChange;
+            _currentWeapon.WeaponComponent!.ReloadFinishedEvent += EmitReloadFinishedStateChange;
+            _currentWeapon.WeaponComponent!.ReloadStartedEvent+= EmitReloadStartedStateChange;
         }
 
         private void FireCurrentWeapon()
         {
             _currentWeapon.WeaponComponent.FireWeapon();
-            EmitStateChange();
+            EmitFireWeaponEvent();
         }
 
         private void ReloadCurrentWeapon()
@@ -111,16 +113,30 @@ namespace Modules.Weapons.WeaponManager.Scripts
             _currentWeapon.WeaponComponent = weaponComponent;
         }
 
-        private void EmitStateChange()
+        private WeaponStateEvent CreateEvent(WeaponStateEventType type)
         {
-            WeaponStateChangeEvent?.Invoke(new WeaponStateEvent()
+            return new WeaponStateEvent()
             {
                 WeaponName = _currentWeaponModule
                     .GetOrThrow(() => new ArgumentException("No module"))
                     .GetWeaponName(),
                 CurrentAmmo = _currentWeapon.WeaponComponent.GetCurrentAmmoCount(),
-                RemainingAmmo = _currentWeapon.WeaponComponent.GetRemainingAmmoCount()
-            });
+                RemainingAmmo = _currentWeapon.WeaponComponent.GetRemainingAmmoCount(),
+                EventType = type
+            };
+        }
+        private void EmitReloadStartedStateChange()
+        {
+            WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.ReloadStarted));
+        }
+        private void EmitReloadFinishedStateChange()
+        {
+            WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.ReloadFinished));
+        }
+        
+        private void EmitFireWeaponEvent()
+        {
+            WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.FireWeapon));
         }
     }
 }
