@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 6694580147465818232}
   - component: {fileID: 7512583295565076812}
   - component: {fileID: 1969156601824519399}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: 'Current Weapon '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 3119649741667704548}
   - component: {fileID: 3119649741667704551}
   - component: {fileID: 3119649741667704550}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 3119649742274875798}
   - component: {fileID: 3119649742274875799}
   - component: {fileID: 8645375422691797837}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FPS Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1066,7 +1066,7 @@ GameObject:
   - component: {fileID: 3119649742294874778}
   - component: {fileID: 3119649742294874781}
   - component: {fileID: 3691405533120739620}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Ammo Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1215,7 +1215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5853829353191538276}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1515,7 +1515,7 @@ GameObject:
   - component: {fileID: 742769273212648281}
   - component: {fileID: 6161891238630538407}
   - component: {fileID: 6109326481501638923}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1591,7 +1591,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1535847736649728525}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1625,7 +1625,7 @@ GameObject:
   - component: {fileID: 4312698808438362075}
   - component: {fileID: 8822448771338046226}
   - component: {fileID: 7085014635446088235}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1701,7 +1701,7 @@ GameObject:
   - component: {fileID: 6902517103875442476}
   - component: {fileID: 2840654323086189083}
   - component: {fileID: 7222182051491151723}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2021,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1033063410694409414}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Weapon Details
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2322,7 +2322,7 @@ GameObject:
   - component: {fileID: 7553649524373928457}
   - component: {fileID: 1774923157854308797}
   - component: {fileID: 3428759684597772901}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2398,7 +2398,7 @@ GameObject:
   - component: {fileID: 7091681909383257459}
   - component: {fileID: 607729715793168233}
   - component: {fileID: 5565858792346137132}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2657,7 +2657,7 @@ GameObject:
   - component: {fileID: 5523125011529543853}
   - component: {fileID: 6699233999184788288}
   - component: {fileID: 7442470869238142438}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

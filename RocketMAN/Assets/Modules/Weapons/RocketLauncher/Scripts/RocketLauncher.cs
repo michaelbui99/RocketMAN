@@ -10,6 +10,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
         private Ammo _ammo;
         private WeaponAudioHandler _audio;
         private IProjectileLauncher _projectileLauncher;
+        private WeaponAnimator _animator;
 
         private const float FireCooldown = 0.7f;
         private CooldownHandler _fireCooldownHandler;
@@ -20,6 +21,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _audio = GetComponent<WeaponAudioHandler>();
             _projectileLauncher = GetComponent<IProjectileLauncher>();
             _ammo = gameObject.AddComponent<Ammo>();
+            _animator = GetComponent<WeaponAnimator>();
 
             // NOTE: (mibui 2023-04-20) Ammo is owned by RocketLauncher and they share lifetime. Should be fine to not unsubscribe
             _ammo.ReloadStartedEvent += () =>
@@ -64,6 +66,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _ammo.ConsumeSingleWithActionOrElse(() =>
             {
                 _fireCooldownHandler.StartCooldown(FireCooldown);
+                StartCoroutine(_animator.Fire(FireCooldown));
                 _projectileLauncher.Launch();
                 _audio.PlayFireWeapon();
             }, ReloadWeapon);
