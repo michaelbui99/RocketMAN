@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6065628411543360040}
   - component: {fileID: 1736736663207917734}
   - component: {fileID: 5885432786938233142}
+  - component: {fileID: 7708315761468362321}
   m_Layer: 3
   m_Name: WeaponManager
   m_TagString: Untagged
@@ -139,6 +140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 3082383637363714205}
+  moduleFactory: {fileID: 11400000, guid: 17e7dab805fffd94a9131b11e471f4cf, type: 2}
+  ammoState: {fileID: 0}
 --- !u!114 &5885432786938233142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +154,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171894898219407d9cc1d6d65bb86692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7708315761468362321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613098451033907281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6710cc478ae0432599443dc0440a7aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: e5b1e292258ac194da3a5d6e5a0705b5, type: 2}
+  onEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3082383637363714205
 GameObject:
   m_ObjectHideFlags: 0

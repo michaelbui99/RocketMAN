@@ -7,10 +7,10 @@ namespace Modules.Weapons.RocketLauncher.Scripts
     {
         public event IWeapon.WeaponEventTrigger ReloadStartedEvent;
         public event IWeapon.WeaponEventTrigger ReloadFinishedEvent;
-
         private Ammo _ammo;
         private WeaponAudioHandler _audio;
         private IProjectileLauncher _projectileLauncher;
+        private WeaponAnimator _animator;
 
         private const float FireCooldown = 0.7f;
         private CooldownHandler _fireCooldownHandler;
@@ -21,11 +21,12 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _audio = GetComponent<WeaponAudioHandler>();
             _projectileLauncher = GetComponent<IProjectileLauncher>();
             _ammo = gameObject.AddComponent<Ammo>();
+            _animator = GetComponent<WeaponAnimator>();
 
             // NOTE: (mibui 2023-04-20) Ammo is owned by RocketLauncher and they share lifetime. Should be fine to not unsubscribe
             _ammo.ReloadStartedEvent += () =>
             {
-                if (_ammo.RemainingAmmoCount == 0)
+                if (_ammo.RemainingAmmoCount() == 0)
                 {
                     return;
                 }
@@ -45,8 +46,8 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _ammo.TotalReloadUnits = 20;
             _ammo.AmmoPerReloadUnit = 1;
             _ammo.ClipSize = 5;
-            _ammo.CurrentAmmoCount = _ammo.ClipSize;
-            _ammo.RemainingAmmoCount = 20;
+            _ammo.AmmoState.CurrentAmmoCount = _ammo.ClipSize;
+            _ammo.AmmoState.RemainingAmmoCount = 20;
             _ammo.ReloadTime = 0.5f;
         }
 
@@ -65,6 +66,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _ammo.ConsumeSingleWithActionOrElse(() =>
             {
                 _fireCooldownHandler.StartCooldown(FireCooldown);
+                StartCoroutine(_animator.Fire(FireCooldown));
                 _projectileLauncher.Launch();
                 _audio.PlayFireWeapon();
             }, ReloadWeapon);
@@ -85,7 +87,16 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             return FireCooldown;
         }
 
-        public int GetCurrentAmmoCount() => _ammo.CurrentAmmoCount;
-        public int GetRemainingAmmoCount() => _ammo.RemainingAmmoCount;
+        public int GetCurrentAmmoCount() => _ammo.CurrentAmmoCount();
+        public int GetRemainingAmmoCount() => _ammo.RemainingAmmoCount();
+        public void SetAmmoState(AmmoState ammoState)
+        {
+            _ammo.AmmoState = ammoState;
+        }
+
+        public void RestoreAmmo(int reloadUnits)
+        {
+            _ammo.RestoreAmmo(reloadUnits);
+        }
     }
 }
