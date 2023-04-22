@@ -19,8 +19,6 @@ l
 <Assets/Modules/Weapons/WeaponManager/Scripts/IWeaponInput.cs,c\7\c735b26fc984a17187443f80b56a3aefb8fb27f4
 k
 ;Assets/Modules/Weapons/WeaponManager/Scripts/WeaponInput.cs,2\5\25f84ffafc86b6dd05fca2d86d36124f9acd5c4b
-h
-8Assets/Modules/Weapons/Common/Scripts/CooldownHandler.cs,8\f\8fb6460f6b665ada7554b245a3c9ce87ce79251e
 C
 Assets/UI/AmmoUI.cs,7\0\70d34a18bdfd687db6f665641b9ee69c36c7368c
 p
