@@ -1,4 +1,5 @@
 using System;
+using Modules.Events;
 using Modules.Weapons.Common.Scripts;
 using TMPro.EditorUtilities;
 using UnityEngine;
@@ -15,10 +16,14 @@ namespace Modules.Weapons.WeaponManager.Scripts
         [SerializeField]
         private WeaponModuleFactory moduleFactory;
 
+        [SerializeField]
+        private AmmoState ammoState;
+
         private Optional<WeaponModule> _currentWeaponModule = Optional<WeaponModule>.Empty();
         private IWeaponInput _weaponInput;
 
         private readonly CurrentWeapon _currentWeapon = new();
+        private GameEventObserver _ammoPickupObserver;
 
         public delegate void OnWeaponStateChange(WeaponStateEvent state);
 
@@ -26,6 +31,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         private void Awake()
         {
+            _ammoPickupObserver = GetComponent<GameEventObserver>();
             _weaponInput = GetComponent<IWeaponInput>();
             _currentWeaponModule = Optional<WeaponModule>.From(moduleFactory.GetDefault());
 
@@ -33,6 +39,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
                 .GetOrElseGet(() => moduleFactory.GetDefault())
                 .InternalWeaponName
             );
+            _ammoPickupObserver.RegisterCallback(RestoreAmmo);
         }
 
         private void Start()
@@ -112,6 +119,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
             _currentWeapon.instance = weaponInstance;
             _currentWeapon.WeaponComponent = weaponComponent;
+            _currentWeapon.WeaponComponent.SetAmmoState(ammoState);
         }
 
         private WeaponStateEvent CreateEvent(WeaponStateEventType type)
@@ -140,6 +148,17 @@ namespace Modules.Weapons.WeaponManager.Scripts
         private void EmitFireWeaponEvent()
         {
             WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.FireWeapon));
+        }
+
+        public void RestoreAmmo(object reloadUnits)
+        {
+            if (_currentWeapon.instance is null || _currentWeapon.WeaponComponent is null)
+            {
+                return;
+            }
+            
+            _currentWeapon.WeaponComponent.RestoreAmmo((int)reloadUnits);
+            EmitReloadFinishedStateChange();
         }
     }
 }

@@ -13,8 +13,6 @@ V
 +Assets/Utility/Event/EventEmitterSupport.cs,0\3\039e34655653781462adb383483c4983f7939c9d
 Q
 !Assets/Utility/Event/EventData.cs,7\d\7d796d6eaa9b8d5290af83a31081742253af44f6
-Q
-!Assets/Utility/Monads/Optional.cs,b\3\b3431f779d45ad1da9f10ab3069b4a998461662d
 }
 MAssets/Modules/OdmGear_DEPRECATED/GrappleHooks/Scripts/HookCooldownHandler.cs,b\c\bcfbfc3bc28b83c1e449609c294d9cc966d99b02
 l
@@ -23,8 +21,6 @@ k
 ;Assets/Modules/Weapons/WeaponManager/Scripts/WeaponInput.cs,2\5\25f84ffafc86b6dd05fca2d86d36124f9acd5c4b
 h
 8Assets/Modules/Weapons/Common/Scripts/CooldownHandler.cs,8\f\8fb6460f6b665ada7554b245a3c9ce87ce79251e
-`
-0Assets/Modules/Weapons/Common/Scripts/IWeapon.cs,4\1\41abf6deeb3dfacb1478720c300252e870823572
 C
 Assets/UI/AmmoUI.cs,7\0\70d34a18bdfd687db6f665641b9ee69c36c7368c
 p
