@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 6694580147465818232}
   - component: {fileID: 7512583295565076812}
   - component: {fileID: 1969156601824519399}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: 'Current Weapon '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 3119649741667704548}
   - component: {fileID: 3119649741667704551}
   - component: {fileID: 3119649741667704550}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 3119649742274875798}
   - component: {fileID: 3119649742274875799}
   - component: {fileID: 8645375422691797837}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FPS Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -969,7 +969,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 50
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -1066,7 +1066,7 @@ GameObject:
   - component: {fileID: 3119649742294874778}
   - component: {fileID: 3119649742294874781}
   - component: {fileID: 3691405533120739620}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Ammo Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1215,7 +1215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5853829353191538276}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1515,7 +1515,7 @@ GameObject:
   - component: {fileID: 742769273212648281}
   - component: {fileID: 6161891238630538407}
   - component: {fileID: 6109326481501638923}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1591,7 +1591,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1535847736649728525}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1625,7 +1625,7 @@ GameObject:
   - component: {fileID: 4312698808438362075}
   - component: {fileID: 8822448771338046226}
   - component: {fileID: 7085014635446088235}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1701,7 +1701,7 @@ GameObject:
   - component: {fileID: 6902517103875442476}
   - component: {fileID: 2840654323086189083}
   - component: {fileID: 7222182051491151723}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2021,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1033063410694409414}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Weapon Details
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2060,7 +2060,7 @@ GameObject:
   - component: {fileID: 8747187707762053638}
   - component: {fileID: 1535432653017792756}
   - component: {fileID: 7086919605597149578}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Weapon Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2322,7 +2322,7 @@ GameObject:
   - component: {fileID: 7553649524373928457}
   - component: {fileID: 1774923157854308797}
   - component: {fileID: 3428759684597772901}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2398,7 +2398,7 @@ GameObject:
   - component: {fileID: 7091681909383257459}
   - component: {fileID: 607729715793168233}
   - component: {fileID: 5565858792346137132}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2657,7 +2657,7 @@ GameObject:
   - component: {fileID: 5523125011529543853}
   - component: {fileID: 6699233999184788288}
   - component: {fileID: 7442470869238142438}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2743,11 +2743,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1613098451033907281, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1736736663207917734, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
+      propertyPath: ammoState
+      value: 
+      objectReference: {fileID: 11400000, guid: f827bbcfa613e6248a2351f6de9f1564, type: 2}
     - target: {fileID: 3082383637363714205, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6454933399603626332, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
       propertyPath: m_RootOrder
@@ -2804,12 +2808,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6454933399603626332, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
   m_PrefabInstance: {fileID: 6177713196702827570}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4889014828127806563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1613098451033907281, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
+  m_PrefabInstance: {fileID: 6177713196702827570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3573512203602719933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4889014828127806563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6710cc478ae0432599443dc0440a7aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: e5b1e292258ac194da3a5d6e5a0705b5, type: 2}
+  onEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5593899137688976532 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1736736663207917734, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
   m_PrefabInstance: {fileID: 6177713196702827570}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4889014828127806563}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6a8e709adb846df8046c82557c58da8, type: 3}

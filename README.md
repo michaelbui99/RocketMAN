@@ -18,3 +18,6 @@ This repository contains the course project for the Game Development course at V
 ## Particle Effects
 - https://www.youtube.com/watch?v=dOnQY0t3TBM (EZ EXPLOSIONS | UNITY TUTORIAL)
 - https://www.youtube.com/watch?v=0mvaFKTTeUs (How to Make a Smoke Trail Effect in Unity)
+
+## Event system
+- https://unity.com/how-to/architect-game-code-scriptable-objects (THREE WAYS TO ARCHITECT YOUR GAME WITH SCRIPTABLE OBJECTS)

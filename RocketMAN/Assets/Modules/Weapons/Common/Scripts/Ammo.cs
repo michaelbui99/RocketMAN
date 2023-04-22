@@ -14,8 +14,9 @@ namespace Modules.Weapons.Common.Scripts
         public event ReloadEventTrigger ReloadBlockedEvent;
         public event ReloadEventTrigger AmmoDepletedEvent;
         public int ClipSize { get; set; }
-        public int CurrentAmmoCount { get; set; }
-        public int RemainingAmmoCount { get; set; }
+        public AmmoState AmmoState { get; set; }
+        public int CurrentAmmoCount() => AmmoState.CurrentAmmoCount;
+        public int RemainingAmmoCount() => AmmoState.RemainingAmmoCount;
         public int AmmoPerReloadUnit { get; set; }
         public int TotalReloadUnits { get; set; }
         public float ReloadTime { get; set; }
@@ -38,34 +39,34 @@ namespace Modules.Weapons.Common.Scripts
 
         private void Update()
         {
-            if (CurrentAmmoCount == 0)
+            if (CurrentAmmoCount() == 0)
             {
                 AmmoDepletedEvent?.Invoke();
             }
-            
+
             if (!_reloading || _cooldownHandler.CooldownActive())
             {
                 return;
             }
 
-            if (CurrentAmmoCount == ClipSize)
+            if (CurrentAmmoCount() == ClipSize)
             {
                 InterruptReload();
                 return;
             }
 
-            if (AmmoPerReloadUnit > RemainingAmmoCount)
+            if (AmmoPerReloadUnit > RemainingAmmoCount())
             {
                 _cooldownHandler.StartCooldown(ReloadTime);
-                CurrentAmmoCount += RemainingAmmoCount;
-                RemainingAmmoCount = 0;
+                AmmoState.CurrentAmmoCount += RemainingAmmoCount();
+                AmmoState.RemainingAmmoCount = 0;
                 InterruptReload();
                 return;
             }
 
             _cooldownHandler.StartCooldown(ReloadTime);
-            CurrentAmmoCount += AmmoPerReloadUnit;
-            RemainingAmmoCount -= AmmoPerReloadUnit;
+            AmmoState.CurrentAmmoCount += AmmoPerReloadUnit;
+            AmmoState.RemainingAmmoCount -= AmmoPerReloadUnit;
         }
 
         public void ConsumeSingleWithActionOrElse(Action onConsume, Action orElse)
@@ -83,7 +84,7 @@ namespace Modules.Weapons.Common.Scripts
                 return false;
             }
 
-            CurrentAmmoCount-=1;
+            AmmoState.CurrentAmmoCount -= 1;
             onConsume.Invoke();
             return true;
         }
@@ -97,18 +98,18 @@ namespace Modules.Weapons.Common.Scripts
 
             if (ReloadBehaviour == ReloadBehaviour.Discrete)
             {
-                if (GetMissingAmmo() > RemainingAmmoCount)
+                if (GetMissingAmmo() > RemainingAmmoCount())
                 {
                     _cooldownHandler.StartCooldown(ReloadTime);
-                    CurrentAmmoCount += RemainingAmmoCount;
-                    RemainingAmmoCount = 0;
+                    AmmoState.CurrentAmmoCount += RemainingAmmoCount();
+                    AmmoState.RemainingAmmoCount = 0;
                     return;
                 }
 
                 _cooldownHandler.StartCooldown(ReloadTime);
                 var missing = GetMissingAmmo();
-                CurrentAmmoCount += missing;
-                RemainingAmmoCount -= missing;
+                AmmoState.CurrentAmmoCount += missing;
+                AmmoState.RemainingAmmoCount -= missing;
             }
 
             if (ReloadBehaviour == ReloadBehaviour.Continuous)
@@ -123,10 +124,22 @@ namespace Modules.Weapons.Common.Scripts
             _cooldownHandler.ForceResetCooldown();
         }
 
-        public bool ShouldReload() => CurrentAmmoCount == 0;
+        public void RestoreAmmo(int reloadUnits)
+        {
+            var ammoToRestore = reloadUnits * AmmoPerReloadUnit;
+            AmmoState.RemainingAmmoCount += ammoToRestore;
+
+            var remainingAmmoInReloadUnits = RemainingAmmoCount() / AmmoPerReloadUnit;
+            if (remainingAmmoInReloadUnits > TotalReloadUnits)
+            {
+                AmmoState.RemainingAmmoCount = TotalReloadUnits * AmmoPerReloadUnit;
+            }
+        }
+
+        public bool ShouldReload() => CurrentAmmoCount() == 0;
         public bool HasActiveReload() => _reloading;
 
-        private int GetMissingAmmo() => ClipSize - CurrentAmmoCount;
+        private int GetMissingAmmo() => ClipSize - CurrentAmmoCount();
     }
 
     public enum ReloadBehaviour

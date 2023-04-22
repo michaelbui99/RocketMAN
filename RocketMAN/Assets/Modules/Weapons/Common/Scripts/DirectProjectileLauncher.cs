@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Modules.Weapons.Common.Scripts
@@ -17,7 +19,7 @@ namespace Modules.Weapons.Common.Scripts
 
         [Header("Settings")]
         [SerializeField]
-        private LayerMask validDestinationTargetLayers;
+        private LayerMask validDestinationLayers;
 
         private readonly List<ProjectileInstance> _projectileInstances = new();
 
@@ -41,10 +43,10 @@ namespace Modules.Weapons.Common.Scripts
         public void Launch()
         {
             Ray ray = RayCastUtil.GetRayToCenterOfScreen(_mainCamera);
-            var destination = Physics.Raycast(ray, out RaycastHit hit, validDestinationTargetLayers)
+            var destination = Physics.Raycast(ray, out RaycastHit hit, 1000f, validDestinationLayers)
                 ? hit.point
-                : ray.GetPoint(1000);
-
+                : ray.GetPoint(1000f);
+            
             var projectileObject = Instantiate(projectilePrefab);
             projectileObject.transform.position = launchPoint.transform.position;
             projectileObject.transform.forward = _mainCamera.transform.forward;
