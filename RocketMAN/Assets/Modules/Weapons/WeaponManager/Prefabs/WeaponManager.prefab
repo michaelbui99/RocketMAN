@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 3082383637363714205}
+  moduleFactory: {fileID: 11400000, guid: 17e7dab805fffd94a9131b11e471f4cf, type: 2}
 --- !u!114 &5885432786938233142
 MonoBehaviour:
   m_ObjectHideFlags: 0
