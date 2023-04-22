@@ -10,7 +10,7 @@ namespace Modules.Events
         [SerializeField]
         private GameEvent gameEvent;
         [SerializeField]
-        private UnityEvent response;
+        private OnEvent onEvent;
         
         private void OnEnable()
         {
@@ -22,9 +22,14 @@ namespace Modules.Events
             gameEvent.UnregisterObserver(this);
         }
 
-        public void OnEventRaised()
+        public void OnEventRaised(object data)
         {
-            response?.Invoke();
+            onEvent?.Invoke(data);
+        }
+
+        public void RegisterCallback(UnityAction<object> cb)
+        {
+            onEvent.AddListener(cb); 
         }
     }
 }

@@ -10,7 +10,12 @@ namespace Modules.Events
 
         public void Raise()
         {
-            _observers.ForEach(o => o.OnEventRaised());
+            _observers.ForEach(o => o.OnEventRaised(null));
+        }
+
+        public void Raise(object data)
+        {
+            _observers.ForEach(o => o.OnEventRaised(data));
         }
 
         public void RegisterObserver(GameEventObserver observer)

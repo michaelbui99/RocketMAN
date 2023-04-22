@@ -969,7 +969,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 50
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2060,7 +2060,7 @@ GameObject:
   - component: {fileID: 8747187707762053638}
   - component: {fileID: 1535432653017792756}
   - component: {fileID: 7086919605597149578}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Weapon Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2743,11 +2743,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1613098451033907281, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1736736663207917734, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
+      propertyPath: ammoState
+      value: 
+      objectReference: {fileID: 11400000, guid: f827bbcfa613e6248a2351f6de9f1564, type: 2}
     - target: {fileID: 3082383637363714205, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6454933399603626332, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
       propertyPath: m_RootOrder
@@ -2804,12 +2808,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6454933399603626332, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
   m_PrefabInstance: {fileID: 6177713196702827570}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4889014828127806563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1613098451033907281, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
+  m_PrefabInstance: {fileID: 6177713196702827570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3573512203602719933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4889014828127806563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6710cc478ae0432599443dc0440a7aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: e5b1e292258ac194da3a5d6e5a0705b5, type: 2}
+  onEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5593899137688976532 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1736736663207917734, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
   m_PrefabInstance: {fileID: 6177713196702827570}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4889014828127806563}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6a8e709adb846df8046c82557c58da8, type: 3}

@@ -6,6 +6,7 @@ namespace Modules.Weapons.Common.Scripts
 
         public event WeaponEventTrigger ReloadStartedEvent;
         public event WeaponEventTrigger ReloadFinishedEvent;
+        
         public void FireWeapon();
         public void AlternateFire();
         public void ReloadWeapon();
@@ -21,5 +22,8 @@ namespace Modules.Weapons.Common.Scripts
         /// How much remaining ammo can can be used before not being able to fire the weapon
         /// </summary>
         public int GetRemainingAmmoCount();
+
+        public void SetAmmoState(AmmoState ammoState);
+        public void RestoreAmmo(int reloadUnits);
     }
 }
