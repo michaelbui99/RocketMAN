@@ -12,8 +12,10 @@ namespace Modules.Weapons.WeaponManager.Scripts
         [SerializeField]
         private GameObject weaponHolder;
 
-        private readonly IWeaponModuleFactory _moduleFactory = new WeaponModuleFactory();
-        private Optional<IWeaponModule> _currentWeaponModule = Optional<IWeaponModule>.Empty();
+        [SerializeField]
+        private WeaponModuleFactory moduleFactory;
+
+        private Optional<WeaponModule> _currentWeaponModule = Optional<WeaponModule>.Empty();
         private IWeaponInput _weaponInput;
 
         private readonly CurrentWeapon _currentWeapon = new();
@@ -25,11 +27,11 @@ namespace Modules.Weapons.WeaponManager.Scripts
         private void Awake()
         {
             _weaponInput = GetComponent<IWeaponInput>();
-            _currentWeaponModule = Optional<IWeaponModule>.From(_moduleFactory.GetDefault());
+            _currentWeaponModule = Optional<WeaponModule>.From(moduleFactory.GetDefault());
 
             SwitchWeapon(_currentWeaponModule
-                .GetOrElseGet(() => _moduleFactory.GetDefault())
-                .GetWeaponName()
+                .GetOrElseGet(() => moduleFactory.GetDefault())
+                .InternalWeaponName
             );
         }
 
@@ -60,8 +62,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
             weaponTransform.position = weaponHolderTransform.position + _currentWeaponModule
                 .GetOrThrow(() => new ArgumentException("No Module"))
-                .GetPositionOffSetVector()
-                .GetValueOrDefault(Vector3.zero);
+                .WeaponPositionOffset;
 
             weaponTransform.forward = weaponHolderTransform.forward.normalized;
         }
@@ -77,12 +78,12 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
             _currentWeaponModule = null;
 
-            var module = _moduleFactory.Create(weapon);
+            var module = moduleFactory.Create(weapon);
             InstantiateModule(module);
             // NOTE: (mibui 2023-04-21) Emit when reload finished to ensure that it is updated state that gets emitted
             //                          as it takes some time to reload.
             _currentWeapon.WeaponComponent!.ReloadFinishedEvent += EmitReloadFinishedStateChange;
-            _currentWeapon.WeaponComponent!.ReloadStartedEvent+= EmitReloadStartedStateChange;
+            _currentWeapon.WeaponComponent!.ReloadStartedEvent += EmitReloadStartedStateChange;
         }
 
         private void FireCurrentWeapon()
@@ -96,9 +97,9 @@ namespace Modules.Weapons.WeaponManager.Scripts
             _currentWeapon.WeaponComponent.ReloadWeapon();
         }
 
-        private void InstantiateModule(IWeaponModule module)
+        private void InstantiateModule(WeaponModule module)
         {
-            _currentWeaponModule = Optional<IWeaponModule>.From(module);
+            _currentWeaponModule = Optional<WeaponModule>.From(module);
 
             var weaponInstance =
                 Instantiate(
@@ -119,21 +120,23 @@ namespace Modules.Weapons.WeaponManager.Scripts
             {
                 WeaponName = _currentWeaponModule
                     .GetOrThrow(() => new ArgumentException("No module"))
-                    .GetWeaponName(),
+                    .DisplayName,
                 CurrentAmmo = _currentWeapon.WeaponComponent.GetCurrentAmmoCount(),
                 RemainingAmmo = _currentWeapon.WeaponComponent.GetRemainingAmmoCount(),
                 EventType = type
             };
         }
+
         private void EmitReloadStartedStateChange()
         {
             WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.ReloadStarted));
         }
+
         private void EmitReloadFinishedStateChange()
         {
             WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.ReloadFinished));
         }
-        
+
         private void EmitFireWeaponEvent()
         {
             WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.FireWeapon));
