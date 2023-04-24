@@ -3,7 +3,6 @@ using Modules.Weapons.WeaponManager.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Utility.Event;
 
 namespace UI
 {
