@@ -31,5 +31,10 @@ namespace Modules.Events
         {
             onEvent.AddListener(cb); 
         }
+
+        public void UnregisterCallback(UnityAction<object> cb)
+        {
+            onEvent.RemoveListener(cb);
+        }
     }
 }
