@@ -56,7 +56,7 @@ namespace Modules.MusicManager.Scripts
 
             if (_audio.time >= _currentSong.length)
             {
-                _currentSong = _queue.Dequeue();
+                _currentSong = GetNextSong();
             }
         }
 
