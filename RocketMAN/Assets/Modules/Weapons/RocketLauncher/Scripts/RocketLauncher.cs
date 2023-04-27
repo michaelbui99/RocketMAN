@@ -1,3 +1,4 @@
+using System;
 using Modules.Weapons.Common.Scripts;
 using UnityEngine;
 
@@ -14,6 +15,9 @@ namespace Modules.Weapons.RocketLauncher.Scripts
 
         private const float FireCooldown = 0.7f;
         private CooldownHandler _fireCooldownHandler;
+
+        private Coroutine _reloadRoutine;
+        private Coroutine _shootingRoutine;
 
         private void Awake()
         {
@@ -34,8 +38,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
                 ReloadStartedEvent?.Invoke();
                 _audio.PlayReload();
             };
-
-            _ammo.ReloadFinishedEvent += () => { ReloadFinishedEvent?.Invoke(); };
 
             _ammo.AmmoDepletedEvent += ReloadWeapon;
         }
@@ -58,7 +60,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
                 return;
             }
 
-            if (_ammo.HasActiveReload())
+            if (_ammo.HasActiveContinuousReload())
             {
                 _ammo.InterruptReload();
             }
@@ -66,7 +68,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
             _ammo.ConsumeSingleWithActionOrElse(() =>
             {
                 _fireCooldownHandler.StartCooldown(FireCooldown);
-                StartCoroutine(_animator.Fire(FireCooldown));
+                _shootingRoutine = StartCoroutine(_animator.Fire(FireCooldown));
                 _projectileLauncher.Launch();
                 _audio.PlayFireWeapon();
             }, ReloadWeapon);
@@ -89,6 +91,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
 
         public int GetCurrentAmmoCount() => _ammo.CurrentAmmoCount();
         public int GetRemainingAmmoCount() => _ammo.RemainingAmmoCount();
+
         public void SetAmmoState(AmmoState ammoState)
         {
             _ammo.AmmoState = ammoState;

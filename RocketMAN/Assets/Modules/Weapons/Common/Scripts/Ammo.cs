@@ -22,7 +22,7 @@ namespace Modules.Weapons.Common.Scripts
         public float ReloadTime { get; set; }
         public ReloadBehaviour ReloadBehaviour { get; set; }
 
-        private bool _reloading = false;
+        private bool _reloadingContinously = false;
         private CooldownHandler _cooldownHandler;
 
         private void Awake()
@@ -44,7 +44,7 @@ namespace Modules.Weapons.Common.Scripts
                 AmmoDepletedEvent?.Invoke();
             }
 
-            if (!_reloading || _cooldownHandler.CooldownActive())
+            if (!_reloadingContinously || _cooldownHandler.CooldownActive())
             {
                 return;
             }
@@ -79,7 +79,7 @@ namespace Modules.Weapons.Common.Scripts
 
         public bool ConsumeSingleWithAction(Action onConsume)
         {
-            if (ShouldReload() || _reloading || _cooldownHandler.CooldownActive())
+            if (ShouldReload() || _reloadingContinously || _cooldownHandler.CooldownActive())
             {
                 return false;
             }
@@ -114,13 +114,13 @@ namespace Modules.Weapons.Common.Scripts
 
             if (ReloadBehaviour == ReloadBehaviour.Continuous)
             {
-                _reloading = true;
+                _reloadingContinously = true;
             }
         }
 
         public void InterruptReload()
         {
-            _reloading = false;
+            _reloadingContinously = false;
             _cooldownHandler.ForceResetCooldown();
         }
 
@@ -137,7 +137,7 @@ namespace Modules.Weapons.Common.Scripts
         }
 
         public bool ShouldReload() => CurrentAmmoCount() == 0;
-        public bool HasActiveReload() => _reloading;
+        public bool HasActiveContinuousReload() => _reloadingContinously;
 
         private int GetMissingAmmo() => ClipSize - CurrentAmmoCount();
     }
