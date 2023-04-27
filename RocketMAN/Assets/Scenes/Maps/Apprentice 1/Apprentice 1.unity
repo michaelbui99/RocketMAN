@@ -593,7 +593,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2402
+  m_Name: pb_Mesh-101366
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4633,17 +4633,9 @@ MonoBehaviour:
   m_Mesh: {fileID: 1459370425}
   m_VersionIndex: 5235
   m_IsSelectable: 1
-  m_SelectedFaces: 00000000
-  m_SelectedEdges:
-  - a: 2
-    b: 3
-  - a: 3
-    b: 0
-  - a: 0
-    b: 1
-  - a: 1
-    b: 2
-  m_SelectedVertices: 02000000030000000000000001000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!1 &1326285231
 GameObject:
   m_ObjectHideFlags: 0
@@ -6591,7 +6583,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 402737395696429303, guid: b93e581787fd7f543a14bf78c6ff5026, type: 3}
       propertyPath: nextScene
-      value: Apprentice 1
+      value: Apprentice 2
       objectReference: {fileID: 0}
     - target: {fileID: 1630509417156466833, guid: b93e581787fd7f543a14bf78c6ff5026, type: 3}
       propertyPath: m_Name

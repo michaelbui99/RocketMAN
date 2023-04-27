@@ -48,12 +48,12 @@ namespace Modules.Weapons.Common.Scripts
                 : ray.GetPoint(1000f);
             
             var projectileObject = Instantiate(projectilePrefab);
-            projectileObject.transform.position = launchPoint.transform.position;
-            projectileObject.transform.forward = _mainCamera.transform.forward;
             var projectile = projectileObject.GetComponent<IProjectile>();
             var projectileRb = projectileObject.GetComponent<Rigidbody>();
             projectile.Activate(destination);
-
+            projectileObject.transform.position = launchPoint.transform.position;
+            projectileObject.transform.forward = _mainCamera.transform.forward;
+            
             _projectileInstances.Add(new ProjectileInstance
             {
                 Destination = destination,

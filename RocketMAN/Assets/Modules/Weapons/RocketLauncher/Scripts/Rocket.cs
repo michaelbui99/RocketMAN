@@ -77,7 +77,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
                 var rb = hit.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    rb.AddExplosionForce(ExplosionForce, explosionPosition, ExplosionRadius, 5.0f,
+                    rb.AddExplosionForce(ExplosionForce, explosionPosition, ExplosionRadius, 100.0f,
                         ForceMode.VelocityChange);
                 }
             });
