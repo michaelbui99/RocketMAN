@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using UI;
 using UnityEngine;
 
-namespace Modules.Weapons.Common.Scripts
+namespace Modules.Weapons.Common.Scripts.Ammo
 {
     public class Ammo : MonoBehaviour
     {

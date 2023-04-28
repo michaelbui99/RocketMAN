@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Modules.Weapons.Common.Scripts
+namespace Modules.Weapons.Common.Scripts.Weapon
 {
     public class WeaponAudioHandler : MonoBehaviour
     {

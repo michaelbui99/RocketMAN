@@ -1,7 +1,6 @@
-using Modules.Weapons.Common.Scripts;
 using UnityEngine;
 
-namespace Modules.Weapons.Common
+namespace Modules.Weapons.Common.Scripts.Launchers
 {
     public class ProjectileInstance
     {

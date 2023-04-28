@@ -1,7 +1,17 @@
 # Introduction
 This repository contains the course project for the Game Development course at VIA University College. 
 
+
 # References
+## Disclaimer
+Most sounds, 3d models, particles, textures and shaders are third-party assets.
+
+Maps are orignal has been modelled using ProBuilder inspired by iconic TF2 Rocket Jumping maps.
+
+Animations are assumed to be third-part as well unless it is follows the naming convention: 'original_<SOMETHING>'
+
+Code based on existing implementations has either been referenced directly in the code or below as a reference.
+
 ## Unity Input System
 - https://www.youtube.com/watch?v=5tOOstXaIKE (Controlling Cross-Platform Characters with Unity Input System | Tutorial)
 

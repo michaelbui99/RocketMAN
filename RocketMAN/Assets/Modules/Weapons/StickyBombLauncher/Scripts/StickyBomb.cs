@@ -1,12 +1,12 @@
+using System;
 using System.Linq;
 using Modules.Weapons.Common.Scripts;
 using Modules.Weapons.Common.Scripts.Launchers;
-using Unity.Mathematics;
 using UnityEngine;
 
-namespace Modules.Weapons.RocketLauncher.Scripts
+namespace Modules.Weapons.StickyBombLauncher.Scripts
 {
-    public class Rocket : MonoBehaviour, IProjectile
+    public class StickyBomb : MonoBehaviour, IProjectile
     {
         [field: Header("Settings")]
         [field: SerializeField]
@@ -16,51 +16,40 @@ namespace Modules.Weapons.RocketLauncher.Scripts
         [field: SerializeField] public float ExplosionRadius { get; set; } = 10f;
         [field: SerializeField] public GameObject ExplosionParticles { get; set; }
 
-
-        private Rigidbody _rigidbody;
-        private bool _active = false;
-        private Vector3 _destination;
-        private Vector3 _initialPosition;
-        private float _distanceToTravel;
-        private LineRenderer _lr;
         private AudioSource _explosionSound;
+        private Vector3 _stickPoint = Vector3.zero;
 
         private void Awake()
         {
-            _rigidbody = GetComponent<Rigidbody>();
             _explosionSound = GetComponent<AudioSource>();
-            _explosionSound.enabled = true;
-            _explosionSound.loop = false;
-            _explosionSound.playOnAwake = false;
-            _lr = gameObject.AddComponent<LineRenderer>();
-            _lr.startWidth = 0.1f;
-            _lr.endWidth = 0.1f;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            if (!_active)
+            if (_stickPoint == Vector3.zero)
             {
                 return;
             }
-
-            _lr.SetPosition(0, transform.position);
-            _lr.SetPosition(1, _destination);
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            OnCollision(collision);
+            gameObject.transform.position = _stickPoint;
         }
 
         public void OnCollision(Collision collision)
         {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                // NOTE: (mibui 2023-04-18) The player shouldn't be able to rocket jump off it's own body
-                return;
-            }
+            _stickPoint = collision.transform.position;
+        }
 
+        public void Activate(Vector3 destination)
+        {
+            // No activation sequence
+        }
+
+        public void TriggerAlternateAction()
+        {
+            TriggerExplosion();
+        }
+
+        private void TriggerExplosion()
+        {
             Explode();
             var particles = Instantiate(ExplosionParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
@@ -82,21 +71,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
                         ForceMode.VelocityChange);
                 }
             });
-        }
-
-
-        public void Activate(Vector3 destination)
-        {
-            var pos = transform.position;
-            _initialPosition = pos;
-            _destination = destination;
-            _active = true;
-            Destroy(this, 30);
-        }
-
-        public void TriggerAlternateAction()
-        {
-            // No alternate action
         }
     }
 }

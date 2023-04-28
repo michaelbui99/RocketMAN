@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Modules.Weapons.Common.Scripts
+namespace Modules.Weapons.Common.Scripts.Weapon
 {
     public class WeaponAnimator: MonoBehaviour
     {

@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Switch to Sticky Bomb Launcher",
+                    "type": "Button",
+                    "id": "c02f0319-6437-4d56-848a-4ccd06ec13cf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Reload Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd19873a-5479-40ef-a083-95415af0bc0f",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Switch to Sticky Bomb Launcher",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

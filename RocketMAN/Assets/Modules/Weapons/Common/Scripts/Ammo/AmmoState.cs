@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Modules.Weapons.Common.Scripts
+namespace Modules.Weapons.Common.Scripts.Ammo
 {
     [CreateAssetMenu(menuName = "Ammo State")]
     public class AmmoState: ScriptableObject

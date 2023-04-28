@@ -1,4 +1,6 @@
-namespace Modules.Weapons.Common.Scripts
+using Modules.Weapons.Common.Scripts.Ammo;
+
+namespace Modules.Weapons.Common.Scripts.Weapon
 {
     public interface IWeapon
     {

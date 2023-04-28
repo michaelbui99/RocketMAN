@@ -92,7 +92,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5885432786938233142}
-        m_TargetAssemblyTypeName: Weapons.WeaponManager.WeaponInput, Assembly-CSharp
+        m_TargetAssemblyTypeName: Modules.Weapons.WeaponManager.Scripts.WeaponInput,
+          Assembly-CSharp
         m_MethodName: SwitchToRocketLauncher
         m_Mode: 0
         m_Arguments:
@@ -122,8 +123,25 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ed8cf2a9-1cd6-4be9-935c-51d5532f48c4
     m_ActionName: PlayerControls/Reload Weapon[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5885432786938233142}
+        m_TargetAssemblyTypeName: Modules.Weapons.WeaponManager.Scripts.WeaponInput,
+          Assembly-CSharp
+        m_MethodName: SwitchToStickyBombLauncher
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c02f0319-6437-4d56-848a-4ccd06ec13cf
+    m_ActionName: PlayerControls/Switch to Sticky Bomb Launcher[/Keyboard/2]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: PlayerControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

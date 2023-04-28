@@ -1,4 +1,5 @@
 using Modules.Weapons.Common.Scripts;
+using Modules.Weapons.Common.Scripts.Weapon;
 using UnityEngine;
 
 namespace Modules.Weapons.WeaponManager.Scripts

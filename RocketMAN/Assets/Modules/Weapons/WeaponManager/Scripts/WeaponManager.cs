@@ -1,6 +1,8 @@
 using System;
 using Modules.Events;
 using Modules.Weapons.Common.Scripts;
+using Modules.Weapons.Common.Scripts.Ammo;
+using Modules.Weapons.Common.Scripts.Weapon;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using Utility;
@@ -91,6 +93,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
             //                          as it takes some time to reload.
             _currentWeapon.WeaponComponent!.ReloadFinishedEvent += EmitReloadFinishedStateChange;
             _currentWeapon.WeaponComponent!.ReloadStartedEvent += EmitReloadStartedStateChange;
+            Debug.Log($"Swtiched to: {module.InternalWeaponName}");
         }
 
         private void FireCurrentWeapon()

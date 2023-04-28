@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064a69ef47cf4f89822cb2a51b974aa9, type: 3}
   m_Name: WeaponModuleFactory
   m_EditorClassIdentifier: 
-  RocketLauncherModule: {fileID: 11400000, guid: 8b1d7ca04c5b1934684e2e1a34492c88, type: 2}
+  Modules:
+  - {fileID: 11400000, guid: 8b1d7ca04c5b1934684e2e1a34492c88, type: 2}
+  - {fileID: 11400000, guid: a89deeac01194ac4c97a6f4dc212bc0d, type: 2}

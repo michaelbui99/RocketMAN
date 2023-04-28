@@ -1,14 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utility;
 
-namespace Modules.Weapons.Common.Scripts
+namespace Modules.Weapons.Common.Scripts.Launchers
 {
-    public class DirectProjectileLauncher : MonoBehaviour, IProjectileLauncher
+    public class PointGuidedProjectileLauncher : MonoBehaviour, IProjectileLauncher
     {
         [Header("References")]
         [SerializeField]
