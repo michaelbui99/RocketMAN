@@ -1,6 +1,8 @@
 using System;
+using Modules.Characters.Player.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Characters.Player.Scripts
 {
@@ -18,12 +20,8 @@ namespace Characters.Player.Scripts
         [SerializeField]
         private GameObject followTarget;
 
-        [Header("Custom settings")]
         [SerializeField]
-        private float verticalRotationSpeed = 1f;
-
-        [SerializeField]
-        private float horizontalRotationSpeed = 1f;
+        private LookSettings lookSettings;
 
         private Rigidbody _rigidbody;
         private float _yRotation;
@@ -38,8 +36,8 @@ namespace Characters.Player.Scripts
         public void OnLook(InputAction.CallbackContext value)
         {
             var lookDelta = value.ReadValue<Vector2>();
-            _yRotation += lookDelta.x * horizontalRotationSpeed * 0.1f;
-            _xRotation -= lookDelta.y * verticalRotationSpeed * 0.1f;
+            _yRotation += lookDelta.x * HorizontalRotationSpeed() * 0.1f;
+            _xRotation -= lookDelta.y * VerticalRotationSpeed() * 0.1f;
             _xRotation = Math.Clamp(_xRotation, -90f, 90);
         }
 
@@ -51,5 +49,9 @@ namespace Characters.Player.Scripts
             cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, followTarget.transform.rotation, Time.deltaTime*10);
             weaponHolder.transform.forward = cameraTransform.forward.normalized;
         }
+        
+        private float VerticalRotationSpeed() => lookSettings.VerticalMouseSensitivity;
+        private float HorizontalRotationSpeed() => lookSettings.HorizontalMouseSensitivity;
+
     }
 }

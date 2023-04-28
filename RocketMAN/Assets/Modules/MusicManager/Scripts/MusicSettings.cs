@@ -6,5 +6,6 @@ namespace Modules.MusicManager.Scripts
     public class MusicSettings: ScriptableObject
     {
         public float AudioLevel = 100f;
+        public bool DisableMusic = false;
     }
 }
