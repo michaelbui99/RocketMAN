@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Modules.Events;
 using Modules.Weapons.Common.Scripts;
 using Modules.Weapons.Common.Scripts.Ammo;
 using Modules.Weapons.Common.Scripts.Weapon;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Modules.Weapons.WeaponManager.Scripts
@@ -13,23 +16,21 @@ namespace Modules.Weapons.WeaponManager.Scripts
     {
         [Header("References")]
         [SerializeField]
+        private GameEvent weaponStateEvent;
+
+        [SerializeField]
         private GameObject weaponHolder;
 
         [SerializeField]
         private WeaponModuleFactory moduleFactory;
 
-        [SerializeField]
-        private AmmoState ammoState;
+        private readonly Dictionary<string, AmmoState> _weaponToAmmoStateMap = new();
 
         private Optional<WeaponModule> _currentWeaponModule = Optional<WeaponModule>.Empty();
         private IWeaponInput _weaponInput;
 
         private readonly CurrentWeapon _currentWeapon = new();
         private GameEventObserver _ammoPickupObserver;
-
-        public delegate void OnWeaponStateChange(WeaponStateEvent state);
-
-        public OnWeaponStateChange WeaponStateChangeEvent;
 
         private void Awake()
         {
@@ -49,6 +50,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
             _weaponInput.OnFireWeapon += FireCurrentWeapon;
             _weaponInput.OnSwitchWeapon += SwitchWeapon;
             _weaponInput.OnReloadWeapon += ReloadCurrentWeapon;
+            _weaponInput.OnAlternateFire += CurrentWeaponAlternateFire;
             EmitReloadFinishedStateChange();
         }
 
@@ -57,6 +59,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
             _weaponInput.OnFireWeapon -= FireCurrentWeapon;
             _weaponInput.OnSwitchWeapon -= SwitchWeapon;
             _weaponInput.OnReloadWeapon -= ReloadCurrentWeapon;
+            _weaponInput.OnAlternateFire -= CurrentWeaponAlternateFire;
         }
 
         private void LateUpdate()
@@ -69,11 +72,14 @@ namespace Modules.Weapons.WeaponManager.Scripts
             var weaponTransform = _currentWeapon.instance.transform;
             var weaponHolderTransform = weaponHolder.transform;
 
-            weaponTransform.position = weaponHolderTransform.position + _currentWeaponModule
+            weaponTransform.position = weaponHolderTransform.position;
+
+            weaponTransform.localPosition += _currentWeaponModule
                 .GetOrThrow(() => new ArgumentException("No Module"))
                 .WeaponPositionOffset;
 
             weaponTransform.forward = weaponHolderTransform.forward.normalized;
+            weaponStateEvent.Raise(CreateEvent(WeaponStateEventType.Status));
         }
 
         private void SwitchWeapon(string weapon)
@@ -93,12 +99,17 @@ namespace Modules.Weapons.WeaponManager.Scripts
             //                          as it takes some time to reload.
             _currentWeapon.WeaponComponent!.ReloadFinishedEvent += EmitReloadFinishedStateChange;
             _currentWeapon.WeaponComponent!.ReloadStartedEvent += EmitReloadStartedStateChange;
-            Debug.Log($"Swtiched to: {module.InternalWeaponName}");
         }
 
         private void FireCurrentWeapon()
         {
             _currentWeapon.WeaponComponent.FireWeapon();
+            EmitFireWeaponEvent();
+        }
+
+        private void CurrentWeaponAlternateFire()
+        {
+            _currentWeapon.WeaponComponent.AlternateFire();
             EmitFireWeaponEvent();
         }
 
@@ -122,7 +133,33 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
             _currentWeapon.instance = weaponInstance;
             _currentWeapon.WeaponComponent = weaponComponent;
-            _currentWeapon.WeaponComponent.SetAmmoState(ammoState);
+
+            AmmoSettings ammoSettings = new()
+            {
+                ClipSize = module.ClipSize,
+                TotalReloadUnits = module.TotalReloadUnits,
+                AmmoPerReloadUnit = module.AmmoPerReloadUnit,
+                ReloadBehaviour = module.ReloadBehaviour,
+                ReloadTime = module.ReloadTime
+            };
+
+            if (_weaponToAmmoStateMap.TryGetValue(module.InternalWeaponName, out AmmoState ammoState))
+            {
+                _currentWeapon.WeaponComponent.SetAmmoState(ammoState);
+                _currentWeapon.WeaponComponent.SetAmmoSettings(ammoSettings);
+            }
+            else
+            {
+                ammoState = new AmmoState
+                {
+                    CurrentAmmoCount = ammoSettings.ClipSize,
+                    RemainingAmmoCount = ammoSettings.TotalReloadUnits * ammoSettings.AmmoPerReloadUnit
+                };
+
+                _weaponToAmmoStateMap.Add(module.InternalWeaponName, ammoState);
+                _currentWeapon.WeaponComponent.SetAmmoState(_weaponToAmmoStateMap[module.InternalWeaponName]);
+                _currentWeapon.WeaponComponent.SetAmmoSettings(ammoSettings);
+            }
         }
 
         private WeaponStateEvent CreateEvent(WeaponStateEventType type)
@@ -140,17 +177,17 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         private void EmitReloadStartedStateChange()
         {
-            WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.ReloadStarted));
+            weaponStateEvent.Raise(CreateEvent(WeaponStateEventType.ReloadStarted));
         }
 
         private void EmitReloadFinishedStateChange()
         {
-            WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.ReloadFinished));
+            weaponStateEvent.Raise(CreateEvent(WeaponStateEventType.ReloadFinished));
         }
 
         private void EmitFireWeaponEvent()
         {
-            WeaponStateChangeEvent?.Invoke(CreateEvent(WeaponStateEventType.FireWeapon));
+            weaponStateEvent.Raise(CreateEvent(WeaponStateEventType.FireWeapon));
         }
 
         public void RestoreAmmo(object reloadUnits)
@@ -159,8 +196,8 @@ namespace Modules.Weapons.WeaponManager.Scripts
             {
                 return;
             }
-            
-            _currentWeapon.WeaponComponent.RestoreAmmo((int)reloadUnits);
+
+            _currentWeapon.WeaponComponent.RestoreAmmo((int) reloadUnits);
             EmitReloadFinishedStateChange();
         }
     }

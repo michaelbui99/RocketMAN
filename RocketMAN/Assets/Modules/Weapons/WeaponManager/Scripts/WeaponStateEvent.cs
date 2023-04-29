@@ -12,6 +12,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
     public enum WeaponStateEventType
     {
+        Status,
         ReloadStarted,
         ReloadFinished,
         FireWeapon,

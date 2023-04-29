@@ -1,4 +1,5 @@
 using System;
+using Modules.Events;
 using Modules.Weapons.WeaponManager.Scripts;
 using TMPro;
 using UnityEngine;
@@ -15,19 +16,27 @@ namespace UI
         [SerializeField]
         private TMP_Text ammoText;
 
+        private GameEventObserver _weaponStateObserver;
+
+        private void Awake()
+        {
+            _weaponStateObserver = GetComponent<GameEventObserver>();
+        }
+
         void Start()
         {
-            weaponManager.WeaponStateChangeEvent += OnWeaponStateChange;
+            _weaponStateObserver.RegisterCallback(OnWeaponStateChange);
         }
 
         private void OnDestroy()
         {
-            weaponManager.WeaponStateChangeEvent -= OnWeaponStateChange;
+            _weaponStateObserver.UnregisterCallback(OnWeaponStateChange);
         }
 
-        private void OnWeaponStateChange(WeaponStateEvent state)
+        private void OnWeaponStateChange(object state)
         {
-            ammoText.text = $"{state.CurrentAmmo}/{state.RemainingAmmo}";
+            WeaponStateEvent stateData = (WeaponStateEvent) state;
+            ammoText.text = $"{stateData.CurrentAmmo}/{stateData.RemainingAmmo}";
         }
     }
 }

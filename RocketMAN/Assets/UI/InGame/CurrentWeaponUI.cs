@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Modules.Events;
 using Modules.Weapons.WeaponManager.Scripts;
 using TMPro;
 using UnityEngine;
@@ -11,30 +12,30 @@ namespace UI
     {
         [Header("Settings")]
         [SerializeField]
-        private WeaponManager weaponManager;
-
-        [SerializeField]
         private TMP_Text currentWeapon;
+
+        private GameEventObserver _weaponStateObserver;
 
         private void Awake()
         {
-            weaponManager.WeaponStateChangeEvent += OnWeaponStateChange;
+            _weaponStateObserver = GetComponent<GameEventObserver>();
+            _weaponStateObserver.RegisterCallback(OnWeaponStateChange);
         }
 
         private void OnDestroy()
         {
-            weaponManager.WeaponStateChangeEvent -= OnWeaponStateChange;
+            _weaponStateObserver.UnregisterCallback(OnWeaponStateChange);
         }
 
-        private void OnWeaponStateChange(WeaponStateEvent state)
+        private void OnWeaponStateChange(object state)
         {
-            var nameParts = state.WeaponName.Split("_");
+            var nameParts = ((WeaponStateEvent) state).WeaponName.Split("_");
             var processedParts = nameParts
                 .Select(p => p.ToLower())
                 .Select(p => new StringBuilder(p))
                 .Select(p =>string.Concat(p[0].ToString().ToUpper(), p.ToString().AsSpan(1).ToString()))
                 .ToList();
-
+            
             var s = new StringBuilder();
             
             for (int i = 0; i < processedParts.Count; i++)
@@ -46,7 +47,7 @@ namespace UI
                     s.Append(" ");
                 }
             }
-
+            
             currentWeapon.text = s.ToString();
         }
     }

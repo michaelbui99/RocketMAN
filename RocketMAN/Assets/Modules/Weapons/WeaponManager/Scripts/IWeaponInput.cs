@@ -9,5 +9,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         public delegate void SwitchWeapon(string weapon);
         public event SwitchWeapon OnSwitchWeapon;
+
+        public event SimpleWeaponEventTrigger OnAlternateFire;
     }
 }

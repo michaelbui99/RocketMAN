@@ -9,13 +9,6 @@ namespace Modules.Weapons.RocketLauncher.Scripts
         private void Start()
         {
             FireCooldown = 0.7f;
-            Ammo.ReloadBehaviour = ReloadBehaviour.Continuous;
-            Ammo.TotalReloadUnits = 20;
-            Ammo.AmmoPerReloadUnit = 1;
-            Ammo.ClipSize = 5;
-            Ammo.AmmoState.CurrentAmmoCount = Ammo.ClipSize;
-            Ammo.AmmoState.RemainingAmmoCount = 20;
-            Ammo.ReloadTime = 0.5f;
         }
     }
 }

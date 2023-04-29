@@ -17,6 +17,11 @@ namespace Modules.Weapons.Common.Scripts.Launchers
         private readonly List<ProjectileInstance> _projectileInstances = new();
         private UnityEngine.Camera _mainCamera;
 
+        private void Awake()
+        {
+            _mainCamera = Camera.main;
+        }
+
         private void Update()
         {
             ClearDestroyedInstances();
@@ -32,14 +37,14 @@ namespace Modules.Weapons.Common.Scripts.Launchers
             projectileObject.transform.position = launchPoint.transform.position;
             projectileObject.transform.forward = _mainCamera.transform.forward;
 
-            projectileRb.AddRelativeForce(Vector3.forward * 100f, ForceMode.VelocityChange);
-
             _projectileInstances.Add(new ProjectileInstance
             {
                 Projectile = projectile,
                 Instance = projectileObject,
                 InstanceRb = projectileRb
             });
+            
+            projectileRb.AddRelativeForce(Vector3.forward * projectile.Speed, ForceMode.VelocityChange);
         }
 
         public List<IProjectile> GetActiveProjectiles()

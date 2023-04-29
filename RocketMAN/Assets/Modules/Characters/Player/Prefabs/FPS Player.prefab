@@ -671,6 +671,7 @@ GameObject:
   - component: {fileID: 6694580147465818232}
   - component: {fileID: 7512583295565076812}
   - component: {fileID: 1969156601824519399}
+  - component: {fileID: 6296169462778099821}
   m_Layer: 3
   m_Name: 'Current Weapon '
   m_TagString: Untagged
@@ -807,8 +808,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a3aa91bd14f3d4694b9a116cf20719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponManager: {fileID: 5593899137688976532}
   currentWeapon: {fileID: 7512583295565076812}
+--- !u!114 &6296169462778099821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521828369788401318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6710cc478ae0432599443dc0440a7aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: a4229e22ddc877c4fb56c377009f3f1e, type: 2}
+  onEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2567563863332770758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,6 +1286,7 @@ GameObject:
   - component: {fileID: 3119649742294874778}
   - component: {fileID: 3119649742294874781}
   - component: {fileID: 3691405533120739620}
+  - component: {fileID: 5282367736674413376}
   m_Layer: 3
   m_Name: Ammo Count
   m_TagString: Untagged
@@ -1410,6 +1427,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponManager: {fileID: 5593899137688976532}
   ammoText: {fileID: 3119649742294874781}
+--- !u!114 &5282367736674413376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119649742294874783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6710cc478ae0432599443dc0440a7aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: a4229e22ddc877c4fb56c377009f3f1e, type: 2}
+  onEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3560528341561138340
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,6 +2365,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c02f0319-6437-4d56-848a-4ccd06ec13cf
     m_ActionName: PlayerControls/Switch to Sticky Bomb Launcher[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ae21475-bef6-4589-8554-e1ffb5c3ecce
+    m_ActionName: PlayerControls/Alternate Fire[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls

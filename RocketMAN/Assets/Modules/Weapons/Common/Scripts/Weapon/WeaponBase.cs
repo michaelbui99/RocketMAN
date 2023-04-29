@@ -30,7 +30,7 @@ namespace Modules.Weapons.Common.Scripts.Weapon
             // NOTE: (mibui 2023-04-20) Ammo is owned by the weapon and they share lifetime. Should be fine to not unsubscribe
             Ammo.ReloadStartedEvent += () =>
             {
-                if (Ammo.RemainingAmmoCount() == 0)
+                if (Ammo.RemainingAmmoCount == 0)
                 {
                     return;
                 }
@@ -78,12 +78,17 @@ namespace Modules.Weapons.Common.Scripts.Weapon
             return FireCooldown;
         }
 
-        public int GetCurrentAmmoCount() => Ammo.CurrentAmmoCount();
-        public int GetRemainingAmmoCount() => Ammo.RemainingAmmoCount();
+        public int GetCurrentAmmoCount() => Ammo.CurrentAmmoCount;
+        public int GetRemainingAmmoCount() => Ammo.RemainingAmmoCount;
 
         public void SetAmmoState(AmmoState ammoState)
         {
             Ammo.AmmoState = ammoState;
+        }
+
+        public void SetAmmoSettings(AmmoSettings ammoSettings)
+        {
+            Ammo.AmmoSettings = ammoSettings;
         }
 
         public void RestoreAmmo(int reloadUnits)

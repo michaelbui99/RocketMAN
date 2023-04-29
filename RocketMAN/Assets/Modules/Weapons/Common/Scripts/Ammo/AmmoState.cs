@@ -2,10 +2,9 @@ using UnityEngine;
 
 namespace Modules.Weapons.Common.Scripts.Ammo
 {
-    [CreateAssetMenu(menuName = "Ammo State")]
-    public class AmmoState: ScriptableObject
+    public class AmmoState
     {
-        public int CurrentAmmoCount;
-        public int RemainingAmmoCount;
+        public int CurrentAmmoCount { get; set; }
+        public int RemainingAmmoCount { get; set; }
     }
 }

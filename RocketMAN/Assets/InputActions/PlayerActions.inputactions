@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Alternate Fire",
+                    "type": "Button",
+                    "id": "5ae21475-bef6-4589-8554-e1ffb5c3ecce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -188,6 +197,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Switch to Sticky Bomb Launcher",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b58d53ff-4db5-4dbc-8a34-929dcace8d14",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Alternate Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

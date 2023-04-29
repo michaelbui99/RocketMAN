@@ -140,6 +140,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c02f0319-6437-4d56-848a-4ccd06ec13cf
     m_ActionName: PlayerControls/Switch to Sticky Bomb Launcher[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5885432786938233142}
+        m_TargetAssemblyTypeName: Modules.Weapons.WeaponManager.Scripts.WeaponInput,
+          Assembly-CSharp
+        m_MethodName: AlternateFireInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5ae21475-bef6-4589-8554-e1ffb5c3ecce
+    m_ActionName: PlayerControls/Alternate Fire[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: PlayerControls
@@ -157,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a8e709adb846df8046c82557c58da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponStateEvent: {fileID: 11400000, guid: a4229e22ddc877c4fb56c377009f3f1e, type: 2}
   weaponHolder: {fileID: 3082383637363714205}
   moduleFactory: {fileID: 11400000, guid: 17e7dab805fffd94a9131b11e471f4cf, type: 2}
   ammoState: {fileID: 0}

@@ -10,13 +10,6 @@ namespace Modules.Weapons.StickyBombLauncher.Scripts
         private void Start()
         {
             FireCooldown = 0.7f;
-            Ammo.ReloadBehaviour = ReloadBehaviour.Discrete;
-            Ammo.TotalReloadUnits = 2;
-            Ammo.AmmoPerReloadUnit = 2;
-            Ammo.ClipSize = 2;
-            Ammo.AmmoState.CurrentAmmoCount = Ammo.ClipSize;
-            Ammo.AmmoState.RemainingAmmoCount = 2;
-            Ammo.ReloadTime = 1f;
         }
     }
 }

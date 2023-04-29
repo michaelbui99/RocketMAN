@@ -15,4 +15,9 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 8593328393964639729, guid: 2e68f25a35feefd4f8b52149bcc86dc1, type: 3}
   InternalWeaponName: STICKY_BOMB_LAUNCHER
   DisplayName: Sticky Bomb Launcher
-  WeaponPositionOffset: {x: 0, y: 0, z: 0}
+  WeaponPositionOffset: {x: 0, y: -0.3, z: 0.5}
+  ReloadBehaviour: 0
+  ClipSize: 2
+  TotalReloadUnits: 2
+  AmmoPerReloadUnit: 2
+  ReloadTime: 1

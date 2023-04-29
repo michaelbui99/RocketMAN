@@ -16,21 +16,44 @@ namespace Modules.Weapons.StickyBombLauncher.Scripts
         [field: SerializeField] public float ExplosionRadius { get; set; } = 10f;
         [field: SerializeField] public GameObject ExplosionParticles { get; set; }
 
+        private bool hasStickPoint = false;
+
         private AudioSource _explosionSound;
         private Vector3 _stickPoint = Vector3.zero;
+        private Collider _stickCollider;
 
         private void Awake()
         {
             _explosionSound = GetComponent<AudioSource>();
+            _explosionSound.enabled = true;
+            _explosionSound.loop = false;
+            _explosionSound.playOnAwake = false;
         }
 
         private void Update()
         {
-            if (_stickPoint == Vector3.zero)
+            if (hasStickPoint)
+            {
+                gameObject.transform.position = _stickPoint;
+                Debug.Log(LayerMask.LayerToName(_stickCollider.gameObject.layer));
+                return;
+            }
+
+            Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, 0.2f);
+            if (!colliders.Any())
             {
                 return;
             }
-            gameObject.transform.position = _stickPoint;
+
+            var stickCandidate = colliders.First();
+            if (stickCandidate.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+            {
+                return;
+            }
+            
+            _stickPoint = stickCandidate.ClosestPoint(gameObject.transform.position);
+            _stickCollider = stickCandidate;
+            hasStickPoint = true;
         }
 
         public void OnCollision(Collision collision)
@@ -40,7 +63,7 @@ namespace Modules.Weapons.StickyBombLauncher.Scripts
 
         public void Activate(Vector3 destination)
         {
-            // No activation sequence
+            hasStickPoint = false;
         }
 
         public void TriggerAlternateAction()
@@ -50,6 +73,7 @@ namespace Modules.Weapons.StickyBombLauncher.Scripts
 
         private void TriggerExplosion()
         {
+            _explosionSound.Play();
             Explode();
             var particles = Instantiate(ExplosionParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
@@ -61,13 +85,12 @@ namespace Modules.Weapons.StickyBombLauncher.Scripts
             // NOTE: (mibui 2023-04-17): Reference from Rigidbody.AddExplosionForce API documentation
             Vector3 explosionPosition = transform.position;
             Collider[] colliders = Physics.OverlapSphere(explosionPosition, ExplosionRadius);
-            _explosionSound.Play();
             colliders.ToList().ForEach(hit =>
             {
                 var rb = hit.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    rb.AddExplosionForce(ExplosionForce, explosionPosition, ExplosionRadius, 100.0f,
+                    rb.AddExplosionForce(ExplosionForce, explosionPosition, ExplosionRadius, 1f,
                         ForceMode.VelocityChange);
                 }
             });
