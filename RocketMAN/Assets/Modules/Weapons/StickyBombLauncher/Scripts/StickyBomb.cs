@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using Modules.Weapons.Common.Scripts;
 using Modules.Weapons.Common.Scripts.Launchers;
 using UnityEngine;
@@ -61,7 +62,7 @@ namespace Modules.Weapons.StickyBombLauncher.Scripts
             _stickPoint = collision.transform.position;
         }
 
-        public void Activate(Vector3 destination)
+        public void Activate(Vector3? destination, [CanBeNull] GameObject origin)
         {
             hasStickPoint = false;
         }
@@ -70,6 +71,8 @@ namespace Modules.Weapons.StickyBombLauncher.Scripts
         {
             TriggerExplosion();
         }
+
+        public bool IsActive() => gameObject != null;
 
         private void TriggerExplosion()
         {

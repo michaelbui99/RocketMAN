@@ -1,3 +1,5 @@
+using System;
+using JetBrains.Annotations;
 using Modules.Weapons.Common.Scripts.Ammo;
 using Modules.Weapons.Common.Scripts.Launchers;
 using UnityEngine;
@@ -10,22 +12,27 @@ namespace Modules.Weapons.Common.Scripts.Weapon
         public event IWeapon.WeaponEventTrigger ReloadFinishedEvent;
         protected Ammo.Ammo Ammo;
         private WeaponAudioHandler _audio;
-        private IProjectileLauncher _projectileLauncher;
-        private WeaponAnimator _animator;
+        protected IProjectileLauncher ProjectileLauncher;
+        protected WeaponAnimator Animator;
 
         protected float FireCooldown = 0.7f;
-        private CooldownHandler _fireCooldownHandler;
+        protected CooldownHandler FireCooldownHandler;
 
         private Coroutine _reloadRoutine;
         private Coroutine _shootingRoutine;
 
+        protected GameObject Owner;
+        
+        [CanBeNull]
+        protected Predicate<IWeapon> PreventFirePredicate;
+
         private void Awake()
         {
-            _fireCooldownHandler = gameObject.AddComponent<CooldownHandler>();
+            FireCooldownHandler = gameObject.AddComponent<CooldownHandler>();
             _audio = GetComponent<WeaponAudioHandler>();
-            _projectileLauncher = GetComponent<IProjectileLauncher>();
+            ProjectileLauncher = GetComponent<IProjectileLauncher>();
             Ammo = gameObject.AddComponent<Ammo.Ammo>();
-            _animator = GetComponent<WeaponAnimator>();
+            Animator = GetComponent<WeaponAnimator>();
 
             // NOTE: (mibui 2023-04-20) Ammo is owned by the weapon and they share lifetime. Should be fine to not unsubscribe
             Ammo.ReloadStartedEvent += () =>
@@ -44,7 +51,12 @@ namespace Modules.Weapons.Common.Scripts.Weapon
 
         public void FireWeapon()
         {
-            if (_fireCooldownHandler.CooldownActive())
+            if (PreventFirePredicate != null && PreventFirePredicate.Invoke(this))
+            {
+                return;
+            }
+            
+            if (FireCooldownHandler.CooldownActive())
             {
                 return;
             }
@@ -56,16 +68,16 @@ namespace Modules.Weapons.Common.Scripts.Weapon
 
             Ammo.ConsumeSingleWithActionOrElse(() =>
             {
-                _fireCooldownHandler.StartCooldown(FireCooldown);
-                _shootingRoutine = StartCoroutine(_animator.Fire(FireCooldown));
-                _projectileLauncher.Launch();
+                FireCooldownHandler.StartCooldown(FireCooldown);
+                _shootingRoutine = StartCoroutine(Animator.Fire(FireCooldown));
+                ProjectileLauncher.Launch();
                 _audio.PlayFireWeapon();
             }, ReloadWeapon);
         }
 
         public void AlternateFire()
         {
-            _projectileLauncher.GetActiveProjectiles().ForEach(p => p.TriggerAlternateAction());
+            ProjectileLauncher.GetActiveProjectiles().ForEach(p => p.TriggerAlternateAction());
         }
 
         public void ReloadWeapon()
@@ -95,5 +107,12 @@ namespace Modules.Weapons.Common.Scripts.Weapon
         {
             Ammo.RestoreAmmo(reloadUnits);
         }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
+
+        public GameObject GetOwner() => Owner;
     }
 }

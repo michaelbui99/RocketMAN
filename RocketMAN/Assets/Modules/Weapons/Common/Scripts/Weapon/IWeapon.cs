@@ -1,4 +1,5 @@
 using Modules.Weapons.Common.Scripts.Ammo;
+using UnityEngine;
 
 namespace Modules.Weapons.Common.Scripts.Weapon
 {
@@ -28,5 +29,8 @@ namespace Modules.Weapons.Common.Scripts.Weapon
         public void SetAmmoState(AmmoState ammoState);
         public void SetAmmoSettings(AmmoSettings ammoSettings);
         public void RestoreAmmo(int reloadUnits);
+
+        public void SetOwner(GameObject owner);
+        public GameObject GetOwner();
     }
 }

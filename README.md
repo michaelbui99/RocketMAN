@@ -4,11 +4,11 @@ This repository contains the course project for the Game Development course at V
 
 # References
 ## Disclaimer
-Most sounds, 3d models, particles, textures and shaders are third-party assets.
+Most sounds, 3d models (except player model and player cosmetics), particles, textures and shaders are third-party assets.
 
 Maps are orignal has been modelled using ProBuilder inspired by iconic TF2 Rocket Jumping maps.
 
-Animations are assumed to be third-part as well unless it is follows the naming convention: 'original_<SOMETHING>'
+Animations are assumed to be third-party as well unless it is follows the naming convention: 'original_<SOMETHING>'
 
 Code based on existing implementations has either been referenced directly in the code or below as a reference.
 
@@ -31,3 +31,6 @@ Code based on existing implementations has either been referenced directly in th
 
 ## Event system
 - https://unity.com/how-to/architect-game-code-scriptable-objects (THREE WAYS TO ARCHITECT YOUR GAME WITH SCRIPTABLE OBJECTS)
+
+## Swinging 
+- https://www.youtube.com/watch?v=HPjuTK91MA8 (ADVANCED SWINGING in 9 MINUTES - Unity Tutorial)

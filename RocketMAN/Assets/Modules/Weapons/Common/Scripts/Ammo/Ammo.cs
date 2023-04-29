@@ -11,17 +11,17 @@ namespace Modules.Weapons.Common.Scripts.Ammo
         public event ReloadEventTrigger ReloadFinishedEvent;
         public event ReloadEventTrigger ReloadBlockedEvent;
         public event ReloadEventTrigger AmmoDepletedEvent;
-        public int ClipSize { get; set; }
         public AmmoSettings AmmoSettings { get; set; }
         public AmmoState AmmoState { get; set; }
         public int CurrentAmmoCount => AmmoState.CurrentAmmoCount;
+        public int ClipSize => AmmoSettings.ClipSize;
         public int RemainingAmmoCount => AmmoState.RemainingAmmoCount;
         public int AmmoPerReloadUnit => AmmoSettings.AmmoPerReloadUnit;
         public int TotalReloadUnits => AmmoSettings.TotalReloadUnits;
         public float ReloadTime => AmmoSettings.ReloadTime;
-        public ReloadBehaviour ReloadBehaviour { get; set; }
+        public ReloadBehaviour ReloadBehaviour => AmmoSettings.ReloadBehaviour;
 
-        private bool _reloadingContinously = false;
+        private bool _reloadingContinuously = false;
         private CooldownHandler _cooldownHandler;
 
         private void Awake()
@@ -43,7 +43,7 @@ namespace Modules.Weapons.Common.Scripts.Ammo
                 AmmoDepletedEvent?.Invoke();
             }
 
-            if (!_reloadingContinously || _cooldownHandler.CooldownActive())
+            if (!_reloadingContinuously || _cooldownHandler.CooldownActive())
             {
                 return;
             }
@@ -78,7 +78,13 @@ namespace Modules.Weapons.Common.Scripts.Ammo
 
         public bool ConsumeSingleWithAction(Action onConsume)
         {
-            if (ShouldReload() || _reloadingContinously || _cooldownHandler.CooldownActive())
+            if (AmmoSettings.UnlimitedAmmo)
+            {
+                onConsume.Invoke();
+                return true;
+            }
+            
+            if (ShouldReload() || _reloadingContinuously || _cooldownHandler.CooldownActive())
             {
                 return false;
             }
@@ -113,13 +119,13 @@ namespace Modules.Weapons.Common.Scripts.Ammo
 
             if (ReloadBehaviour == ReloadBehaviour.Continuous)
             {
-                _reloadingContinously = true;
+                _reloadingContinuously = true;
             }
         }
 
         public void InterruptReload()
         {
-            _reloadingContinously = false;
+            _reloadingContinuously = false;
             _cooldownHandler.ForceResetCooldown();
         }
 
@@ -136,7 +142,7 @@ namespace Modules.Weapons.Common.Scripts.Ammo
         }
 
         public bool ShouldReload() => CurrentAmmoCount == 0;
-        public bool HasActiveContinuousReload() => _reloadingContinously;
+        public bool HasActiveContinuousReload() => _reloadingContinuously;
 
         private int GetMissingAmmo() => ClipSize - CurrentAmmoCount;
     }
@@ -146,7 +152,7 @@ namespace Modules.Weapons.Common.Scripts.Ammo
         // Either reloaded fully or not, e.g. like an AK47
         Discrete,
 
-        // Reloads continuously one ammo until fully reloaded, e.g. like Rocket Launcher from TF2
+        // Reloads continuously one reload unit until fully reloaded, e.g. like Rocket Launcher from TF2
         Continuous,
     }
 }

@@ -1,4 +1,5 @@
 using System.Linq;
+using JetBrains.Annotations;
 using Modules.Weapons.Common.Scripts;
 using Modules.Weapons.Common.Scripts.Launchers;
 using Unity.Mathematics;
@@ -85,11 +86,11 @@ namespace Modules.Weapons.RocketLauncher.Scripts
         }
 
 
-        public void Activate(Vector3 destination)
+        public void Activate(Vector3? destination, [CanBeNull] GameObject origin = null)
         {
             var pos = transform.position;
             _initialPosition = pos;
-            _destination = destination;
+            _destination = destination.GetValueOrDefault();
             _active = true;
             Destroy(this, 30);
         }
@@ -98,5 +99,7 @@ namespace Modules.Weapons.RocketLauncher.Scripts
         {
             // No alternate action
         }
+
+        public bool IsActive() => _active;
     }
 }

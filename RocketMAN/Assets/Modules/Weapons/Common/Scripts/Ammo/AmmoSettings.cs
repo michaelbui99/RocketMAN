@@ -7,5 +7,6 @@ namespace Modules.Weapons.Common.Scripts.Ammo
         public int AmmoPerReloadUnit { get; set; }
         public int ClipSize{ get; set; }
         public float ReloadTime { get; set; }
+        public bool UnlimitedAmmo { get; set; } = false;
     }
 }

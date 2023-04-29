@@ -24,5 +24,6 @@ namespace Modules.Weapons.Common.Scripts.Weapon
         public int TotalReloadUnits;
         public int AmmoPerReloadUnit;
         public float ReloadTime;
+        public bool UnlimitedAmmo = false;
     }
 }

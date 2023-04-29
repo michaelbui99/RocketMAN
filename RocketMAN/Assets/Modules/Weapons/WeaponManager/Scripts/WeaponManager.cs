@@ -16,6 +16,8 @@ namespace Modules.Weapons.WeaponManager.Scripts
     {
         [Header("References")]
         [SerializeField]
+        private GameObject owner;
+        [SerializeField]
         private GameEvent weaponStateEvent;
 
         [SerializeField]
@@ -130,17 +132,24 @@ namespace Modules.Weapons.WeaponManager.Scripts
                 );
 
             var weaponComponent = weaponInstance.GetComponent<IWeapon>();
+            weaponComponent.SetOwner(owner);
 
             _currentWeapon.instance = weaponInstance;
             _currentWeapon.WeaponComponent = weaponComponent;
 
+            ConfigureAmmoForModule(module);
+        }
+
+        private void ConfigureAmmoForModule(WeaponModule module)
+        {
             AmmoSettings ammoSettings = new()
             {
                 ClipSize = module.ClipSize,
                 TotalReloadUnits = module.TotalReloadUnits,
                 AmmoPerReloadUnit = module.AmmoPerReloadUnit,
                 ReloadBehaviour = module.ReloadBehaviour,
-                ReloadTime = module.ReloadTime
+                ReloadTime = module.ReloadTime,
+                UnlimitedAmmo = module.UnlimitedAmmo
             };
 
             if (_weaponToAmmoStateMap.TryGetValue(module.InternalWeaponName, out AmmoState ammoState))

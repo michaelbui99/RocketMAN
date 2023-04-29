@@ -13,18 +13,13 @@ namespace Modules.Weapons.Common.Scripts.Weapon
 
         public WeaponModule Create(string weapon)
         {
-            return weapon switch
+            var module = Modules.First(m => m.InternalWeaponName == weapon);
+            if (module == null)
             {
-                SupportedWeaponModules.RocketLauncher => Modules.First(m =>
-                    m.InternalWeaponName == SupportedWeaponModules.RocketLauncher),
-                
-                SupportedWeaponModules.StickyBombLauncher => Modules.First(m =>
-                    m.InternalWeaponName == SupportedWeaponModules.StickyBombLauncher),
-                
-                _ => Modules.FirstOrDefault(m => m.InternalWeaponName == weapon)
-                    ? Modules.FirstOrDefault(m => m.InternalWeaponName == weapon)
-                    : throw new ArgumentException("Module is not supported")
-            };
+                throw new NotSupportedException("Module is not supported");
+            }
+
+            return module;
         }
 
         public WeaponModule GetDefault()

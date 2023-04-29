@@ -36,9 +36,9 @@ namespace Modules.Weapons.WeaponManager.Scripts
             OnSwitchWeapon?.Invoke(SupportedWeaponModules.RocketLauncher);
         }
 
-        public void SwitchToStickyBombLauncher(InputAction.CallbackContext context)
+        public void SwitchToGrapplingGun(InputAction.CallbackContext context)
         {
-            OnSwitchWeapon?.Invoke(SupportedWeaponModules.StickyBombLauncher);
+            OnSwitchWeapon?.Invoke(SupportedWeaponModules.GrapplingGun);
         }
     }
 }
