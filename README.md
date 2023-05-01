@@ -1,6 +1,9 @@
 # Introduction
 This repository contains the course project for the Game Development course at VIA University College. 
 
+# Concept
+The game present various mini challenges where the answer to every challenge is simple: Rocket Jump gud.
+
 
 # References
 ## Disclaimer

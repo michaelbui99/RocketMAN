@@ -12,13 +12,19 @@ namespace Modules.Weapons.GrapplingGun.Scripts
         [field: SerializeField]
         public float Speed { get; set; }
 
-        private Vector3 _anchorPoint = Vector3.zero;
+        private Vector3 _anchorPoint;
+        private MeshRenderer _modelRenderer;
         private bool _attached = false;
 
         private GameObject _owner;
         private readonly List<SpringJoint> _jointInstances = new();
         private Vector3 _target;
 
+        private void Awake()
+        {
+            _anchorPoint = Vector3.zero;
+            _modelRenderer = GetComponentInChildren<MeshRenderer>();
+        }
 
         private void Update()
         {
@@ -86,19 +92,29 @@ namespace Modules.Weapons.GrapplingGun.Scripts
             joint.damper = 4.5f;
             joint.massScale = 4.5f;
             _jointInstances.Add(joint);
+            _modelRenderer.enabled = false;
         }
 
         private void UnAttach()
         {
             _attached = false;
             ClearJointInstances();
-            Destroy(gameObject);
+            
+            if (gameObject != null)
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void ClearJointInstances()
         {
             _jointInstances.ForEach(Destroy);
             _jointInstances.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            UnAttach();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Modules.Shared.Cooldown;
 using UnityEngine;
 
 namespace Modules.Weapons.Common.Scripts.Ammo

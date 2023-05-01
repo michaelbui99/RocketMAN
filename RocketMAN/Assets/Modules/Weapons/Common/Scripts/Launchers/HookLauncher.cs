@@ -43,8 +43,6 @@ namespace Modules.Weapons.Common.Scripts.Launchers
             _lineRenderer.enabled = false;
             _lineRenderer.startWidth = 0.1f;
             _lineRenderer.endWidth = 0.1f;
-            _lineRenderer.startColor = Color.black;
-            _lineRenderer.endColor = Color.black;
         }
 
         private void FixedUpdate()

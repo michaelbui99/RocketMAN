@@ -9,9 +9,6 @@ namespace Characters.Player.Scripts
     public class MovementController : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField]
-        private PlayerInput playerInput;
-
         [Header("Speed")]
         [SerializeField]
         private float verticalSpeed = 20f;

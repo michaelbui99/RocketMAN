@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Modules.Timer.Scripts;
 using UnityEngine;
 
-namespace Modules.Timer.Scripts
+namespace Modules.ScoreManager.Timer.Scripts
 {
     public class Timer : MonoBehaviour
     {

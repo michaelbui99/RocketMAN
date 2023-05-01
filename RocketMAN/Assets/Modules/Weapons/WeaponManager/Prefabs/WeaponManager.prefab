@@ -158,7 +158,7 @@ MonoBehaviour:
     m_ActionId: 5ae21475-bef6-4589-8554-e1ffb5c3ecce
     m_ActionName: PlayerControls/Alternate Fire[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -174,10 +174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a8e709adb846df8046c82557c58da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 0}
   weaponStateEvent: {fileID: 11400000, guid: a4229e22ddc877c4fb56c377009f3f1e, type: 2}
   weaponHolder: {fileID: 3082383637363714205}
   moduleFactory: {fileID: 11400000, guid: 17e7dab805fffd94a9131b11e471f4cf, type: 2}
-  ammoState: {fileID: 0}
 --- !u!114 &5885432786938233142
 MonoBehaviour:
   m_ObjectHideFlags: 0
