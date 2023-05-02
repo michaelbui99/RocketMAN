@@ -34,8 +34,7 @@ namespace Modules.Weapons.GrapplingGun.Scripts
             }
 
             var distanceToTarget = Vector3.Distance(gameObject.transform.position, _target);
-            Debug.Log(distanceToTarget);
-            if (distanceToTarget <= 1f)
+            if (distanceToTarget <= 4f)
             {
                 AttachToPoint(_target);
             }
@@ -74,7 +73,6 @@ namespace Modules.Weapons.GrapplingGun.Scripts
 
         private void AttachToPoint(Vector3 point)
         {
-            Debug.Log("ATTACHED");
             // NOTE: (mibui 2023-04-29) Using SpringJoints for swinging based on ADVANCED SWINGING in 9 MINUTES - Unity Tutorial
             _anchorPoint = point;
             _attached = true;

@@ -22,21 +22,23 @@ namespace Modules.Odm.Scripts
         {
             _audioSources.Keys.ToList()
                 .ForEach(k => { _audioSources[k].enabled = true; });
-
-            _gasController.OnGasActivated += PlayGasSound;
-            _gasController.OnGasReleased += StopGasSound;
         }
 
         private void Awake()
         {
             _gasController = GetComponent<IGasController>();
+            _gasController.OnGasActivated += PlayGasSound;
+            _gasController.OnGasReleased += StopGasSound;
         }
 
         private void OnDisable()
         {
             _audioSources.Keys.ToList()
                 .ForEach(k => _audioSources[k].enabled = false);
-            
+        }
+
+        private void OnDestroy()
+        {
             _gasController.OnGasActivated -= PlayGasSound;
             _gasController.OnGasReleased -= StopGasSound;
         }
@@ -45,7 +47,7 @@ namespace Modules.Odm.Scripts
         {
             if (!_audioSources.TryGetValue(gasAudio, out var gasAudioSource))
             {
-               gasAudioSource = gameObject.AddComponent<AudioSource>();
+                gasAudioSource = gameObject.AddComponent<AudioSource>();
                 _audioSources.Add(gasAudio, gasAudioSource);
             }
 
@@ -68,4 +70,3 @@ namespace Modules.Odm.Scripts
         }
     }
 }
-
