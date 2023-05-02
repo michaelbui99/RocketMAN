@@ -52,7 +52,13 @@ namespace Modules.Weapons.Common.Scripts.Launchers
             if (laser)
             {
                 _activeHooks.ForEach(hook => hook.Instance.transform.position = hook.Destination);
+                _lineRenderer.SetPosition(0, launchPoint.transform.position);
                 return;
+            }
+
+            if (!_activeHooks.Any())
+            {
+                _lineRenderer.enabled = false;
             }
 
             _activeHooks.ForEach(hook =>
@@ -62,22 +68,9 @@ namespace Modules.Weapons.Common.Scripts.Launchers
                     hook.Instance.gameObject.transform.position = hook.Destination;
                     return;
                 }
-                
-                MoveProjectileTowardsDestination(hook);
-            });
-        }
 
-        private void LateUpdate()
-        {
-            ClearDestroyedProjectiles();
-            if (!_activeHooks.Any())
-            {
-                _lineRenderer.enabled = false;
-            }
-
-            _activeHooks.ForEach(hook =>
-            {
                 _lineRenderer.enabled = true;
+                MoveProjectileTowardsDestination(hook);
                 _lineRenderer.SetPosition(0, launchPoint.transform.position);
                 _lineRenderer.SetPosition(1, hook.Instance.gameObject.transform.position);
             });

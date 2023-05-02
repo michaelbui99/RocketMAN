@@ -40,18 +40,35 @@ namespace Modules.Odm.Scripts
             SetupGrapplingGun(_leftGrapplingGunWeapon);
             SetupGrapplingGun(_rightGrapplingGunWeapon);
 
-            _odmInput.OnLeftHookFire += _leftGrapplingGunWeapon.FireWeapon;
-            _odmInput.OnRightHookFire += _rightGrapplingGunWeapon.FireWeapon;
+            _odmInput.OnLeftHookFire += LaunchLeftHook;
+            _odmInput.OnRightHookFire += LaunchRightHook;
             _odmInput.OnLeftHookRelease += _leftGrapplingGunWeapon.AlternateFire;
             _odmInput.OnRightHookRelease += _rightGrapplingGunWeapon.AlternateFire;
         }
 
         private void OnDestroy()
         {
-            _odmInput.OnLeftHookFire -= _leftGrapplingGunWeapon.FireWeapon;
-            _odmInput.OnRightHookFire -= _rightGrapplingGunWeapon.FireWeapon;
+            _odmInput.OnLeftHookFire -= LaunchLeftHook;
+            _odmInput.OnRightHookFire -= LaunchRightHook;
             _odmInput.OnLeftHookRelease -= _leftGrapplingGunWeapon.AlternateFire;
             _odmInput.OnRightHookRelease -= _rightGrapplingGunWeapon.AlternateFire;
+        }
+
+        private void LateUpdate()
+        {
+            gameObject.transform.forward = owner.transform.forward;
+        }
+
+        private void LaunchLeftHook()
+        {
+            gameObject.transform.forward = owner.transform.forward;
+            _leftGrapplingGunWeapon.FireWeapon();
+        }
+
+        private void LaunchRightHook()
+        {
+            gameObject.transform.forward = owner.transform.forward;
+            _rightGrapplingGunWeapon.FireWeapon();
         }
 
         private void SetupGrapplingGun(IWeapon grapplingGun)
