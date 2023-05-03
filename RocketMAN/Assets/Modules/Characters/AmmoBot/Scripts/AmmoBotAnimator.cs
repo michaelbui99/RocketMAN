@@ -12,6 +12,7 @@ namespace Modules.Characters.AmmoBot.Scripts
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
+            _animator = GetComponentInChildren<Animator>();
         }
 
         private void Update()

@@ -5,14 +5,26 @@ namespace Modules.Characters.AmmoBot.Scripts.States
 {
     public class IdleState : IAmmoBotState
     {
+        private readonly float _idleTime;
+
+        public IdleState()
+        {
+            _idleTime = 0;
+        }
+
+        public IdleState(float idleTime)
+        {
+            _idleTime = idleTime;
+        }
+
         public IEnumerator Act(AmmoBotAI bot)
         {
+            bot.CharacterController.SimpleMove(Vector3.zero);
+            yield return new WaitForSeconds(_idleTime);
             while (Vector3.Distance(bot.transform.position, bot.Player.transform.position) < bot.MinDistanceToPlayer)
             {
-                Transform botTransform = bot.transform;
-                botTransform.LookAt(bot.Player.transform.position);
-                botTransform.rotation = Quaternion.Euler(0f, botTransform.rotation.eulerAngles.y, 0);
-                yield return new WaitForSeconds(0.1f);
+                bot.CharacterController.SimpleMove(Vector3.zero);
+                yield return new WaitForSeconds(_idleTime);
             }
 
             bot.SwitchTo(new SeekPlayerState());

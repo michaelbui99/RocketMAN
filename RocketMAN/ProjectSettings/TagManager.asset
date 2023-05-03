@@ -8,6 +8,8 @@ TagManager:
   - Has Friction
   - Score
   - Music
+  - AmmoBot
+  - AmmoBotOOB
   layers:
   - Default
   - TransparentFX

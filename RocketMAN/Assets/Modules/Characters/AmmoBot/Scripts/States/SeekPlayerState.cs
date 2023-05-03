@@ -13,14 +13,13 @@ namespace Modules.Characters.AmmoBot.Scripts.States
             while (Vector3.Distance(botPosition, playerPosition) > bot.MinDistanceToPlayer)
             {
                 var botTransform = bot.transform;
+                LookAtPlayer(botTransform, playerPosition);
                 var direction = (playerPosition - botPosition).normalized;
-                botTransform.LookAt(playerPosition);
-                botTransform.rotation = Quaternion.Euler(0f, botTransform.rotation.eulerAngles.y, 0);
                 // NOTE: (mibui 2023-05-03) SimleMove is frame-independent, hence no Time.deltaTime;
                 bot.CharacterController.SimpleMove(direction * bot.MovementSpeed);
+                
                 yield return new WaitForSeconds(0.2f);
-                botPosition = bot.gameObject.transform.position;
-                playerPosition = bot.Player.transform.position;
+                botPosition = UpdatePositions(bot, out playerPosition);
             }
 
             if (bot.CurrentKnownWeaponState.CurrentAmmo == 0 && bot.CurrentKnownWeaponState.RemainingAmmo == 0)
@@ -31,6 +30,20 @@ namespace Modules.Characters.AmmoBot.Scripts.States
 
             bot.SwitchTo(new IdleState());
             yield return null;
+        }
+
+        private Vector3 UpdatePositions(AmmoBotAI bot, out Vector3 playerPosition)
+        {
+            Vector3 botPosition;
+            botPosition = bot.gameObject.transform.position;
+            playerPosition = bot.Player.transform.position;
+            return botPosition;
+        }
+
+        private void LookAtPlayer(Transform botTransform, Vector3 playerPosition)
+        {
+            botTransform.LookAt(playerPosition);
+            botTransform.rotation = Quaternion.Euler(0f, botTransform.rotation.eulerAngles.y, 0);
         }
     }
 }

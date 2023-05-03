@@ -16,6 +16,9 @@ namespace Modules.Characters.AmmoBot.Scripts
         [field: SerializeField]
         public GameObject Player { get; set; }
 
+        [field: SerializeField]
+        public Transform ReturnToBoundsPoint { get; set; }
+
         [field: Header("Settings")]
         [field: SerializeField]
         public float MovementSpeed { get; set; }
@@ -35,7 +38,6 @@ namespace Modules.Characters.AmmoBot.Scripts
         private GameEventObserver _weaponStateObserver;
 
         private bool _grounded = false;
-
 
         private void Awake()
         {
@@ -69,9 +71,12 @@ namespace Modules.Characters.AmmoBot.Scripts
 
         public void SwitchTo(IAmmoBotState state)
         {
+            var stateName = state.GetType().Name;
+            Debug.Log($"Current State: {stateName}");
             State = state;
             StartCoroutine(State.Act(this));
         }
+
 
         private void UpdateKnownWeaponState(object weaponState)
         {
@@ -81,6 +86,14 @@ namespace Modules.Characters.AmmoBot.Scripts
         private void OnCollisionEnter(Collision collision)
         {
             _grounded = collision.gameObject.CompareTag("Ground");
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("AmmoBotOOB"))
+            {
+                SwitchTo(new PreventOutOfBoundsState());
+            }
         }
 
         private void OnCollisionExit(Collision other)
