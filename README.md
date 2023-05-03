@@ -2,8 +2,8 @@
 This repository contains the course project for the Game Development course at VIA University College. 
 
 # Concept
-The game present various mini challenges where the answer to every challenge is simple: Rocket Jump gud.
-
+The game is all about movement and the most satisfying movement mechanic (in my opinion) - Rocket Jumping.
+Get through all the maps using the least amount of rockets in the fastest time possible.
 
 # References
 ## Disclaimer
@@ -37,3 +37,20 @@ Code based on existing implementations has either been referenced directly in th
 
 ## Swinging 
 - https://www.youtube.com/watch?v=HPjuTK91MA8 (ADVANCED SWINGING in 9 MINUTES - Unity Tutorial)
+
+## Rocket Launcher 3d Model
+- https://sketchfab.com/3d-models/rocket-launcher-tf2-5c57f48929cc4b0b8789492b40a36e10
+
+## Ammo Bot 3d model + animations
+- https://quaternius.com/packs/animatedrobot.html
+
+## ODM 3d model 
+- https://sketchfab.com/3d-models/odm-gear-3dmg-attack-on-titan-5583ec0d27d1401db69bde8eecfa48d8
+
+## Map Textures
+- https://assetstore.unity.com/packages/2d/textures-materials/sci-fi-texture-pack-1-23301
+
+## Map design inspiration 
+- https://www.youtube.com/watch?time_continue=1&v=R-78OIlv0Xk&embeds_euri=https%3A%2F%2Fwww.google.com%2F&source_ve_path=MjM4NTE&feature=emb_title
+
+
