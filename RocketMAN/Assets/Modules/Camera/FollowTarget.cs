@@ -1,23 +1,23 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowTarget: MonoBehaviour
+namespace Modules.Camera
 {
-    [Header("References")]
-    [SerializeField]
-    private GameObject followTarget;
-
-    private void Awake()
+    public class FollowTarget: MonoBehaviour
     {
-        transform.position = followTarget.transform.position;
-    }
+        [Header("References")]
+        [SerializeField]
+        private GameObject followTarget;
 
-    private void LateUpdate()
-    {
-        var cameraTransform = transform;
-        cameraTransform.position = followTarget.transform.position;
-        cameraTransform.forward = followTarget.transform.forward;
+        private void Awake()
+        {
+            transform.position = followTarget.transform.position;
+        }
+
+        private void LateUpdate()
+        {
+            var cameraTransform = transform;
+            cameraTransform.position = followTarget.transform.position;
+            cameraTransform.forward = followTarget.transform.forward;
+        }
     }
 }

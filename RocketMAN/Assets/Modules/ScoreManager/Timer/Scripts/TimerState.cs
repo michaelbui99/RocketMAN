@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Modules.Timer.Scripts
+namespace Modules.ScoreManager.Timer.Scripts
 {
     [CreateAssetMenu(menuName = "Timer State", fileName = "TimeState")]
     public class TimerState : ScriptableObject

@@ -28,14 +28,14 @@ namespace Modules.Weapons.Common.Scripts.Launchers
         private float maxDistance = 1000f;
 
         private LineRenderer _lineRenderer;
-        private Camera _mainCamera;
+        private UnityEngine.Camera _mainCamera;
         private readonly List<ProjectileInstance> _activeHooks = new();
 
         private void Awake()
         {
             var lineRenderer = GetComponent<LineRenderer>();
             _lineRenderer = lineRenderer != null ? lineRenderer : gameObject.AddComponent<LineRenderer>();
-            _mainCamera = Camera.main;
+            _mainCamera = UnityEngine.Camera.main;
         }
 
         private void Start()

@@ -1,12 +1,10 @@
-using System;
-using Modules.Characters.Player.Scripts;
 using Modules.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
-namespace Characters.Player.Scripts
+namespace Modules.Characters.Player.Scripts
 {
     public class MovementController : MonoBehaviour
     {

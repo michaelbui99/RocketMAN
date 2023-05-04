@@ -1,10 +1,8 @@
 using System;
-using Modules.Characters.Player.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-namespace Characters.Player.Scripts
+namespace Modules.Characters.Player.Scripts
 {
     public class LookController : MonoBehaviour
     {
@@ -15,7 +13,7 @@ namespace Characters.Player.Scripts
         [SerializeField]
         private GameObject weaponHolder;
         [SerializeField]
-        private Camera fpsCamera;
+        private UnityEngine.Camera fpsCamera;
 
         [SerializeField]
         private GameObject followTarget;

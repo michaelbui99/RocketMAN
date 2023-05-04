@@ -19,7 +19,7 @@ namespace Modules.Weapons.Common.Scripts.Launchers
 
         private void Awake()
         {
-            _mainCamera = Camera.main;
+            _mainCamera = UnityEngine.Camera.main;
         }
 
         private void Update()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LevelLogic
+namespace Modules.Teleporter.Scripts
 {
     public class Teleporter : MonoBehaviour
     {

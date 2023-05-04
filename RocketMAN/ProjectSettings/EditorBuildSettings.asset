@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maps/Apprentice 2/Apprentice 2.unity
     guid: ff1b22ea3ac97304b8d4acfff44e7e33
+  - enabled: 1
+    path: Assets/Scenes/Maps/JourneyMan 1/JourneyMan 1.unity
+    guid: cb4a6452c643de3439a8d0015c32b25c
   m_configObjects: {}

@@ -1,5 +1,5 @@
 using System;
-using Modules.Timer.Scripts;
+using Modules.ScoreManager.Timer.Scripts;
 using TMPro;
 using UnityEngine;
 

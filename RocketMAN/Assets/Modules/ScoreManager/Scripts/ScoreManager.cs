@@ -3,6 +3,7 @@ using Modules.Events;
 using Modules.Events.GameEvents.Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utility;
 
 namespace Modules.ScoreManager.Scripts
 {
@@ -45,7 +46,7 @@ namespace Modules.ScoreManager.Scripts
             {
                 Destroy(gameObject);
             }
-
+            _timer.Reset();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -69,7 +70,7 @@ namespace Modules.ScoreManager.Scripts
 
         private void OnMapFinished(object mapEventData)
         {
-            _timer.CaptureMoment(((MapEventData) mapEventData).MapName);
+            _timer.CaptureMoment(mapEventData.Cast<MapEventData>().MapName);
         }
 
         private void OnGameFinished(object data)
