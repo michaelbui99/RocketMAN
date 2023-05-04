@@ -17,7 +17,8 @@ MonoBehaviour:
   DisplayName: Rocket Launcher
   WeaponPositionOffset: {x: 0, y: 0, z: 0}
   ReloadBehaviour: 1
-  ClipSize: 5
-  TotalReloadUnits: 20
+  ClipSize: 10
+  TotalReloadUnits: 30
   AmmoPerReloadUnit: 1
   ReloadTime: 0.5
+  UnlimitedAmmo: 0

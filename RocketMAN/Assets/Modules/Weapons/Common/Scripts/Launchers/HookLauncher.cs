@@ -45,6 +45,16 @@ namespace Modules.Weapons.Common.Scripts.Launchers
             _lineRenderer.endWidth = 0.1f;
         }
 
+        private void Update()
+        {
+            _activeHooks.ForEach(hook =>
+            {
+                _lineRenderer.enabled = true;
+                _lineRenderer.SetPosition(0, launchPoint.transform.position);
+                _lineRenderer.SetPosition(1, hook.Instance.gameObject.transform.position);
+            });
+        }
+
         private void FixedUpdate()
         {
             ClearDestroyedProjectiles();
@@ -66,13 +76,15 @@ namespace Modules.Weapons.Common.Scripts.Launchers
                 if (HookAttached(hook.Projectile))
                 {
                     hook.Instance.gameObject.transform.position = hook.Destination;
+                    // _lineRenderer.SetPosition(0, launchPoint.transform.position);
+                    // _lineRenderer.SetPosition(1, hook.Instance.gameObject.transform.position);
                     return;
                 }
 
-                _lineRenderer.enabled = true;
+                // _lineRenderer.enabled = true;
                 MoveProjectileTowardsDestination(hook);
-                _lineRenderer.SetPosition(0, launchPoint.transform.position);
-                _lineRenderer.SetPosition(1, hook.Instance.gameObject.transform.position);
+                // _lineRenderer.SetPosition(0, launchPoint.transform.position);
+                // _lineRenderer.SetPosition(1, hook.Instance.gameObject.transform.position);
             });
         }
 

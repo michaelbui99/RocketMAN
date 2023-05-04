@@ -4,6 +4,7 @@ using Modules.Events;
 using Modules.Weapons.WeaponManager.Scripts;
 using TMPro;
 using UnityEngine;
+using Utility;
 using StringBuilder = System.Text.StringBuilder;
 
 namespace UI
@@ -29,25 +30,25 @@ namespace UI
 
         private void OnWeaponStateChange(object state)
         {
-            var nameParts = ((WeaponStateEvent) state).WeaponName.Split("_");
+            var nameParts = state.Cast<WeaponStateEvent>().WeaponName.Split("_");
             var processedParts = nameParts
                 .Select(p => p.ToLower())
                 .Select(p => new StringBuilder(p))
-                .Select(p =>string.Concat(p[0].ToString().ToUpper(), p.ToString().AsSpan(1).ToString()))
+                .Select(p => string.Concat(p[0].ToString().ToUpper(), p.ToString().AsSpan(1).ToString()))
                 .ToList();
-            
+
             var s = new StringBuilder();
-            
+
             for (int i = 0; i < processedParts.Count; i++)
             {
                 s.Append(processedParts[i]);
-                
+
                 if (i != processedParts.Count - 1)
                 {
                     s.Append(" ");
                 }
             }
-            
+
             currentWeapon.text = s.ToString();
         }
     }

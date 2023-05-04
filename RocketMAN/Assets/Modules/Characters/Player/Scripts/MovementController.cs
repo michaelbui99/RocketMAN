@@ -1,4 +1,6 @@
 using System;
+using Modules.Characters.Player.Scripts;
+using Modules.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
@@ -12,6 +14,9 @@ namespace Characters.Player.Scripts
         [Header("Speed")]
         [SerializeField]
         private float verticalSpeed = 20f;
+
+        [SerializeField]
+        private GameEvent movementStateEvent;
 
         [SerializeField]
         private float horizontalSpeed = 500f;
@@ -75,6 +80,11 @@ namespace Characters.Player.Scripts
                 // NOTE: (mibui 2023-04-17) Invert scalar since Physics.gravity.y is relative to Vector3.up
                 IncreaseRigidbodyFallVelocity(_rigidbody, -(3f * Physics.gravity.y * Time.fixedDeltaTime));
             }
+
+            movementStateEvent.Raise(new MovementStateEvent
+            {
+                Speed = _rigidbody.velocity.magnitude
+            });
         }
 
         private void OnCollisionEnter(Collision collision)

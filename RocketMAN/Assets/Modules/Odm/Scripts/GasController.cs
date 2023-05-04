@@ -1,4 +1,5 @@
 using System;
+using Modules.Events;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,6 +11,9 @@ namespace Modules.Odm.Scripts
         [SerializeField]
         private Rigidbody ownerRigidbody;
 
+        [SerializeField]
+        private GameEvent gasStateEvent;
+
         [Header("Settings")]
         [SerializeField]
         private float propulsionSpeed;
@@ -19,13 +23,14 @@ namespace Modules.Odm.Scripts
 
         [SerializeField]
         private float gasExpenditureRatePerSecond;
-        
+
         private IOdmInput _input;
         private bool _active = false;
         private float _currentGasLevel;
 
         public event IGasController.SimpleGasEvent OnGasActivated;
         public event IGasController.SimpleGasEvent OnGasReleased;
+
 
         private void Awake()
         {
@@ -43,15 +48,27 @@ namespace Modules.Odm.Scripts
         private void Start()
         {
             _currentGasLevel = maxGasCapacity;
+            gasStateEvent.Raise(new GasStateEvent
+            {
+                CurrentLevel = _currentGasLevel,
+                ExpenditureRate = gasExpenditureRatePerSecond,
+                MaxCapacity = maxGasCapacity
+            });
         }
 
         private void FixedUpdate()
         {
+            gasStateEvent.Raise(new GasStateEvent()
+            {
+                CurrentLevel = _currentGasLevel,
+                ExpenditureRate = gasExpenditureRatePerSecond,
+                MaxCapacity = maxGasCapacity
+            });
             if (!_active || GasTankEmpty())
             {
                 return;
             }
-            
+
             ExpendGas(gasExpenditureRatePerSecond * Time.fixedDeltaTime);
             PropelOwnerForward();
         }
@@ -62,7 +79,7 @@ namespace Modules.Odm.Scripts
             {
                 return;
             }
-            
+
             _active = true;
             OnGasActivated?.Invoke();
         }

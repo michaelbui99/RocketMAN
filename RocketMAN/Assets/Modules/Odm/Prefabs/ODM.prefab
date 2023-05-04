@@ -1544,8 +1544,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerRigidbody: {fileID: 0}
-  propulsionSpeed: 50
-  maxGasCapacity: 1000
+  gasStateEvent: {fileID: 11400000, guid: ad57b2af84af6b24abaf81d68bf0fde6, type: 2}
+  propulsionSpeed: 20
+  maxGasCapacity: 100
   gasExpenditureRatePerSecond: 2
 --- !u!114 &4558716678147743083
 MonoBehaviour:

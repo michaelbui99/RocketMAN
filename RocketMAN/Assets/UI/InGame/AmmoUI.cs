@@ -4,6 +4,7 @@ using Modules.Weapons.WeaponManager.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Utility;
 
 namespace UI
 {
@@ -35,7 +36,7 @@ namespace UI
 
         private void OnWeaponStateChange(object state)
         {
-            WeaponStateEvent stateData = (WeaponStateEvent) state;
+            WeaponStateEvent stateData = state.Cast<WeaponStateEvent>();
             ammoText.text = $"{stateData.CurrentAmmo}/{stateData.RemainingAmmo}";
         }
     }
