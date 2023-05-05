@@ -22,23 +22,20 @@ namespace Modules.GameSettings.Scripts
         public const string SensitivitySettingsKey = "SENS_SETTINGS";
         public const string AudioSettingsKey = "AUDIO_SETTINGS";
 
-        private void Awake()
+        private void Start()
         {
-            try
-            {
-                TryRetrieveSettings(SensitivitySettingsKey);
-                TryRetrieveSettings(AudioSettingsKey);
-            }
-            catch (Exception e)
-            {
-                SaveSettings();
-            }
+            var loadedSens = TryRetrieveSettings(SensitivitySettingsKey);
+            var loadedAudio = TryRetrieveSettings(AudioSettingsKey);
+
+            Debug.Log($"LOADED SENS: {loadedSens}, LOADED AUDIO: {loadedAudio}");
         }
 
         public void SaveSettings()
         {
-            PlayerPrefs.SetString(SensitivitySettingsKey, JsonUtility.ToJson(PlayerSensitivitySettings));
-            PlayerPrefs.SetString(AudioSettingsKey, JsonUtility.ToJson(AudioSettings));
+            Debug.Log($"SENS SETTINGS: {JsonUtility.ToJson(PlayerSensitivitySettings.ToSerializable())}");
+            PlayerPrefs.SetString(SensitivitySettingsKey,
+                JsonUtility.ToJson(PlayerSensitivitySettings.ToSerializable()));
+            PlayerPrefs.SetString(AudioSettingsKey, JsonUtility.ToJson(AudioSettings.ToSerializable()));
         }
 
         public bool TryRetrieveSettings(string key)
@@ -52,7 +49,6 @@ namespace Modules.GameSettings.Scripts
 
             if (!exists)
             {
-                Debug.Log("HERE");
                 return false;
             }
 
@@ -60,12 +56,13 @@ namespace Modules.GameSettings.Scripts
             {
                 case SensitivitySettingsKey:
                     var savedSensSettings =
-                        JsonUtility.FromJson<SensitivitySettings>(PlayerPrefs.GetString(SensitivitySettingsKey));
+                        JsonUtility.FromJson<SerializableSensitivitySettings>(
+                            PlayerPrefs.GetString(SensitivitySettingsKey));
                     ApplySensitivitySettings(savedSensSettings);
                     break;
                 case AudioSettingsKey:
                     var savedAudioSettings =
-                        JsonUtility.FromJson<AudioSettings>(PlayerPrefs.GetString(AudioSettingsKey));
+                        JsonUtility.FromJson<SerializableAudioSettings>(PlayerPrefs.GetString(AudioSettingsKey));
                     ApplyAudioSettings(savedAudioSettings);
                     break;
                 default:
@@ -76,16 +73,66 @@ namespace Modules.GameSettings.Scripts
             return true;
         }
 
-        private void ApplySensitivitySettings(SensitivitySettings settings)
+        private void ApplySensitivitySettings(SerializableSensitivitySettings settings)
         {
+            if (settings == null)
+            {
+                throw new ArgumentException("Settings cannot be null");
+            }
+
             PlayerSensitivitySettings.HorizontalMouseSensitivity = settings.HorizontalMouseSensitivity;
             PlayerSensitivitySettings.VerticalMouseSensitivity = settings.VerticalMouseSensitivity;
         }
 
-        private void ApplyAudioSettings(AudioSettings settings)
+        private void ApplyAudioSettings(SerializableAudioSettings settings)
         {
+            if (settings == null)
+            {
+                throw new ArgumentException("Settings cannot be null");
+            }
+
             AudioSettings.MusicVolume = settings.MusicVolume;
             AudioSettings.DisableMusic = settings.DisableMusic;
+
+            AudioSettings.GameVolume = settings.GameVolume;
+            AudioSettings.DisableGameSound = settings.DisableGameSound;
+        }
+    }
+
+    public class SerializableAudioSettings
+    {
+        public float MusicVolume;
+        public float GameVolume;
+        public bool DisableMusic;
+        public bool DisableGameSound;
+    }
+
+    public class SerializableSensitivitySettings
+    {
+        public float HorizontalMouseSensitivity;
+        public float VerticalMouseSensitivity;
+    }
+
+    public static class SettingsExtensions
+    {
+        public static SerializableAudioSettings ToSerializable(this AudioSettings settings)
+        {
+            return new SerializableAudioSettings
+            {
+                GameVolume = settings.GameVolume,
+                DisableMusic = settings.DisableMusic,
+                MusicVolume = settings.MusicVolume,
+                DisableGameSound = settings.DisableGameSound
+            };
+        }
+
+        public static SerializableSensitivitySettings ToSerializable(this SensitivitySettings settings)
+        {
+            return new SerializableSensitivitySettings
+            {
+                HorizontalMouseSensitivity = settings.HorizontalMouseSensitivity,
+                VerticalMouseSensitivity = settings.VerticalMouseSensitivity
+            };
         }
     }
 }

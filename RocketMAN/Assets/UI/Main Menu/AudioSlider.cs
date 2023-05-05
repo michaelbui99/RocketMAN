@@ -2,13 +2,14 @@ using System;
 using Modules.Events;
 using Modules.GameSettings.Scripts;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Utility;
 
 namespace UI.Main_Menu
 {
-    public class SensitivitySlider : MonoBehaviour
+    public class AudioSlider : MonoBehaviour
     {
         [Header("References")]
         [SerializeField]
@@ -16,13 +17,13 @@ namespace UI.Main_Menu
 
         [SerializeField]
         private Slider slider;
-        
+
         [SerializeField]
         private GameEvent saveSettingsEvent;
 
-        [Header("settings")]
+        [Header("Settings")]
         [SerializeField]
-        private SensType type;
+        private AudioSliderType type;
 
         private GameSettingsIO _gameSettingsIO;
 
@@ -37,23 +38,25 @@ namespace UI.Main_Menu
         {
             slider.value = type switch
             {
-                SensType.Horizontal => _gameSettingsIO.PlayerSensitivitySettings.HorizontalMouseSensitivity,
-                SensType.Vertical => _gameSettingsIO.PlayerSensitivitySettings.VerticalMouseSensitivity,
-                _ => slider.value
+                AudioSliderType.Game => Mathf.Pow(10, _gameSettingsIO.AudioSettings.GameVolume / 20f),
+                AudioSliderType.Music => Mathf.Pow(10, _gameSettingsIO.AudioSettings.MusicVolume / 20f),
+                _ => SwitchUtil.Unreachable<float>()
             };
             _prev = slider.value;
         }
 
-        private void Update()
+        void Update()
         {
             value.text = $"{slider.value.ToString("0.00")}";
+            // NOTE: (mibui 2023-05-05) Snippet from here https://johnleonardfrench.com/the-right-way-to-make-a-volume-slider-in-unity-using-logarithmic-conversion/
+
             switch (type)
             {
-                case SensType.Horizontal:
-                    _gameSettingsIO.PlayerSensitivitySettings.HorizontalMouseSensitivity = slider.value;
+                case AudioSliderType.Game:
+                    _gameSettingsIO.AudioSettings.GameVolume = Mathf.Log10(slider.value) * 20;
                     break;
-                case SensType.Vertical:
-                    _gameSettingsIO.PlayerSensitivitySettings.VerticalMouseSensitivity = slider.value;
+                case AudioSliderType.Music:
+                    _gameSettingsIO.AudioSettings.MusicVolume = Mathf.Log10(slider.value) * 20;
                     break;
                 default:
                     SwitchUtil.Unreachable();
@@ -70,9 +73,9 @@ namespace UI.Main_Menu
         }
     }
 
-    public enum SensType
+    public enum AudioSliderType
     {
-        Horizontal,
-        Vertical
+        Game,
+        Music
     }
 }

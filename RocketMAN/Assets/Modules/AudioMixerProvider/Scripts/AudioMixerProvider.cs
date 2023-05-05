@@ -20,16 +20,12 @@ namespace Modules.AudioMixerProvider.Scripts
         [SerializeField]
         private float pollIntervalTimeInSeconds;
 
-        private void Start()
+        private void Awake()
         {
-            StartCoroutine(StartProvider());
+            StartCoroutine(Provide());
         }
 
-        private void Update()
-        {
-        }
-
-        private IEnumerator StartProvider()
+        private IEnumerator Provide()
         {
             while (true)
             {

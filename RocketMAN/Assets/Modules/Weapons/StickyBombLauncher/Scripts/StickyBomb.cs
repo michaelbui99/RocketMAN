@@ -36,7 +36,6 @@ namespace Modules.Weapons.StickyBombLauncher.Scripts
             if (hasStickPoint)
             {
                 gameObject.transform.position = _stickPoint;
-                Debug.Log(LayerMask.LayerToName(_stickCollider.gameObject.layer));
                 return;
             }
 

@@ -8,6 +8,11 @@ namespace Utility
         {
             throw new UnreachableExpressionReachedException();
         }
+
+        public static T Unreachable<T>()
+        {
+            throw new UnreachableExpressionReachedException();
+        }
     }
 
     public class UnreachableExpressionReachedException : Exception

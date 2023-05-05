@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7188244117896594440}
   - component: {fileID: 1104523022911366476}
   - component: {fileID: -1518184107818024047}
+  - component: {fileID: 7761659316187622739}
   m_Layer: 0
   m_Name: GameSettingsManager
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GameAudioMixer>k__BackingField: {fileID: 24300002, guid: 0d87c292dcfa6ba4695623ee1c7b1e71, type: 2}
   <MusicMixer>k__BackingField: {fileID: 24300002, guid: 478986db2b056dd4088232267e26d478, type: 2}
+  saveInterval: 5
 --- !u!114 &-1518184107818024047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,3 +63,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PlayerSensitivitySettings>k__BackingField: {fileID: 11400000, guid: d3a1558d4fe581045b4073572203ac45, type: 2}
   <AudioSettings>k__BackingField: {fileID: 11400000, guid: 68bdb541e4357a448887fa1dc6db987c, type: 2}
+--- !u!114 &7761659316187622739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7837344496937658471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6710cc478ae0432599443dc0440a7aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 81acf6b460f4a8b429b025866bd26737, type: 2}
+  onEvent:
+    m_PersistentCalls:
+      m_Calls: []

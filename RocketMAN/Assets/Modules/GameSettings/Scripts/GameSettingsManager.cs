@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Modules.Events;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -14,10 +15,15 @@ namespace Modules.GameSettings.Scripts
         [field: SerializeField]
         public AudioMixerGroup MusicMixer { get; set; }
 
+        [Header("Settings")]
+        [SerializeField]
+        private float saveInterval = 5f;
+
         private GameSettingsIO _gameSettingsIO;
         private GameEventObserver _saveSettingsObserver;
 
         private const float MinVolumeValue = -80;
+        private bool _shouldSave = true;
 
         private void Awake()
         {
@@ -31,12 +37,29 @@ namespace Modules.GameSettings.Scripts
                 Destroy(gameObject);
             }
 
+            _saveSettingsObserver.RegisterCallback(SaveSettingsCb);
             DontDestroyOnLoad(gameObject);
         }
 
+        private void OnDestroy()
+        {
+            _saveSettingsObserver.UnregisterCallback(SaveSettingsCb);
+        }
 
         private void Update()
         {
+            HandleAudio();
+
+            if (_shouldSave)
+            {
+                StartCoroutine(DoSave());
+            }
+        }
+
+
+        public void SaveSettingsCb(object _)
+        {
+            SaveSettings();
         }
 
         public void SaveSettings()
@@ -58,6 +81,14 @@ namespace Modules.GameSettings.Scripts
             {
                 GameAudioMixer.audioMixer.SetFloat("GameVolume", MinVolumeValue);
             }
+        }
+
+        private IEnumerator DoSave()
+        {
+            _shouldSave = false;
+            SaveSettings();
+            yield return new WaitForSeconds(saveInterval);
+            _shouldSave = true;
         }
     }
 }
