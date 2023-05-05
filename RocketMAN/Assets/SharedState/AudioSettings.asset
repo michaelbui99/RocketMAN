@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8ac856104c403094cce67ee78acfcd, type: 3}
   m_Name: AudioSettings
   m_EditorClassIdentifier: 
-  AudioLevel: 40
+  MusicVolume: -4.5
+  DisableMusic: 0
+  GameVolume: -4.5
+  DisableGameSound: 0
