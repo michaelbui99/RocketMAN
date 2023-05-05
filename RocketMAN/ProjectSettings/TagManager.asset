@@ -10,6 +10,7 @@ TagManager:
   - Music
   - AmmoBot
   - AmmoBotOOB
+  - Settings
   layers:
   - Default
   - TransparentFX

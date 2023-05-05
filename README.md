@@ -5,6 +5,13 @@ This repository contains the course project for the Game Development course at V
 The game is all about movement and the most satisfying movement mechanic (in my opinion) - Rocket Jumping.
 Get through all the maps using the least amount of rockets in the fastest time possible.
 
+# Controls
+- WASD: Move
+- Shift: Use gas
+- Q/E: Launch Left/Right grappling hook
+- Left MB: Fire weapon
+- Right MB: Alternate Weapon Action
+
 # References
 ## Disclaimer
 Most sounds, 3d models (except player model and player cosmetics), particles, textures and shaders are third-party assets.
@@ -52,5 +59,8 @@ Code based on existing implementations has either been referenced directly in th
 
 ## Map design inspiration 
 - https://www.youtube.com/watch?time_continue=1&v=R-78OIlv0Xk&embeds_euri=https%3A%2F%2Fwww.google.com%2F&source_ve_path=MjM4NTE&feature=emb_title
+
+## UI Components
+- https://assetstore.unity.com/packages/tools/particles-effects/google-material-design-47141#content
 
 

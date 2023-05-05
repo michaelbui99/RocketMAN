@@ -11,7 +11,7 @@ namespace Modules.MusicManager.Scripts
     {
         [Header("References")]
         [SerializeField]
-        private MusicSettings settings;
+        private AudioSettings settings;
 
         private List<AudioClip> _allSongs;
         private Queue<AudioClip> _queue = new();
@@ -31,7 +31,7 @@ namespace Modules.MusicManager.Scripts
             _audio = GetComponent<AudioSource>();
             _audio.playOnAwake = false;
             _audio.loop = false;
-               
+
             StartPlayer();
         }
 
@@ -43,7 +43,7 @@ namespace Modules.MusicManager.Scripts
             {
                 Destroy(gameObject);
             }
-            
+
             DontDestroyOnLoad(gameObject);
         }
 
@@ -63,7 +63,7 @@ namespace Modules.MusicManager.Scripts
         private void StartPlayer()
         {
             _audio.Stop();
-            
+
             QueueSongs();
 
             if (_queue.Count == 0)
@@ -73,7 +73,7 @@ namespace Modules.MusicManager.Scripts
 
             _currentSong = GetNextSong();
             _active = true;
-            _audio.PlayOneShot(_currentSong, TranslateAudioLevel(settings.AudioLevel));
+            _audio.PlayOneShot(_currentSong);
         }
 
         private void QueueSongs()
@@ -95,16 +95,6 @@ namespace Modules.MusicManager.Scripts
             }
 
             return _queue.Dequeue();
-        }
-        
-        private float TranslateAudioLevel(float audioLevel)
-        {
-            return audioLevel switch
-            {
-                < MinAudioLevel => MinAudioLevel,
-                > MaxAudioLevel => MaxAudioLevel,
-                _ => audioLevel / 100
-            };
         }
     }
 }

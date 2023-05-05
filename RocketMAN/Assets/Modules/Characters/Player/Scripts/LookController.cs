@@ -1,15 +1,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Modules.Characters.Player.Scripts
 {
     public class LookController : MonoBehaviour
     {
         [Header(("References"))]
-        [SerializeField]
-        private GameObject player;
-
         [SerializeField]
         private GameObject weaponHolder;
         [SerializeField]
@@ -18,8 +16,9 @@ namespace Modules.Characters.Player.Scripts
         [SerializeField]
         private GameObject followTarget;
 
+        [FormerlySerializedAs("lookSettings")]
         [SerializeField]
-        private LookSettings lookSettings;
+        private SensitivitySettings sensitivitySettings;
 
         private Rigidbody _rigidbody;
         private float _yRotation;
@@ -48,8 +47,8 @@ namespace Modules.Characters.Player.Scripts
             weaponHolder.transform.forward = cameraTransform.forward.normalized;
         }
         
-        private float VerticalRotationSpeed() => lookSettings.VerticalMouseSensitivity;
-        private float HorizontalRotationSpeed() => lookSettings.HorizontalMouseSensitivity;
+        private float VerticalRotationSpeed() => sensitivitySettings.VerticalMouseSensitivity;
+        private float HorizontalRotationSpeed() => sensitivitySettings.HorizontalMouseSensitivity;
 
     }
 }
