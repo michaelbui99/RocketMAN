@@ -20,10 +20,12 @@ namespace Modules.Characters.AmmoBot.Scripts.States
                 bot.SwitchTo(new IdleState());
                 yield return null;
             }
-
+            
+            bot.DialogController.Write("RocketMAN need moar rockets? :D");
             bot.SpawnSupplyCrate(bot.transform.position);
             yield return new WaitForSeconds(1);
             bot.SwitchTo(new IdleState());
             yield return null;
         }
     }
+}

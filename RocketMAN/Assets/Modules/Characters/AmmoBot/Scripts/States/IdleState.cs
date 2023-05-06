@@ -20,6 +20,7 @@ namespace Modules.Characters.AmmoBot.Scripts.States
         public IEnumerator Act(AmmoBotAI bot)
         {
             bot.Agent.enabled = false;
+            bot.DialogController.Write("I'll just wait here :D");
             yield return new WaitForSeconds(_idleTime);
             while (Vector3.Distance(bot.transform.position, bot.Player.transform.position) < bot.MinDistanceToPlayer)
             {
