@@ -33,6 +33,7 @@ namespace Modules.GameSettings.Scripts
         public void SaveSettings()
         {
             Debug.Log($"SENS SETTINGS: {JsonUtility.ToJson(PlayerSensitivitySettings.ToSerializable())}");
+            Debug.Log($"AUDIO SETTINGS: {JsonUtility.ToJson(AudioSettings.ToSerializable())}");
             PlayerPrefs.SetString(SensitivitySettingsKey,
                 JsonUtility.ToJson(PlayerSensitivitySettings.ToSerializable()));
             PlayerPrefs.SetString(AudioSettingsKey, JsonUtility.ToJson(AudioSettings.ToSerializable()));

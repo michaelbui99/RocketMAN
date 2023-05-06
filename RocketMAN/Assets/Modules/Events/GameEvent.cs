@@ -22,10 +22,15 @@ namespace Modules.Events
         {
             _observers.Add(observer);
         }
-        
+
         public void UnregisterObserver(GameEventObserver observer)
         {
             _observers.Remove(observer);
+        }
+
+        public static object NoData()
+        {
+            return null;
         }
     }
 }

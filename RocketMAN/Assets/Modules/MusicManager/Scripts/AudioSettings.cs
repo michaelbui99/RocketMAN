@@ -10,6 +10,6 @@ namespace Modules.MusicManager.Scripts
         public bool DisableMusic = false;
 
         public float GameVolume = 100f;
-        public bool DisableGameSound;
+        public bool DisableGameSound = false;
     }
 }

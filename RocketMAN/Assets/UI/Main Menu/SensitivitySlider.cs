@@ -63,7 +63,7 @@ namespace UI.Main_Menu
 
             if (Math.Abs(slider.value - _prev) > 0.01f)
             {
-                saveSettingsEvent.Raise(null);
+                saveSettingsEvent.Raise(GameEvent.NoData());
             }
 
             _prev = slider.value;
