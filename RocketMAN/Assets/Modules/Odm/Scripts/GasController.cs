@@ -25,6 +25,7 @@ namespace Modules.Odm.Scripts
         private float gasExpenditureRatePerSecond;
 
         private IOdmInput _input;
+        private GameEventObserver _restoreGasObserver;
         private bool _active = false;
         private float _currentGasLevel;
 
@@ -34,6 +35,8 @@ namespace Modules.Odm.Scripts
 
         private void Awake()
         {
+            _restoreGasObserver = GetComponent<GameEventObserver>();
+            _restoreGasObserver.RegisterCallback(OnRestoreGas);
             _input = GetComponent<IOdmInput>();
             _input.OnGasActivate += ActivateGas;
             _input.OnGasRelease += ReleaseGas;
@@ -41,6 +44,7 @@ namespace Modules.Odm.Scripts
 
         private void OnDestroy()
         {
+            _restoreGasObserver.UnregisterCallback(OnRestoreGas);
             _input.OnGasActivate -= ActivateGas;
             _input.OnGasRelease -= ReleaseGas;
         }
@@ -84,7 +88,7 @@ namespace Modules.Odm.Scripts
             OnGasActivated?.Invoke();
         }
 
-        private void ReleaseGas()
+       private void ReleaseGas()
         {
             _active = false;
             OnGasReleased?.Invoke();
@@ -106,6 +110,17 @@ namespace Modules.Odm.Scripts
         private void RefillGasTank()
         {
             _currentGasLevel = maxGasCapacity;
+        }
+
+        private void OnRestoreGas(object data)
+        {
+            _currentGasLevel = data switch
+            {
+                float amount when _currentGasLevel + amount <= maxGasCapacity => _currentGasLevel + amount,
+                float amount when amount > maxGasCapacity => maxGasCapacity,
+                float amount when _currentGasLevel + amount > maxGasCapacity => maxGasCapacity,
+                _ => _currentGasLevel
+            };
         }
 
         private void PropelOwnerForward()

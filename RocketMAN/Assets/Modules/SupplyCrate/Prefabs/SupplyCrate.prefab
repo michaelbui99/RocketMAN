@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 484948827530472160}
   - component: {fileID: 6149747449372453639}
   m_Layer: 0
-  m_Name: AmmoCrate
+  m_Name: SupplyCrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,8 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoPickupEvent: {fileID: 11400000, guid: e5b1e292258ac194da3a5d6e5a0705b5, type: 2}
+  restoreGasEvent: {fileID: 11400000, guid: c5a8b7ef2ab74d14b919344b4de4b385, type: 2}
   persistant: 0
   reloadUnitsToRestore: 0
+  gasToRestore: 0
 --- !u!65 &484948827530472160
 BoxCollider:
   m_ObjectHideFlags: 0

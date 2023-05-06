@@ -19,12 +19,18 @@ namespace Modules.Characters.AmmoBot.Scripts.States
 
         public IEnumerator Act(AmmoBotAI bot)
         {
-            bot.CharacterController.SimpleMove(Vector3.zero);
+            bot.Agent.enabled = false;
             yield return new WaitForSeconds(_idleTime);
             while (Vector3.Distance(bot.transform.position, bot.Player.transform.position) < bot.MinDistanceToPlayer)
             {
-                bot.CharacterController.SimpleMove(Vector3.zero);
+                bot.transform.LookAt(bot.Player.transform.position);
                 yield return new WaitForSeconds(_idleTime);
+                
+                if (bot.PlayerNeedsResupply())
+                {
+                    bot.SwitchTo(new ResupplyPlayerState());
+                    yield return null;
+                }
             }
 
             bot.SwitchTo(new SeekPlayerState());

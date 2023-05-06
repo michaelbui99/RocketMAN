@@ -8,23 +8,23 @@ namespace Modules.Characters.AmmoBot.Scripts.States
         public IEnumerator Act(AmmoBotAI bot)
         {
             Vector3 botPosition = bot.gameObject.transform.position;
-            Vector3 playerPosition = bot.Player.transform.position;
+            Vector3 playerPosition = bot.Player.gameObject.transform.position;
+            bot.Agent.enabled = true;
             bot.DialogController.Write("Why are you leaving me Rocket Man :(");
             while (Vector3.Distance(botPosition, playerPosition) > bot.MinDistanceToPlayer)
             {
-                var botTransform = bot.transform;
-                LookAtPlayer(botTransform, playerPosition);
-                var direction = (playerPosition - botPosition).normalized;
-                // NOTE: (mibui 2023-05-03) SimleMove is frame-independent, hence no Time.deltaTime;
-                bot.CharacterController.SimpleMove(direction * bot.MovementSpeed);
-                
-                yield return new WaitForSeconds(0.2f);
+                bot.LookAtPlayer();
+                bot.Agent.SetDestination(playerPosition);
+                CapMovementSpeed(bot);
+
+                yield return new WaitForSeconds(0.1f);
                 botPosition = UpdatePositions(bot, out playerPosition);
             }
 
-            if (bot.CurrentKnownWeaponState.CurrentAmmo == 0 && bot.CurrentKnownWeaponState.RemainingAmmo == 0)
+            bot.Agent.enabled = false;
+            if (bot.PlayerNeedsResupply())
             {
-                bot.SwitchTo(new ProvideAmmoState());
+                bot.SwitchTo(new ResupplyPlayerState());
                 yield return null;
             }
 
@@ -34,16 +34,17 @@ namespace Modules.Characters.AmmoBot.Scripts.States
 
         private Vector3 UpdatePositions(AmmoBotAI bot, out Vector3 playerPosition)
         {
-            Vector3 botPosition;
-            botPosition = bot.gameObject.transform.position;
+            var botPosition = bot.gameObject.transform.position;
             playerPosition = bot.Player.transform.position;
             return botPosition;
         }
 
-        private void LookAtPlayer(Transform botTransform, Vector3 playerPosition)
+        private void CapMovementSpeed(AmmoBotAI bot)
         {
-            botTransform.LookAt(playerPosition);
-            botTransform.rotation = Quaternion.Euler(0f, botTransform.rotation.eulerAngles.y, 0);
+            if (Vector3.SqrMagnitude(bot.Agent.velocity) > Mathf.Pow(bot.MovementSpeed, 2))
+            {
+                bot.Agent.velocity = bot.Agent.velocity.normalized * bot.MovementSpeed;
+            }
         }
     }
 }

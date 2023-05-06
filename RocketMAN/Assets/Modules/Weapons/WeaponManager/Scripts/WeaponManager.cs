@@ -216,7 +216,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
                 return;
             }
 
-            _currentWeapon.WeaponComponent.RestoreAmmo((int) reloadUnits);
+            _currentWeapon.WeaponComponent.RestoreAmmo(reloadUnits.Cast<int>());
             EmitReloadFinishedStateChange();
         }
     }

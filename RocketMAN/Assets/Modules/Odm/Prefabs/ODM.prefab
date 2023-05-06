@@ -1506,6 +1506,7 @@ GameObject:
   - component: {fileID: 3174277557517079174}
   - component: {fileID: 5816550965427291183}
   - component: {fileID: 1332529231403133414}
+  - component: {fileID: 4664442082549528903}
   m_Layer: 0
   m_Name: ODM
   m_TagString: Untagged
@@ -1700,6 +1701,22 @@ MonoBehaviour:
   leftGrapplingGun: {fileID: 8223169184689551623}
   rightGrapplingGun: {fileID: 6600059412966272321}
   grapplingGunModule: {fileID: 11400000, guid: a38ef5cd8aa7f8d41a3e8ec1417e400a, type: 2}
+--- !u!114 &4664442082549528903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828465320365246779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6710cc478ae0432599443dc0440a7aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c5a8b7ef2ab74d14b919344b4de4b385, type: 2}
+  onEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8839081716578752579
 GameObject:
   m_ObjectHideFlags: 0

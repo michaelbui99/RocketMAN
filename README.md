@@ -60,7 +60,3 @@ Code based on existing implementations has either been referenced directly in th
 ## Map design inspiration 
 - https://www.youtube.com/watch?time_continue=1&v=R-78OIlv0Xk&embeds_euri=https%3A%2F%2Fwww.google.com%2F&source_ve_path=MjM4NTE&feature=emb_title
 
-## UI Components
-- https://assetstore.unity.com/packages/tools/particles-effects/google-material-design-47141#content
-
-

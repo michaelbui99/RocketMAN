@@ -9,13 +9,6 @@ namespace Modules.ScoreManager.Scripts
 {
     public class ScoreManager : MonoBehaviour
     {
-        [Header("Settings")]
-        [SerializeField]
-        private float scorePenaltyPerSecond = 1f;
-
-        [SerializeField]
-        private float BaseFinishScore = 1000;
-
         private GameEventObserver _mapStartedObserver;
         private GameEventObserver _mapFinishedObserver;
         private GameEventObserver _allMapsFinishedObserver;
