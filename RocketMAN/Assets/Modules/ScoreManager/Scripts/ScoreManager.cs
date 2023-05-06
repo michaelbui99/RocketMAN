@@ -1,6 +1,7 @@
 using System;
 using Modules.Events;
 using Modules.Events.GameEvents.Map;
+using Modules.ScoreManager.Timer.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utility;
@@ -13,11 +14,11 @@ namespace Modules.ScoreManager.Scripts
         private GameEventObserver _mapFinishedObserver;
         private GameEventObserver _allMapsFinishedObserver;
 
-        private Timer.Scripts.Timer _timer;
+        private ITimer _timer;
 
         private void OnEnable()
         {
-            _timer = GetComponent<Timer.Scripts.Timer>();
+            _timer = GetComponent<ITimer>();
 
             var mapStartedObserverObject = GameObject.Find("mapStartedObserver");
             var mapFinishedObserverObject = GameObject.Find("mapFinishedObserver");

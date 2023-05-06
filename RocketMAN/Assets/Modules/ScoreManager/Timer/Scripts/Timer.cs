@@ -4,7 +4,17 @@ using UnityEngine;
 
 namespace Modules.ScoreManager.Timer.Scripts
 {
-    public class Timer : MonoBehaviour
+    public interface ITimer
+    {
+        void Reset();
+        void Start();
+        void Stop();
+        void CaptureMoment(string label);
+        bool TryGetMoment(string label, out KeyValuePair<string, float> moment);
+        IEnumerable<KeyValuePair<string, float>> GetAllMoments();
+    }
+
+    public class Timer : MonoBehaviour, ITimer
     {
         [Header("References")]
         [SerializeField]
