@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Modules.Events;
 using Modules.Weapons.Common.Scripts;
 using Modules.Weapons.Common.Scripts.Ammo;
@@ -17,6 +18,7 @@ namespace Modules.Weapons.WeaponManager.Scripts
         [Header("References")]
         [SerializeField]
         private GameObject owner;
+
         [SerializeField]
         private GameEvent weaponStateEvent;
 
@@ -28,7 +30,9 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         private readonly Dictionary<string, AmmoState> _weaponToAmmoStateMap = new();
 
-        private Optional<WeaponModule> _currentWeaponModule = Optional<WeaponModule>.Empty();
+        [CanBeNull]
+        private WeaponModule _currentWeaponModule = null;
+
         private IWeaponInput _weaponInput;
 
         private readonly CurrentWeapon _currentWeapon = new();
@@ -38,12 +42,13 @@ namespace Modules.Weapons.WeaponManager.Scripts
         {
             _ammoPickupObserver = GetComponent<GameEventObserver>();
             _weaponInput = GetComponent<IWeaponInput>();
-            _currentWeaponModule = Optional<WeaponModule>.From(moduleFactory.GetDefault());
+            _currentWeaponModule = moduleFactory.GetDefault();
 
-            SwitchWeapon(_currentWeaponModule
-                .GetOrElseGet(() => moduleFactory.GetDefault())
-                .InternalWeaponName
-            );
+            SwitchWeapon(_currentWeaponModule switch
+            {
+                null => moduleFactory.GetDefault().InternalWeaponName,
+                WeaponModule module => module.InternalWeaponName
+            });
             _ammoPickupObserver.RegisterCallback(RestoreAmmo);
         }
 
@@ -76,9 +81,11 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
             weaponTransform.position = weaponHolderTransform.position;
 
-            weaponTransform.localPosition += _currentWeaponModule
-                .GetOrThrow(() => new ArgumentException("No Module"))
-                .WeaponPositionOffset;
+            weaponTransform.localPosition += _currentWeaponModule switch
+            {
+                null => throw new ArgumentException("No Module"),
+                WeaponModule module => module.WeaponPositionOffset
+            };
 
             weaponTransform.forward = weaponHolderTransform.forward.normalized;
             weaponStateEvent.Raise(CreateEvent(WeaponStateEventType.Status));
@@ -122,14 +129,15 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         private void InstantiateModule(WeaponModule module)
         {
-            _currentWeaponModule = Optional<WeaponModule>.From(module);
+            _currentWeaponModule = module;
 
-            var weaponInstance =
-                Instantiate(
-                    _currentWeaponModule
-                        .GetOrThrow(() => new ArgumentException("No weapon module")).WeaponPrefab,
-                    weaponHolder.transform, false
-                );
+            var weaponInstance = Instantiate(
+                _currentWeaponModule switch
+                {
+                    null => throw new ArgumentException("No Weapon Module"),
+                    WeaponModule wm => wm.WeaponPrefab
+                },
+                weaponHolder.transform, false);
 
             var weaponComponent = weaponInstance.GetComponent<IWeapon>();
             weaponComponent.SetOwner(owner);
@@ -175,9 +183,11 @@ namespace Modules.Weapons.WeaponManager.Scripts
         {
             return new WeaponStateEvent()
             {
-                WeaponName = _currentWeaponModule
-                    .GetOrThrow(() => new ArgumentException("No module"))
-                    .DisplayName,
+                WeaponName = _currentWeaponModule switch
+                {
+                    null => throw new ArgumentException("No Weapon Module"),
+                    WeaponModule module => module.DisplayName
+                },
                 CurrentAmmo = _currentWeapon.WeaponComponent.GetCurrentAmmoCount(),
                 RemainingAmmo = _currentWeapon.WeaponComponent.GetRemainingAmmoCount(),
                 EventType = type
