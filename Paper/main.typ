@@ -6,9 +6,11 @@
   title: "RocketMAN",
   authors: (
     (name: "Michael Tam Thanh Bui 293886 <michaelbui99>", affiliation: "GMD-1 Course Project"),
-    (name: "RocketMAN Repository", affiliation: "https://github.com/michaelbui99/RocketMAN")
   ),
 )
+
+= Repository
+https://github.com/michaelbui99/RocketMAN
 
 = Concept
 RocketMAN is a casual first-person movement-focused racing game where the primary goal is getting through all maps using the least amount of rockets in the fastest time possible.
