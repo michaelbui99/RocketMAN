@@ -11,7 +11,7 @@ Get through all the maps using the least amount of rockets in the fastest time p
 - Q/E: Launch Left/Right grappling hook
 - Left MB: Fire weapon
 - Right MB: Alternate Weapon Action
-- O: Pause Game / Open Settings Menu
+- P: Pause Game / Open Settings Menu
 
 # Solo Project
 michaelbui99 --> Michael Tam Thanh Bui 293886
