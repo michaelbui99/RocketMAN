@@ -6,6 +6,7 @@
   title: "RocketMAN",
   authors: (
     (name: "Michael Bui 293886", affiliation: "GMD-1 Course Project"),
+    (name: "RocketMAN Repository", affiliation: "https://github.com/michaelbui99/RocketMAN")
   ),
 )
 
@@ -133,7 +134,7 @@ The responsibility of the GameEventObserver is only registering itself as a obse
             };
         }
 ```
-
+#pagebreak()
 = Weapon System
 One of the more interessting parts of the game in terms of implementation is the Weapon System. The weapon system is a module consisting of multiple submodules such as a common module, weapon specific modules and the Weapon Manager module. The requirements for the system was initially:
 - It should support more than one weapon

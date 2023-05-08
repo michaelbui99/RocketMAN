@@ -13,6 +13,8 @@ Get through all the maps using the least amount of rockets in the fastest time p
 - Right MB: Alternate Weapon Action
 - O: Pause Game / Open Settings Menu
 
+# Solo Project
+michaelbui99 --> Michael Tam Thanh Bui 293886
 # Demo
 [RocketMAN Video Demo](https://youtu.be/-aebZGYgHoY)
 
