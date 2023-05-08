@@ -13,6 +13,9 @@ Get through all the maps using the least amount of rockets in the fastest time p
 - Right MB: Alternate Weapon Action
 - O: Pause Game / Open Settings Menu
 
+# Demo
+[RocketMAN Video Demo](https://youtu.be/-aebZGYgHoY)
+
 # References
 ## Disclaimer
 Most sounds, 3d models (except player model and player cosmetics), particles, textures and shaders are third-party assets.
