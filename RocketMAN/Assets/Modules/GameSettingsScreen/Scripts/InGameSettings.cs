@@ -17,18 +17,6 @@ namespace Modules.GameSettingsScreen.Scripts
         private IPausedGameObserver _pausedGameObserver;
         private bool _paused = false;
 
-        private void Awake()
-        {
-            var alreadyInstantiated = GameObject.FindGameObjectsWithTag("Settings").Length > 1;
-
-            if (alreadyInstantiated)
-            {
-                Destroy(gameObject);
-            }
-
-            DontDestroyOnLoad(gameObject);
-        }
-
         private void Start()
         {
             _pausedGameObserver = GetComponentInChildren<IPausedGameObserver>();
