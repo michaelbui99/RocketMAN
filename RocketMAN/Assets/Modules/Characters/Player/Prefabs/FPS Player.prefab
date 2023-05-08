@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 6484690271876504085}
   - component: {fileID: 6910008206300333047}
   - component: {fileID: 7217047840619638156}
+  - component: {fileID: 750529793819713949}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -618,6 +619,7 @@ Transform:
   - {fileID: 1817702482831813151}
   - {fileID: 7357936663016542216}
   - {fileID: 6699138632358199444}
+  - {fileID: 2312041938749377935}
   m_Father: {fileID: 5249285915876612150}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -809,6 +811,23 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: dee745f2-788a-43be-bb34-c433c0418e76
     m_ActionName: PlayerControls/ODM Right Hook[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 750529793819713949}
+        m_TargetAssemblyTypeName: Modules.Characters.Player.Scripts.PauseGameInput,
+          Assembly-CSharp
+        m_MethodName: PauseGame
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 78d5ac39-dfa1-4e0f-8d81-04eccf99fd18
+    m_ActionName: PlayerControls/Toggle Pause Game[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -826,11 +845,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0629edfb044fe5b4c6100ea35c73d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1842019515953130725}
   weaponHolder: {fileID: 9186629646643195055}
   fpsCamera: {fileID: 3119649742274875805}
   followTarget: {fileID: 7609113185883738551}
-  lookSettings: {fileID: 11400000, guid: d3a1558d4fe581045b4073572203ac45, type: 2}
+  sensitivitySettings: {fileID: 11400000, guid: d3a1558d4fe581045b4073572203ac45, type: 2}
 --- !u!136 &7217047840619638156
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -845,6 +863,19 @@ CapsuleCollider:
   m_Height: 1.9999999
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &750529793819713949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842019515953130725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8057f6b4feceb244868b71a173dc06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseGameEvent: {fileID: 11400000, guid: 7333e12573a8a3f47afd08b5c32edc6c, type: 2}
 --- !u!1 &1844954815371559512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3016,6 +3047,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: dee745f2-788a-43be-bb34-c433c0418e76
     m_ActionName: PlayerControls/ODM Right Hook[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 78d5ac39-dfa1-4e0f-8d81-04eccf99fd18
+    m_ActionName: PlayerControls/Toggle Pause Game[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -3033,11 +3068,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0629edfb044fe5b4c6100ea35c73d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5249285915876612107}
   weaponHolder: {fileID: 0}
   fpsCamera: {fileID: 3119649742274875805}
   followTarget: {fileID: 0}
-  lookSettings: {fileID: 0}
+  sensitivitySettings: {fileID: 0}
 --- !u!136 &3119649741364653433
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4393,4 +4427,66 @@ MonoBehaviour:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3082383637363714205, guid: e9d882c5929e9fd4db7634a1fac29b0c, type: 3}
   m_PrefabInstance: {fileID: 6177713196702827570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9053603464126241683
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 903079504228652505}
+    m_Modifications:
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429532822517959243, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+      propertyPath: m_Name
+      value: PausedGameObserver
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+--- !u!4 &2312041938749377935 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6751697957450143260, guid: 2c9d048e2a7334440bc8794fe7597277, type: 3}
+  m_PrefabInstance: {fileID: 9053603464126241683}
   m_PrefabAsset: {fileID: 0}

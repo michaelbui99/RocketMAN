@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Modules.Events;
 using Modules.Shared.Cooldown;
 using Modules.Weapons.Common.Scripts.Ammo;
 using Modules.Weapons.Common.Scripts.Weapon;
+using Modules.Weapons.WeaponManager.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using Utility;
@@ -25,6 +27,9 @@ namespace Modules.Odm.Scripts
 
         [SerializeField]
         private WeaponModule grapplingGunModule;
+
+        [SerializeField]
+        private GameEvent weaponStateEvent;
 
         private IOdmInput _odmInput;
 
@@ -63,12 +68,14 @@ namespace Modules.Odm.Scripts
         {
             gameObject.transform.forward = owner.transform.forward;
             _leftGrapplingGunWeapon.FireWeapon();
+            RaiseFireHookEvent();
         }
 
         private void LaunchRightHook()
         {
             gameObject.transform.forward = owner.transform.forward;
             _rightGrapplingGunWeapon.FireWeapon();
+            RaiseFireHookEvent();
         }
 
         private void SetupGrapplingGun(IWeapon grapplingGun)
@@ -93,6 +100,19 @@ namespace Modules.Odm.Scripts
 
             grapplingGun.SetAmmoSettings(ammoSettings);
             grapplingGun.SetAmmoState(state);
+        }
+
+        private void RaiseFireHookEvent()
+        {
+            weaponStateEvent.Raise(new WeaponStateEvent()
+            {
+                EventType = WeaponStateEventType.FireWeapon,
+                ReloadTime = grapplingGunModule.ReloadTime,
+                CurrentAmmo = 1,
+                RemainingAmmo = 1,
+                FireCooldown = _leftGrapplingGunWeapon.GetFireCooldown(),
+                WeaponName = grapplingGunModule.InternalWeaponName
+            });
         }
     }
 }

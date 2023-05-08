@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameAudioMixer: {fileID: 24300002, guid: 0d87c292dcfa6ba4695623ee1c7b1e71, type: 2}
   musicAudioMixer: {fileID: 24300002, guid: 478986db2b056dd4088232267e26d478, type: 2}
+  pollIntervalTimeInSeconds: 4

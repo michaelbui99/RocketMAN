@@ -1,7 +1,7 @@
 #nullable enable
 using System;
 
-namespace Utility
+namespace Utility.Monads
 {
     public class Optional<T> where T : class
     {

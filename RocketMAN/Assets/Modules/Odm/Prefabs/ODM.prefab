@@ -1668,6 +1668,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: dee745f2-788a-43be-bb34-c433c0418e76
     m_ActionName: PlayerControls/ODM Right Hook[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 78d5ac39-dfa1-4e0f-8d81-04eccf99fd18
+    m_ActionName: PlayerControls/Toggle Pause Game[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -1701,6 +1705,7 @@ MonoBehaviour:
   leftGrapplingGun: {fileID: 8223169184689551623}
   rightGrapplingGun: {fileID: 6600059412966272321}
   grapplingGunModule: {fileID: 11400000, guid: a38ef5cd8aa7f8d41a3e8ec1417e400a, type: 2}
+  weaponStateEvent: {fileID: 11400000, guid: a4229e22ddc877c4fb56c377009f3f1e, type: 2}
 --- !u!114 &4664442082549528903
 MonoBehaviour:
   m_ObjectHideFlags: 0

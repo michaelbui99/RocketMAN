@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maps/JourneyMan 1/JourneyMan 1.unity
     guid: cb4a6452c643de3439a8d0015c32b25c
+  - enabled: 1
+    path: Assets/Scenes/End Screen/End Screen.unity
+    guid: a6d29ae2ab60d1b42b26e3f156c47e0c
+  - enabled: 1
+    path: Assets/Scenes/Main Menu/Settings.unity
+    guid: a114d4f9d1266e04095750ff2c3bf341
   m_configObjects: {}

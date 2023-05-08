@@ -1,8 +1,7 @@
-using System;
 using Modules.Events;
 using UnityEngine;
 
-namespace Modules.AmmoCrate.Scripts
+namespace Modules.SupplyCrate.Scripts
 {
     public class SupplyCrate : MonoBehaviour
     {

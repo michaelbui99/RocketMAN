@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using Modules.Events;
 using Modules.Shared.Cooldown;
 using Modules.Weapons.Common.Scripts.Ammo;
 using Modules.Weapons.Common.Scripts.Launchers;

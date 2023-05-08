@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Modules.AmmoCrate.Scripts;
 using Modules.Characters.AmmoBot.Scripts.States;
 using Modules.Events;
 using Modules.Odm.Scripts;
@@ -102,10 +101,10 @@ namespace Modules.Characters.AmmoBot.Scripts
             }
 
             var supplyCrate = Instantiate(supplyCratePrefab);
-            var component = supplyCrate.GetComponentInChildren<SupplyCrate>() switch
+            var component = supplyCrate.GetComponentInChildren<SupplyCrate.Scripts.SupplyCrate>() switch
             {
-                null => supplyCrate.AddComponent<SupplyCrate>(),
-                SupplyCrate c => c,
+                null => supplyCrate.AddComponent<SupplyCrate.Scripts.SupplyCrate>(),
+                SupplyCrate.Scripts.SupplyCrate c => c,
             };
 
             component

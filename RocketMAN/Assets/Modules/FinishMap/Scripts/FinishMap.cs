@@ -1,8 +1,9 @@
 using System;
+using GameEvents.Map;
 using Modules.Events;
-using Modules.Events.GameEvents.Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Modules.FinishMap.Scripts
 {
@@ -14,6 +15,12 @@ namespace Modules.FinishMap.Scripts
 
         [SerializeField]
         private GameEvent mapFinishedEvent;
+
+        [SerializeField]
+        private bool lastMap;
+
+        [SerializeField]
+        private GameEvent allMapsCompletedEvent;
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -27,6 +34,13 @@ namespace Modules.FinishMap.Scripts
             {
                 MapName = activeScene.name
             });
+
+            if (lastMap)
+            {
+                allMapsCompletedEvent.Raise(GameEvent.NoData());
+                SceneManager.LoadScene("End Screen");
+                return;
+            }
 
             SceneManager.LoadScene(nextScene);
         }

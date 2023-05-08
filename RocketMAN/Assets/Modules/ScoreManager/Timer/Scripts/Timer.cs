@@ -11,7 +11,7 @@ namespace Modules.ScoreManager.Timer.Scripts
         void Stop();
         void CaptureMoment(string label);
         bool TryGetMoment(string label, out KeyValuePair<string, float> moment);
-        IEnumerable<KeyValuePair<string, float>> GetAllMoments();
+        Dictionary<string, float> GetAllMoments();
     }
 
     public class Timer : MonoBehaviour, ITimer
@@ -37,6 +37,7 @@ namespace Modules.ScoreManager.Timer.Scripts
         public void Reset()
         {
             Stop();
+            _moments.Clear();
             timerState.Time = 0;
         }
 
@@ -75,11 +76,6 @@ namespace Modules.ScoreManager.Timer.Scripts
             return true;
         }
 
-        public IEnumerable<KeyValuePair<string, float>> GetAllMoments()
-        {
-            return _moments.Keys
-                .Select(label => KeyValuePair.Create(label, _moments[label]))
-                .ToList();
-        }
+        public Dictionary<string, float> GetAllMoments() => _moments;
     }
 }

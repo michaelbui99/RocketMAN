@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 
 namespace Utility
 {
@@ -16,6 +17,17 @@ namespace Utility
                 throw exceptionFactory();
             }
 
+            return obj;
+        }
+
+        public static T InvokeActionIfNotNull<T>(this T obj, Action action)
+        {
+            if (obj is null)
+            {
+                return obj;
+            }
+            
+            action();
             return obj;
         }
     }

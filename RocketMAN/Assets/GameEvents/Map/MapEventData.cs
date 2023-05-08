@@ -1,4 +1,4 @@
-namespace Modules.Events.GameEvents.Map
+namespace GameEvents.Map
 {
     public class MapEventData
     {

@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using Modules.Events;
-using Modules.Weapons.Common.Scripts;
 using Modules.Weapons.Common.Scripts.Ammo;
 using Modules.Weapons.Common.Scripts.Weapon;
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utility;
 
 namespace Modules.Weapons.WeaponManager.Scripts
@@ -38,8 +34,11 @@ namespace Modules.Weapons.WeaponManager.Scripts
         private readonly CurrentWeapon _currentWeapon = new();
         private GameEventObserver _ammoPickupObserver;
 
+        private IPausedGameObserver _pausedGameObserver;
+
         private void Awake()
         {
+            _pausedGameObserver = GetComponentInChildren<IPausedGameObserver>();
             _ammoPickupObserver = GetComponent<GameEventObserver>();
             _weaponInput = GetComponent<IWeaponInput>();
             _currentWeaponModule = moduleFactory.GetDefault();
@@ -71,6 +70,11 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         private void LateUpdate()
         {
+            if (_pausedGameObserver.GameIsPaused())
+            {
+                return;
+            }
+
             if (_currentWeapon.instance is null)
             {
                 return;
@@ -112,18 +116,33 @@ namespace Modules.Weapons.WeaponManager.Scripts
 
         private void FireCurrentWeapon()
         {
+            if (_pausedGameObserver.GameIsPaused())
+            {
+                return;
+            }
+
             _currentWeapon.WeaponComponent.FireWeapon();
             EmitFireWeaponEvent();
         }
 
         private void CurrentWeaponAlternateFire()
         {
+            if (_pausedGameObserver.GameIsPaused())
+            {
+                return;
+            }
+
             _currentWeapon.WeaponComponent.AlternateFire();
             EmitFireWeaponEvent();
         }
 
         private void ReloadCurrentWeapon()
         {
+            if (_pausedGameObserver.GameIsPaused())
+            {
+                return;
+            }
+
             _currentWeapon.WeaponComponent.ReloadWeapon();
         }
 
