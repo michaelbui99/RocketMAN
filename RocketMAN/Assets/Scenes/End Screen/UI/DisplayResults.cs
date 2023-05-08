@@ -26,7 +26,18 @@ namespace Scenes.End_Screen.UI
             _scoreManager = scoreManager.GetComponent<IScoreManager>();
         }
 
+        private void Update()
+        {
+            SetResults();
+        }
+
         void Start()
+        {
+            SetResults();
+            _scoreManager.GetAllMapTimes().Keys.ToList().ForEach(Debug.Log);
+        }
+
+        private void SetResults()
         {
             var mapTimes = _scoreManager.GetAllMapTimes();
             var ammoUsages = _scoreManager.GetAmmoUsagePerMap();
@@ -36,9 +47,18 @@ namespace Scenes.End_Screen.UI
                 .ToList();
 
             StringBuilder display = new();
-            results.ForEach(r => { display.AppendLine($"{r.map} - {r.finishTime.ToString("0.00")} - {r.ammoUsage}"); });
+            results.ForEach(r =>
+            {
+                display.AppendLine(
+                    $"{r.map} - {r.finishTime.ToString("0.00")} - {ConvertToScore(r.finishTime, r.ammoUsage)}");
+            });
 
             resultsDisplay.text = display.ToString();
+        }
+
+        private float ConvertToScore(float time, int usage)
+        {
+            return (time * usage) / 10;
         }
 
         private record Result(string map, float finishTime, int ammoUsage)

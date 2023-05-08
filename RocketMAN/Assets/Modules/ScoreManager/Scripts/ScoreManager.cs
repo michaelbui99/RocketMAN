@@ -19,6 +19,10 @@ namespace Modules.ScoreManager.Scripts
 
     public class ScoreManager : MonoBehaviour, IScoreManager
     {
+        [Header("References")]
+        [SerializeField]
+        private AmmoUsages ammoUsages;
+
         private GameEventObserver _mapFinishedObserver;
         private GameEventObserver _allMapsCompletedObserver;
         private GameEventObserver _weaponStateObserver;
@@ -27,12 +31,19 @@ namespace Modules.ScoreManager.Scripts
 
         private IPausedGameObserver _pausedGameObserver;
 
-        private readonly Dictionary<string, int> _ammoUsagePerMap = new();
+        private readonly Dictionary<string, int> _internalAmmoUsagePerMap = new();
 
         private ITimer _timer;
 
-        private void OnEnable()
+        private void Awake()
         {
+            var alreadyInstantiated = GameObject.FindGameObjectsWithTag("Score").Length > 1;
+
+            if (alreadyInstantiated)
+            {
+                Destroy(gameObject);
+            }
+
             _mapFinishedObserver = GameObject.Find("mapFinishedObserver").GetComponent<GameEventObserver>();
             _allMapsCompletedObserver = GameObject.Find("allMapsCompletedObserver").GetComponent<GameEventObserver>();
             _weaponStateObserver = GameObject.Find("weaponStateObserver").GetComponent<GameEventObserver>();
@@ -43,17 +54,8 @@ namespace Modules.ScoreManager.Scripts
             _weaponStateObserver.RegisterCallback(OnFireWeaponEvent);
             _pausedGameObserver.OnPauseEvent += PauseTimer;
             _pausedGameObserver.OnResumeEvent += ResumeTimer;
-        }
-
-        private void Awake()
-        {
             _timer = GetComponent<ITimer>();
-            var alreadyInstantiated = GameObject.FindGameObjectsWithTag("Score").Length > 1;
 
-            if (alreadyInstantiated)
-            {
-                Destroy(gameObject);
-            }
 
             _timer.Reset();
             DontDestroyOnLoad(gameObject);
@@ -64,7 +66,7 @@ namespace Modules.ScoreManager.Scripts
             _timer.Start();
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _mapFinishedObserver.InvokeActionIfNotNull(() =>
                 _mapFinishedObserver.UnregisterCallback(OnMapFinished));
@@ -98,15 +100,33 @@ namespace Modules.ScoreManager.Scripts
             {
                 return;
             }
-            
+
             string currentMap = SceneManager.GetActiveScene().name;
-            if (!_ammoUsagePerMap.TryGetValue(currentMap, out int usage))
+            if (!_internalAmmoUsagePerMap.TryGetValue(currentMap, out int usage))
             {
                 usage = 0;
-                _ammoUsagePerMap.Add(currentMap, usage);
+                _internalAmmoUsagePerMap.Add(currentMap, usage);
             }
 
-            _ammoUsagePerMap[currentMap] = usage + 1;
+            _internalAmmoUsagePerMap[currentMap] = usage + 1;
+            CommitAmmoUsages();
+        }
+
+        private void CommitAmmoUsages()
+        {
+            var newUsages = _internalAmmoUsagePerMap.Select(u => new AmmoUsage()
+                {
+                    Map = u.Key,
+                    Amount = u.Value
+                })
+                .Where(m => !ammoUsages.UsageForMapAlreadyExists(m.Map))
+                .ToList();
+            ammoUsages.AddAmmoUsages(newUsages);
+
+            _internalAmmoUsagePerMap
+                .Where(u => ammoUsages.UsageForMapAlreadyExists(u.Key))
+                .ToList()
+                .ForEach(existingUsage => ammoUsages.UpdateUsageForMap(existingUsage.Key, existingUsage.Value));
         }
 
         private void PauseTimer()
@@ -121,6 +141,6 @@ namespace Modules.ScoreManager.Scripts
 
         public Dictionary<string, float> GetAllMapTimes() => _timer.GetAllMoments();
 
-        public Dictionary<string, int> GetAmmoUsagePerMap() => _ammoUsagePerMap;
+        public Dictionary<string, int> GetAmmoUsagePerMap() => ammoUsages.ToDictionary();
     }
 }

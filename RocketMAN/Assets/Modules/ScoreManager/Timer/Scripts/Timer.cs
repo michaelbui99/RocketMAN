@@ -20,7 +20,10 @@ namespace Modules.ScoreManager.Timer.Scripts
         [SerializeField]
         private TimerState timerState;
 
-        private readonly Dictionary<string, float> _moments = new();
+        [SerializeField]
+        private Moments moments;
+
+        private readonly Dictionary<string, float> _internalMoments = new();
         private bool _active;
 
         private void Update()
@@ -37,7 +40,7 @@ namespace Modules.ScoreManager.Timer.Scripts
         public void Reset()
         {
             Stop();
-            _moments.Clear();
+            _internalMoments.Clear();
             timerState.Time = 0;
         }
 
@@ -55,18 +58,20 @@ namespace Modules.ScoreManager.Timer.Scripts
         {
             float moment = timerState.Time;
 
-            if (_moments.ContainsKey(label))
+            if (_internalMoments.ContainsKey(label))
             {
-                _moments[label] = moment;
+                _internalMoments[label] = moment;
+                CommitNewMoments();
                 return;
             }
 
-            _moments.Add(label, moment);
+            _internalMoments.Add(label, moment);
+            CommitNewMoments();
         }
 
         public bool TryGetMoment(string label, out KeyValuePair<string, float> moment)
         {
-            if (!_moments.TryGetValue(label, out float momentTime))
+            if (!_internalMoments.TryGetValue(label, out float momentTime))
             {
                 moment = default;
                 return false;
@@ -76,6 +81,18 @@ namespace Modules.ScoreManager.Timer.Scripts
             return true;
         }
 
-        public Dictionary<string, float> GetAllMoments() => _moments;
+        private void CommitNewMoments()
+        {
+            var newMoments = _internalMoments.Select(m => new Moment()
+                {
+                    Label = m.Key,
+                    Time = m.Value
+                })
+                .Where(m => !moments.LabelExists(m.Label))
+                .ToList();
+            moments.AddMoments(newMoments);
+        }
+
+        public Dictionary<string, float> GetAllMoments() => moments.ToDictionary();
     }
 }

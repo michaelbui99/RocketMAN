@@ -1,11 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Modules.ScoreManager.Timer.Scripts
+public class Moment
 {
-    [CreateAssetMenu(menuName = "Moments", fileName = "Moments")]
-    public class Moments: ScriptableObject
-    {
-        public Dictionary<string, float> MomentsList;
-    }
+    [field: SerializeField]
+    public string Label { get; set; }
+
+    [field: SerializeField]
+    public float Time { get; set; }
 }

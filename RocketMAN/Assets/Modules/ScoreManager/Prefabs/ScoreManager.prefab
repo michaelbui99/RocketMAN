@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerState: {fileID: 11400000, guid: dfac997f5c3d8f54b80bfe249faa921d, type: 2}
+  moments: {fileID: 11400000, guid: c09e376e2315079408b04ee02c3f04f8, type: 2}
 --- !u!114 &8064731237718141384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d9831089304f84927ff254fecf0b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoUsages: {fileID: 11400000, guid: 8340f8be1355f6442823e3725fbdc7d0, type: 2}
 --- !u!1 &4207672716751407229
 GameObject:
   m_ObjectHideFlags: 0

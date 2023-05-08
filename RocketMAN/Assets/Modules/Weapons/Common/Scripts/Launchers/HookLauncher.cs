@@ -47,6 +47,8 @@ namespace Modules.Weapons.Common.Scripts.Launchers
 
         private void Update()
         {
+            ClearDestroyedProjectiles();
+            
             _activeHooks.ForEach(hook =>
             {
                 _lineRenderer.enabled = true;
@@ -57,8 +59,6 @@ namespace Modules.Weapons.Common.Scripts.Launchers
 
         private void FixedUpdate()
         {
-            ClearDestroyedProjectiles();
-
             if (laser)
             {
                 _activeHooks.ForEach(hook => hook.Instance.transform.position = hook.Destination);
