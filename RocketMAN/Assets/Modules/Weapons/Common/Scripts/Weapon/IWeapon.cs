@@ -26,8 +26,8 @@ namespace Modules.Weapons.Common.Scripts.Weapon
         /// </summary>
         public int GetRemainingAmmoCount();
 
-        public void SetAmmoState(AmmoState ammoState);
-        public void SetAmmoSettings(AmmoSettings ammoSettings);
+        public bool SetAmmoState(AmmoState ammoState);
+        public bool SetAmmoSettings(AmmoSettings ammoSettings);
         public void RestoreAmmo(int reloadUnits);
 
         public void SetOwner(GameObject owner);

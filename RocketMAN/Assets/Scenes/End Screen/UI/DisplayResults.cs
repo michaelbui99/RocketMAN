@@ -23,6 +23,8 @@ namespace Scenes.End_Screen.UI
 
         private void Awake()
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             _scoreManager = scoreManager.GetComponent<IScoreManager>();
         }
 
@@ -34,7 +36,6 @@ namespace Scenes.End_Screen.UI
         void Start()
         {
             SetResults();
-            _scoreManager.GetAllMapTimes().Keys.ToList().ForEach(Debug.Log);
         }
 
         private void SetResults()

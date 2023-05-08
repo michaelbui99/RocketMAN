@@ -24,7 +24,7 @@ namespace Modules.Weapons.Common.Scripts.Weapon
         private Coroutine _shootingRoutine;
 
         protected GameObject Owner;
-        
+
         [CanBeNull]
         protected Predicate<IWeapon> PreventFirePredicate;
 
@@ -57,7 +57,7 @@ namespace Modules.Weapons.Common.Scripts.Weapon
             {
                 return;
             }
-            
+
             if (FireCooldownHandler.CooldownActive())
             {
                 return;
@@ -95,14 +95,40 @@ namespace Modules.Weapons.Common.Scripts.Weapon
         public int GetCurrentAmmoCount() => Ammo.CurrentAmmoCount;
         public int GetRemainingAmmoCount() => Ammo.RemainingAmmoCount;
 
-        public void SetAmmoState(AmmoState ammoState)
+        public bool SetAmmoState(AmmoState ammoState)
         {
+            if (ammoState == null)
+            {
+                if (Ammo != null)
+                {
+                    return false;
+                }
+
+                Ammo = gameObject.AddComponent<Ammo.Ammo>();
+                Ammo.AmmoState = ammoState;
+                return true;
+            }
+
             Ammo.AmmoState = ammoState;
+            return true;
         }
 
-        public void SetAmmoSettings(AmmoSettings ammoSettings)
+        public bool SetAmmoSettings(AmmoSettings ammoSettings)
         {
+            if (ammoSettings == null)
+            {
+                if (Ammo != null)
+                {
+                    return false;
+                }
+
+                Ammo = gameObject.AddComponent<Ammo.Ammo>();
+                Ammo.AmmoSettings = ammoSettings;
+                return true;
+            }
+
             Ammo.AmmoSettings = ammoSettings;
+            return true;
         }
 
         public void RestoreAmmo(int reloadUnits)

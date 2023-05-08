@@ -24,16 +24,12 @@ namespace Modules.GameSettings.Scripts
 
         private void Start()
         {
-            var loadedSens = TryRetrieveSettings(SensitivitySettingsKey);
-            var loadedAudio = TryRetrieveSettings(AudioSettingsKey);
-
-            Debug.Log($"LOADED SENS: {loadedSens}, LOADED AUDIO: {loadedAudio}");
+            TryRetrieveSettings(SensitivitySettingsKey);
+            TryRetrieveSettings(AudioSettingsKey);
         }
 
         public void SaveSettings()
         {
-            Debug.Log($"SENS SETTINGS: {JsonUtility.ToJson(PlayerSensitivitySettings.ToSerializable())}");
-            Debug.Log($"AUDIO SETTINGS: {JsonUtility.ToJson(AudioSettings.ToSerializable())}");
             PlayerPrefs.SetString(SensitivitySettingsKey,
                 JsonUtility.ToJson(PlayerSensitivitySettings.ToSerializable()));
             PlayerPrefs.SetString(AudioSettingsKey, JsonUtility.ToJson(AudioSettings.ToSerializable()));

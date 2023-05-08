@@ -41,14 +41,16 @@ namespace Modules.Odm.Scripts
             _odmInput = GetComponent<IOdmInput>();
             _leftGrapplingGunWeapon = leftGrapplingGun.GetComponent<IWeapon>();
             _rightGrapplingGunWeapon = rightGrapplingGun.GetComponent<IWeapon>();
-
-            SetupGrapplingGun(_leftGrapplingGunWeapon);
-            SetupGrapplingGun(_rightGrapplingGunWeapon);
-
             _odmInput.OnLeftHookFire += LaunchLeftHook;
             _odmInput.OnRightHookFire += LaunchRightHook;
             _odmInput.OnLeftHookRelease += _leftGrapplingGunWeapon.AlternateFire;
             _odmInput.OnRightHookRelease += _rightGrapplingGunWeapon.AlternateFire;
+        }
+
+        private void Start()
+        {
+            SetupGrapplingGun(_leftGrapplingGunWeapon);
+            SetupGrapplingGun(_rightGrapplingGunWeapon);
         }
 
         private void OnDestroy()
@@ -66,16 +68,38 @@ namespace Modules.Odm.Scripts
 
         private void LaunchLeftHook()
         {
-            gameObject.transform.forward = owner.transform.forward;
-            _leftGrapplingGunWeapon.FireWeapon();
-            RaiseFireHookEvent();
+            try
+            {
+                gameObject.transform.forward = owner.transform.forward;
+                _leftGrapplingGunWeapon.FireWeapon();
+                RaiseFireHookEvent();
+            }
+            catch (Exception e)
+            {
+                // NOTE: (mibui 2023-05-08) Retry again after configuring ammo again just in case instantiation failed
+                SetupGrapplingGun(_leftGrapplingGunWeapon);
+                gameObject.transform.forward = owner.transform.forward;
+                _leftGrapplingGunWeapon.FireWeapon();
+                RaiseFireHookEvent();
+            }
         }
 
         private void LaunchRightHook()
         {
-            gameObject.transform.forward = owner.transform.forward;
-            _rightGrapplingGunWeapon.FireWeapon();
-            RaiseFireHookEvent();
+            try
+            {
+                gameObject.transform.forward = owner.transform.forward;
+                _rightGrapplingGunWeapon.FireWeapon();
+                RaiseFireHookEvent();
+            }
+            catch (Exception e)
+            {
+                // NOTE: (mibui 2023-05-08) Retry again after configuring ammo again just in case instantiation failed
+                SetupGrapplingGun(_rightGrapplingGunWeapon);
+                gameObject.transform.forward = owner.transform.forward;
+                _rightGrapplingGunWeapon.FireWeapon();
+                RaiseFireHookEvent();
+            }
         }
 
         private void SetupGrapplingGun(IWeapon grapplingGun)

@@ -18,11 +18,6 @@ namespace Modules.GameSettingsScreen.Scripts
 
         private void Awake()
         {
-            _pausedGameObserver = GetComponentInChildren<IPausedGameObserver>();
-
-            _pausedGameObserver.OnPauseEvent += OnPauseGame;
-            _pausedGameObserver.OnResumeEvent += OnResumeGame;
-
             var alreadyInstantiated = GameObject.FindGameObjectsWithTag("Settings").Length > 1;
 
             if (alreadyInstantiated)
@@ -31,6 +26,14 @@ namespace Modules.GameSettingsScreen.Scripts
             }
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void Start()
+        {
+            _pausedGameObserver = GetComponentInChildren<IPausedGameObserver>();
+
+            _pausedGameObserver.OnPauseEvent += OnPauseGame;
+            _pausedGameObserver.OnResumeEvent += OnResumeGame;
         }
 
 

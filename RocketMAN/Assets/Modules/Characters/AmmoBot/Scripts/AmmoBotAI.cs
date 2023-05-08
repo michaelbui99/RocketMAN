@@ -114,10 +114,6 @@ namespace Modules.Characters.AmmoBot.Scripts
 
             supplyCrate.transform.position = position + Vector3.up * 1f;
             SpawnedSupplyCrates.Add(supplyCrate);
-            if (DebugOn)
-            {
-                Debug.Log($"Spawning Crate at: {JsonUtility.ToJson(position)}");
-            }
         }
 
         public void ClearAllSupplyCrates()
@@ -128,12 +124,6 @@ namespace Modules.Characters.AmmoBot.Scripts
 
         public void SwitchTo(IAmmoBotState state)
         {
-            if (DebugOn)
-            {
-                var stateName = state.GetType().Name;
-                Debug.Log($"Current State: {stateName}");
-            }
-
             _state = state;
             StartCoroutine(_state.Act(this));
         }
