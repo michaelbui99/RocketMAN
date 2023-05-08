@@ -5,7 +5,7 @@
 #show: project.with(
   title: "RocketMAN",
   authors: (
-    (name: "Michael Bui 293886", affiliation: "GMD-1 Course Project"),
+    (name: "Michael Tam Thanh Bui 293886 <michaelbui99>", affiliation: "GMD-1 Course Project"),
     (name: "RocketMAN Repository", affiliation: "https://github.com/michaelbui99/RocketMAN")
   ),
 )
