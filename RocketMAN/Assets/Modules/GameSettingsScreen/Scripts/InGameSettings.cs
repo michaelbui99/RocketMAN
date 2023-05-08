@@ -1,6 +1,7 @@
 using System;
 using Modules.Events;
 using UnityEngine;
+using Utility;
 
 namespace Modules.GameSettingsScreen.Scripts
 {
@@ -36,11 +37,10 @@ namespace Modules.GameSettingsScreen.Scripts
             _pausedGameObserver.OnResumeEvent += OnResumeGame;
         }
 
-
         private void OnDestroy()
         {
-            _pausedGameObserver.OnPauseEvent -= OnPauseGame;
-            _pausedGameObserver.OnResumeEvent -= OnResumeGame;
+            _pausedGameObserver.InvokeActionIfNotNull(() => _pausedGameObserver.OnPauseEvent -= OnPauseGame);
+            _pausedGameObserver.InvokeActionIfNotNull(() => _pausedGameObserver.OnResumeEvent -= OnResumeGame);
         }
 
         private void OnPauseGame()
